@@ -8,7 +8,7 @@
     @page {
       size: letter;
       margin: 0.75in;
-      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-left { content: "ITP 120 — Java Programming I | NOVA"; font-size: 9pt; color: #6b7280; }
       @top-right { content: "Module 10 — OOP Inheritance"; font-size: 9pt; color: #6b7280; }
       @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
     }
@@ -69,8 +69,8 @@
 
 <header class="title-section" role="banner">
   <h1>Module 10 — OOP Inheritance</h1>
-  <div class="course">ITP 120 — Programming with Java</div>
-  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+  <div class="course">ITP 120 — Java Programming I</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Randy Michak</div>
 </header>
 
 <section aria-label="Learning Objectives">
@@ -801,8 +801,41 @@ Shape s = new Square(5);
   </ul>
 </div>
 
+
+<div class="page-break"></div>
+
+<h2 id="answer-key">&#9989; Answer Key</h2>
+<table aria-label="Answer key for knowledge check questions">
+  <thead>
+    <tr>
+      <th scope="col" style="width:15%;">Question</th>
+      <th scope="col" style="width:15%;">Answer</th>
+      <th scope="col">Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong style="color: #16a34a;">D</strong></td><td>The <code>extends</code> keyword establishes an inheritance relationship.</td></tr>
+    <tr><td>2</td><td><strong style="color: #16a34a;">C</strong></td><td>Polymorphism allows a parent reference to call overridden methods in child classes.</td></tr>
+    <tr><td>3</td><td><strong style="color: #16a34a;">A</strong></td><td>Abstract classes cannot be instantiated directly &mdash; you must extend them.</td></tr>
+    <tr><td>4</td><td><strong style="color: #16a34a;">C</strong></td><td>Constructors are not inherited; subclasses call parent constructors with <code>super()</code>.</td></tr>
+    <tr><td>5</td><td><strong style="color: #16a34a;">B</strong></td><td><code>@Override</code> tells the compiler to verify the method overrides a parent method.</td></tr>
+    <tr><td>6</td><td><strong style="color: #16a34a;">D</strong></td><td>The <code>Object</code> class is the root of every class hierarchy in Java.</td></tr>
+    <tr><td>7</td><td><strong style="color: #16a34a;">B</strong></td><td>Java supports single class inheritance but allows implementing multiple interfaces.</td></tr>
+    <tr><td>8</td><td><strong style="color: #16a34a;">A</strong></td><td><code>protected</code> members are accessible within the same package and by subclasses.</td></tr>
+    <tr><td>9</td><td><strong style="color: #16a34a;">B</strong></td><td>Interfaces define method signatures; abstract classes can include implemented methods.</td></tr>
+    <tr><td>10</td><td><strong style="color: #16a34a;">C</strong></td><td>Abstract methods have no body and must be implemented by concrete subclasses.</td></tr>
+  </tbody>
+</table>
+
 <div class="footer" role="contentinfo">
-  ITP 120 — Programming with Java &nbsp;|&nbsp; Module 10 — OOP Inheritance &nbsp;|&nbsp; NOVA &nbsp;|&nbsp; Randy Michak
+  <p style="margin-bottom: 8px;">
+    <a href="https://creativecommons.org/licenses/by/4.0/" style="text-decoration: none; color: #2563eb;" rel="license">
+      &#128218; Open Educational Resource (OER) &mdash; CC BY 4.0
+    </a>
+  </p>
+  <strong>ITP 120 &mdash; Java Programming I</strong> &mdash; Northern Virginia Community College<br>
+  Author: Randy Michak &nbsp;|&nbsp;
+  <a href="https://github.com/rmichak/itp120-java-programming" style="color: #2563eb;">Contribute on GitHub</a>
 </div>
 
 </body>

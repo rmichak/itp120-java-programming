@@ -8,7 +8,7 @@
     @page {
       size: letter;
       margin: 0.75in;
-      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-left { content: "ITP 120 — Java Programming I | NOVA"; font-size: 9pt; color: #6b7280; }
       @top-right { content: "Module 11 — File I/O"; font-size: 9pt; color: #6b7280; }
       @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
     }
@@ -68,8 +68,8 @@
 
 <div class="title-section" role="banner">
   <h1>Module 11 — File I/O</h1>
-  <div class="course">ITP 120 — Programming with Java</div>
-  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+  <div class="course">ITP 120 — Java Programming I</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Randy Michak</div>
 </div>
 
 <div class="callout tip" role="note" aria-label="Prerequisites">
@@ -747,8 +747,41 @@ System.out.println(sum);</code></pre>
   </ul>
 </div>
 
+
+<div class="page-break"></div>
+
+<h2 id="answer-key">&#9989; Answer Key</h2>
+<table aria-label="Answer key for knowledge check questions">
+  <thead>
+    <tr>
+      <th scope="col" style="width:15%;">Question</th>
+      <th scope="col" style="width:15%;">Answer</th>
+      <th scope="col">Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong style="color: #16a34a;">A</strong></td><td>The <code>File</code> class represents a file or directory path.</td></tr>
+    <tr><td>2</td><td><strong style="color: #16a34a;">C</strong></td><td>A <code>Scanner</code> can read from a file by passing a <code>File</code> object to its constructor.</td></tr>
+    <tr><td>3</td><td><strong style="color: #16a34a;">B</strong></td><td><code>PrintWriter</code> writes formatted text to a file.</td></tr>
+    <tr><td>4</td><td><strong style="color: #16a34a;">D</strong></td><td>A <code>FileNotFoundException</code> occurs when the specified file does not exist.</td></tr>
+    <tr><td>5</td><td><strong style="color: #16a34a;">A</strong></td><td><code>hasNextLine()</code> returns true if there is another line to read.</td></tr>
+    <tr><td>6</td><td><strong style="color: #16a34a;">D</strong></td><td>The <code>throws</code> clause declares that a method may throw a checked exception.</td></tr>
+    <tr><td>7</td><td><strong style="color: #16a34a;">A</strong></td><td><code>try-with-resources</code> automatically closes files when the block finishes.</td></tr>
+    <tr><td>8</td><td><strong style="color: #16a34a;">B</strong></td><td>Appending to a file uses <code>new FileWriter("file.txt", true)</code> with the append flag.</td></tr>
+    <tr><td>9</td><td><strong style="color: #16a34a;">D</strong></td><td>A <code>BufferedReader</code> reads text efficiently by buffering chunks of data.</td></tr>
+    <tr><td>10</td><td><strong style="color: #16a34a;">C</strong></td><td>The <code>exists()</code> method checks whether a file or directory exists before accessing it.</td></tr>
+  </tbody>
+</table>
+
 <div class="footer" role="contentinfo">
-  ITP 120 — Programming with Java &nbsp;|&nbsp; Module 11: File I/O &nbsp;|&nbsp; Randy Michak &nbsp;|&nbsp; NOVA
+  <p style="margin-bottom: 8px;">
+    <a href="https://creativecommons.org/licenses/by/4.0/" style="text-decoration: none; color: #2563eb;" rel="license">
+      &#128218; Open Educational Resource (OER) &mdash; CC BY 4.0
+    </a>
+  </p>
+  <strong>ITP 120 &mdash; Java Programming I</strong> &mdash; Northern Virginia Community College<br>
+  Author: Randy Michak &nbsp;|&nbsp;
+  <a href="https://github.com/rmichak/itp120-java-programming" style="color: #2563eb;">Contribute on GitHub</a>
 </div>
 
 </body>

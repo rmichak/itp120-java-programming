@@ -1,6 +1,15 @@
-# ITP 120 — Java Programming
+# ITP 120 — Java Programming I
 
-Course tutorials and materials for ITP 120 (Java Programming) at Northern Virginia Community College (NOVA).
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![OER](https://img.shields.io/badge/OER-Open%20Educational%20Resource-blue.svg)](#)
+
+**Free, open course tutorials for ITP 120 (Java Programming I) at Northern Virginia Community College (NOVA).**
+
+This is an **Open Educational Resource (OER)** — free for students, instructors, and self-learners to use, adapt, and share under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
+
+## 🌐 View Online
+
+**https://rmichak.github.io/itp120-java-programming/**
 
 ## 📚 Modules
 
@@ -18,20 +27,46 @@ Course tutorials and materials for ITP 120 (Java Programming) at Northern Virgin
 | 10 | OOP — Inheritance | [View](modules/10-oop-inheritance/) | [Download](pdf/itp120-module10-oop-inheritance.pdf) |
 | 11 | File I/O | [View](modules/11-file-io/) | [Download](pdf/itp120-module11-file-io.pdf) |
 
-## 🌐 GitHub Pages
+## 📝 What's in Each Tutorial
 
-View the tutorials online: **https://rmichak.github.io/itp120-java-programming/**
-
-## 📝 About
-
-Each tutorial includes:
 - Learning objectives
 - Key terms and definitions
 - Detailed explanations with real-world analogies
 - Code examples with expected output
 - Practice exercises ("Try It Yourself")
-- Chapter review quiz
+- Knowledge check quiz with answer key
 
-## License
+## 🤝 Contributing
 
-© Randy Michak — Northern Virginia Community College. All rights reserved.
+Found an error? Have a suggestion? Contributions are welcome!
+
+1. **Fork** this repository
+2. Make your changes
+3. Submit a **pull request**
+
+All contributions will be reviewed before merging. Please keep changes consistent with the existing style and pedagogical approach.
+
+## 🔄 How PDFs Are Generated
+
+PDFs are **automatically generated** from the HTML source files via GitHub Actions. When you push changes to any `modules/*/index.html` file, the workflow:
+
+1. Runs [WeasyPrint](https://weasyprint.org/) on each HTML module
+2. Generates accessible PDFs (PDF/UA-1 compliant)
+3. Auto-commits the updated PDFs
+
+You never need to manually build PDFs — just edit the HTML.
+
+## 📜 License
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+You are free to:
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material for any purpose, including commercial
+
+Under the following terms:
+- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+
+## Author
+
+**Randy Michak** — Northern Virginia Community College

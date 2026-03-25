@@ -8,7 +8,7 @@
     @page {
       size: letter;
       margin: 0.75in;
-      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-left { content: "ITP 120 — Java Programming I | NOVA"; font-size: 9pt; color: #6b7280; }
       @top-right { content: "Module 09 — Arrays"; font-size: 9pt; color: #6b7280; }
       @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
     }
@@ -68,8 +68,8 @@
 
 <div class="title-section" role="banner">
   <h1>Module 09 &mdash; Arrays</h1>
-  <div class="course">ITP 120 &mdash; Programming with Java</div>
-  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+  <div class="course">ITP 120 &mdash; Java Programming I</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Randy Michak</div>
 </div>
 
 <p><strong>Prerequisites:</strong> Modules 1&ndash;8 &mdash; you should be comfortable with variables, control flow, methods, and the basics of OOP before working through this module.</p>
@@ -732,9 +732,41 @@ System.out.println(table[2][0] + table[0][1]);</code></pre>
 </div>
 
 <!-- ═══ FOOTER ═══ -->
+
+<div class="page-break"></div>
+
+<h2 id="answer-key">&#9989; Answer Key</h2>
+<table aria-label="Answer key for knowledge check questions">
+  <thead>
+    <tr>
+      <th scope="col" style="width:15%;">Question</th>
+      <th scope="col" style="width:15%;">Answer</th>
+      <th scope="col">Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong style="color: #16a34a;">A</strong></td><td>An array stores a fixed-size collection of elements of the same data type.</td></tr>
+    <tr><td>2</td><td><strong style="color: #16a34a;">A</strong></td><td>Array indices start at 0 in Java.</td></tr>
+    <tr><td>3</td><td><strong style="color: #16a34a;">C</strong></td><td><code>array.length</code> returns the number of elements in the array (no parentheses).</td></tr>
+    <tr><td>4</td><td><strong style="color: #16a34a;">D</strong></td><td>An <code>ArrayIndexOutOfBoundsException</code> occurs when accessing an invalid index.</td></tr>
+    <tr><td>5</td><td><strong style="color: #16a34a;">B</strong></td><td>An enhanced for loop (<code>for-each</code>) iterates over every element without using an index.</td></tr>
+    <tr><td>6</td><td><strong style="color: #16a34a;">C</strong></td><td>Arrays are passed by reference &mdash; the method can modify the original array.</td></tr>
+    <tr><td>7</td><td><strong style="color: #16a34a;">B</strong></td><td>A 2D array is an array of arrays, like a table with rows and columns.</td></tr>
+    <tr><td>8</td><td><strong style="color: #16a34a;">A</strong></td><td><code>Arrays.sort()</code> sorts the elements in ascending order.</td></tr>
+    <tr><td>9</td><td><strong style="color: #16a34a;">C</strong></td><td>Array elements are initialized to default values (0 for int, null for objects).</td></tr>
+    <tr><td>10</td><td><strong style="color: #16a34a;">D</strong></td><td>Once created, the size of a Java array cannot be changed.</td></tr>
+  </tbody>
+</table>
+
 <div class="footer" role="contentinfo">
-  <p>ITP 120 &mdash; Programming with Java &nbsp;|&nbsp; Module 09: Arrays &nbsp;|&nbsp; Northern Virginia Community College</p>
-  <p>Instructor: Randy Michak &nbsp;|&nbsp; &copy; 2025 NOVA</p>
+  <p style="margin-bottom: 8px;">
+    <a href="https://creativecommons.org/licenses/by/4.0/" style="text-decoration: none; color: #2563eb;" rel="license">
+      &#128218; Open Educational Resource (OER) &mdash; CC BY 4.0
+    </a>
+  </p>
+  <strong>ITP 120 &mdash; Java Programming I</strong> &mdash; Northern Virginia Community College<br>
+  Author: Randy Michak &nbsp;|&nbsp;
+  <a href="https://github.com/rmichak/itp120-java-programming" style="color: #2563eb;">Contribute on GitHub</a>
 </div>
 
 </body>
