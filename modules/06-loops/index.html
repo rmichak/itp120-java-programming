@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 06 &#8212; Loops | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page { size: letter; margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 06 \2014 Loops"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: "Inter",-apple-system,BlinkMacSystemFont,sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: "Courier New",monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; white-space: pre-wrap; }
+    code { font-family: "Courier New",monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .out { background: #0f172a; color: #94a3b8; font-style: italic; border-radius: 0 0 8px 8px; padding: 8px 18px; margin: -12px 0 12px 0; font-family: "Courier New",monospace; font-size: 10pt; page-break-inside: avoid; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ TITLE -->
+<div class="title-section">
+  <h1>Module 06 &#8212; Loops</h1>
+  <div class="course">ITP 120 &#8212; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<!-- ============================================================ OBJECTIVES -->
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">Learning Objectives</div>
+  <ul>
+    <li>Explain what a loop does and why we need them</li>
+    <li>Write <code>while</code>, <code>do-while</code>, and <code>for</code> loops in Java</li>
+    <li>Distinguish pre-test loops from post-test loops</li>
+    <li>Use <code>break</code> and <code>continue</code> to control loop flow</li>
+    <li>Write nested loops and trace their execution step by step</li>
+    <li>Recognize and fix common loop mistakes: off-by-one errors and infinite loops</li>
+    <li>Apply common loop patterns: accumulator, counter, min/max, input validation</li>
+    <li>Read and write an enhanced <code>for</code> loop (for-each) with arrays</li>
+  </ul>
+</div>
+
+<!-- ============================================================ KEY TERMS -->
+<div class="callout key-terms" role="region" aria-label="Key Terms">
+  <div class="callout-title">Key Terms</div>
+  <p>
+    <strong>loop</strong> &mdash; a block of code that repeats &nbsp;|&nbsp;
+    <strong>iteration</strong> &mdash; one pass through a loop body &nbsp;|&nbsp;
+    <strong>pre-test loop</strong> &mdash; condition checked before the body runs &nbsp;|&nbsp;
+    <strong>post-test loop</strong> &mdash; condition checked after the body runs &nbsp;|&nbsp;
+    <strong>sentinel value</strong> &mdash; a special input that signals "stop looping" &nbsp;|&nbsp;
+    <strong>infinite loop</strong> &mdash; a loop whose condition never becomes false &nbsp;|&nbsp;
+    <strong>accumulator</strong> &mdash; a variable that collects a running total &nbsp;|&nbsp;
+    <strong>nested loop</strong> &mdash; a loop inside another loop &nbsp;|&nbsp;
+    <strong>break</strong> &mdash; exits a loop immediately &nbsp;|&nbsp;
+    <strong>continue</strong> &mdash; skips the rest of the current iteration &nbsp;|&nbsp;
+    <strong>off-by-one error</strong> &mdash; looping one too many or one too few times &nbsp;|&nbsp;
+    <strong>enhanced for loop</strong> &mdash; a simplified loop that iterates over a collection
+  </p>
+</div>
+
+<!-- ============================================================ SECTION 1 -->
+<h2>1. What Are Loops?</h2>
+
+<p>A loop repeats a block of code. Instead of writing the same lines over and over, you write them once and tell Java how many times &mdash; or under what conditions &mdash; to keep running them.</p>
+
+<p>Here is the difference without and with a loop. Imagine printing "Hello!" five times:</p>
+
+<pre role="figure" aria-label="Printing five times without a loop"><code>// Without a loop — tedious, doesn't scale
+System.out.println("Hello!");
+System.out.println("Hello!");
+System.out.println("Hello!");
+System.out.println("Hello!");
+System.out.println("Hello!");</code></pre>
+
+<pre role="figure" aria-label="Printing five times with a for loop"><code>// With a loop — one statement, any number of times
+for (int i = 0; i &lt; 5; i++) {
+    System.out.println("Hello!");
+}</code></pre>
+<div class="out">Hello!<br>Hello!<br>Hello!<br>Hello!<br>Hello!</div>
+
+<p>Want to print it a thousand times? Change one number. The code stays the same size.</p>
+
+<h3>Why Loops Matter in Real Programs</h3>
+<ul>
+  <li><strong>Processing lists</strong> &mdash; read every item in a shopping cart, every student in a grade book</li>
+  <li><strong>Input validation</strong> &mdash; keep prompting until the user enters something valid</li>
+  <li><strong>Reading files</strong> &mdash; process each line until you reach the end</li>
+  <li><strong>Calculations</strong> &mdash; sum values, count occurrences, find a minimum or maximum</li>
+  <li><strong>Retrying operations</strong> &mdash; try a network request again if it fails</li>
+</ul>
+
+<h3>Java's Three Loop Statements</h3>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Loop</th>
+      <th scope="col">When Condition Is Checked</th>
+      <th scope="col">Best Used When&hellip;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>while</code></td><td>Before each iteration (pre-test)</td><td>You don't know in advance how many times to loop</td></tr>
+    <tr><td><code>do-while</code></td><td>After each iteration (post-test)</td><td>The body must run at least once (e.g., input validation)</td></tr>
+    <tr><td><code>for</code></td><td>Before each iteration (pre-test)</td><td>You know exactly how many iterations you need</td></tr>
+  </tbody>
+</table>
+
+<div class="callout analogy" role="region" aria-label="Analogy: snooze alarm">
+  <div class="callout-title">Think of It This Way</div>
+  <p>A loop is like hitting snooze on your alarm. The condition is "Am I actually awake yet?" If no, sleep nine more minutes and check again. You keep repeating that cycle until the condition is true &mdash; then you stop looping and get up. The alarm checks the condition before it lets you sleep (<code>while</code>), or it rings once and then decides whether to ring again (<code>do-while</code>).</p>
+</div>
+
+<!-- ============================================================ SECTION 2 -->
+<h2>2. The <code>while</code> Loop</h2>
+
+<p>The <code>while</code> loop is the fundamental loop in Java. It checks a condition before each iteration. If the condition is true, the body runs. Then it checks again. This continues until the condition is false.</p>
+
+<h3>Syntax</h3>
+<pre role="figure" aria-label="while loop syntax"><code>while (condition) {
+    // body — runs as long as condition is true
+}</code></pre>
+
+<p>Because the condition is checked <em>before</em> the body runs, a <code>while</code> loop is called a <strong>pre-test loop</strong>. If the condition is false on the very first check, the body never executes at all.</p>
+
+<h3>A Counter-Controlled while Loop</h3>
+<p>When you use a counter variable to control a <code>while</code> loop, you need four things: initialize, check, do work, update.</p>
+
+<pre role="figure" aria-label="Counter-controlled while loop counting 1 to 5"><code>int count = 1;               // 1. Initialize before the loop
+
+while (count &lt;= 5) {         // 2. Check the condition
+    System.out.println(count); // 3. Do the work
+    count++;                   // 4. Update — or you get an infinite loop!
+}</code></pre>
+<div class="out">1<br>2<br>3<br>4<br>5</div>
+
+<p>Trace it mentally: count starts at 1, prints 1, becomes 2. Prints 2, becomes 3. &hellip; Prints 5, becomes 6. Condition <code>6 &lt;= 5</code> is false &mdash; loop ends.</p>
+
+<h3>A Sentinel-Controlled while Loop</h3>
+<p>When you don't know in advance how many times to loop, use a <strong>sentinel value</strong> &mdash; a special input that signals "I'm done." The loop keeps running until it sees that value.</p>
+
+<pre role="figure" aria-label="Sentinel-controlled while loop — -1 stops the loop"><code>import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter a number (-1 to quit): ");
+int number = sc.nextInt();
+
+while (number != -1) {                      // -1 is the sentinel
+    System.out.println("You entered: " + number);
+    System.out.print("Enter a number (-1 to quit): ");
+    number = sc.nextInt();
+}
+System.out.println("Goodbye!");</code></pre>
+<div class="out">Enter a number (-1 to quit): 42<br>You entered: 42<br>Enter a number (-1 to quit): 7<br>You entered: 7<br>Enter a number (-1 to quit): -1<br>Goodbye!</div>
+
+<p>Notice that the prompt and read appear <em>twice</em>: once before the loop (to get the first value) and once at the end of the loop body (to get the next value). This is the standard pattern for sentinel loops.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: infinite loops">
+  <div class="callout-title">Infinite Loop Warning</div>
+  <p>If the loop condition never becomes <code>false</code>, the program runs forever. The most common cause is forgetting to update the variable the condition depends on:</p>
+  <pre><code>int x = 1;
+while (x &lt; 10) {
+    System.out.println(x);
+    // BUG: x never changes, so x &lt; 10 is always true — infinite loop!
+}</code></pre>
+  <p>In IntelliJ, click the red square in the Run window to stop the program. Then find your missing update statement.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: while loop countdown">
+  <div class="callout-title">Try It</div>
+  <p>Write a <code>while</code> loop that counts down from 10 to 1, printing each number on its own line. After the loop ends, print "Blastoff!"</p>
+</div>
+
+<!-- ============================================================ SECTION 3 -->
+<h2>3. The <code>do-while</code> Loop</h2>
+
+<p>The <code>do-while</code> loop is almost identical to <code>while</code>, with one important difference: it runs the body <em>first</em>, then checks the condition. That makes it a <strong>post-test loop</strong> &mdash; the body always executes at least once.</p>
+
+<h3>Syntax</h3>
+<pre role="figure" aria-label="do-while loop syntax"><code>do {
+    // body — runs at least once, guaranteed
+} while (condition);   // &lt;-- note the semicolon here!</code></pre>
+
+<p>The semicolon after the closing parenthesis is required. Java will give you a compile error if you leave it out.</p>
+
+<h3>Classic Use Case: Input Validation</h3>
+<p>You need to show the user a prompt at least once before you can check what they typed. <code>do-while</code> handles this perfectly:</p>
+
+<pre role="figure" aria-label="do-while input validation for age"><code>import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+int age;
+
+do {
+    System.out.print("Enter your age (0-120): ");
+    age = sc.nextInt();
+} while (age &lt; 0 || age &gt; 120);   // keep asking if invalid
+
+System.out.println("Age recorded: " + age);</code></pre>
+<div class="out">Enter your age (0-120): -5<br>Enter your age (0-120): 999<br>Enter your age (0-120): 22<br>Age recorded: 22</div>
+
+<p>With a regular <code>while</code> loop, you would have to read the first value before the loop and read again inside the loop &mdash; duplicating the prompt and read statements. <code>do-while</code> keeps it in one place.</p>
+
+<h3>do-while vs. while: Side by Side</h3>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Feature</th>
+      <th scope="col"><code>while</code></th>
+      <th scope="col"><code>do-while</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Loop type</td><td>Pre-test</td><td>Post-test</td></tr>
+    <tr><td>Condition check</td><td>Before each iteration</td><td>After each iteration</td></tr>
+    <tr><td>Minimum iterations</td><td>0 &mdash; may never run</td><td>1 &mdash; always runs once</td></tr>
+    <tr><td>Semicolon after condition?</td><td>No</td><td>Yes, required</td></tr>
+    <tr><td>Best for</td><td>General looping</td><td>Input validation, menus</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip" role="region" aria-label="Tip on choosing do-while">
+  <div class="callout-title">When to Reach for do-while</div>
+  <p>Ask yourself: "Does the body have to run at least once before I can even check the condition?" If yes, <code>do-while</code> is your loop. Showing a menu is the textbook example &mdash; you must display the options before you can tell the user to pick one, and then validate their pick.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: do-while menu loop">
+  <div class="callout-title">Try It</div>
+  <p>Write a <code>do-while</code> loop that displays three menu options (1, 2, 3) and keeps asking until the user enters a valid choice. Print a confirmation once a valid choice is made.</p>
+</div>
+
+<!-- ============================================================ SECTION 4 -->
+<h2>4. The <code>for</code> Loop</h2>
+
+<p>When you know exactly how many times to loop, the <code>for</code> loop is the cleanest choice. It bundles the initialization, condition check, and update all into one header line.</p>
+
+<h3>Syntax</h3>
+<pre role="figure" aria-label="for loop syntax with three parts"><code>for (initialization; condition; update) {
+    // body
+}</code></pre>
+
+<ul>
+  <li><strong>Initialization</strong> &mdash; runs exactly once, before the loop starts. Usually declares and sets a counter variable.</li>
+  <li><strong>Condition</strong> &mdash; checked before every iteration. Loop runs while it is <code>true</code>.</li>
+  <li><strong>Update</strong> &mdash; runs after every iteration. Usually increments or decrements the counter.</li>
+</ul>
+
+<h3>Execution Order</h3>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Step</th>
+      <th scope="col">What Happens</th>
+      <th scope="col">Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Initialization runs</td><td>Once, at the very start</td></tr>
+    <tr><td>2</td><td>Condition is evaluated</td><td>Before every iteration</td></tr>
+    <tr><td>3</td><td>Body executes</td><td>Each time condition is true</td></tr>
+    <tr><td>4</td><td>Update runs</td><td>After each body execution</td></tr>
+    <tr><td>5</td><td>Go back to step 2</td><td>Until condition is false</td></tr>
+  </tbody>
+</table>
+
+<h3>Counting Up</h3>
+<pre role="figure" aria-label="for loop counting up from 1 to 5"><code>for (int i = 1; i &lt;= 5; i++) {
+    System.out.println(i);
+}</code></pre>
+<div class="out">1<br>2<br>3<br>4<br>5</div>
+
+<h3>Counting Down</h3>
+<pre role="figure" aria-label="for loop counting down from 5 to 1"><code>for (int i = 5; i &gt;= 1; i--) {
+    System.out.println(i);
+}
+System.out.println("Done!");</code></pre>
+<div class="out">5<br>4<br>3<br>2<br>1<br>Done!</div>
+
+<h3>Counting by 2s</h3>
+<pre role="figure" aria-label="for loop counting by twos, 0 through 10"><code>for (int i = 0; i &lt;= 10; i += 2) {
+    System.out.print(i + " ");
+}
+System.out.println();</code></pre>
+<div class="out">0 2 4 6 8 10</div>
+
+<h3>When to Use for vs. while</h3>
+<p>Use <code>for</code> when the number of iterations is known before the loop starts. Use <code>while</code> when the loop should continue based on something you discover while running. In practice: counting, iterating over arrays &rarr; <code>for</code>; reading input until valid, processing until a sentinel &rarr; <code>while</code>.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: don't modify the loop variable inside the body">
+  <div class="callout-title">Don't Modify the Loop Variable Inside the Body</div>
+  <p>The <code>for</code> header's update expression already handles the counter. Changing it inside the body too causes hard-to-find bugs:</p>
+  <pre><code>// BAD — skips every other number
+for (int i = 0; i &lt; 10; i++) {
+    System.out.println(i);
+    i++;   // oops — double increment, skips 1, 3, 5, 7, 9
+}</code></pre>
+  <p>Let the header manage the counter. Keep your logic in the body.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: for loop exercises">
+  <div class="callout-title">Try It</div>
+  <ul>
+    <li>Print the numbers 1 through 20 on one line, separated by spaces.</li>
+    <li>Print every odd number from 1 to 19. (Hint: start at 1, step by 2.)</li>
+    <li>Print the 7 times table: "7 x 1 = 7", "7 x 2 = 14", &hellip;, "7 x 10 = 70".</li>
+  </ul>
+</div>
+
+<!-- ============================================================ SECTION 5 -->
+<h2>5. Loop Control: <code>break</code> and <code>continue</code></h2>
+
+<p>Sometimes you need to exit a loop before the condition naturally becomes false, or skip the rest of one iteration and jump straight to the next. <code>break</code> and <code>continue</code> handle those cases.</p>
+
+<h3>break &mdash; Exit the Loop Immediately</h3>
+<p>When Java hits <code>break</code>, it exits the loop entirely. Execution jumps to the first statement after the closing brace.</p>
+
+<pre role="figure" aria-label="break exits the for loop when i equals 7"><code>for (int i = 1; i &lt;= 10; i++) {
+    if (i == 7) {
+        System.out.println("Found 7! Stopping early.");
+        break;
+    }
+    System.out.println(i);
+}
+System.out.println("After the loop.");</code></pre>
+<div class="out">1<br>2<br>3<br>4<br>5<br>6<br>Found 7! Stopping early.<br>After the loop.</div>
+
+<p>A common use: searching an array for a value. Once you find it, <code>break</code> so you don't waste time checking the rest.</p>
+
+<h3>continue &mdash; Skip to the Next Iteration</h3>
+<p><code>continue</code> skips the remaining statements in the current iteration. In a <code>for</code> loop, it jumps to the update step. In a <code>while</code> loop, it jumps back to the condition check.</p>
+
+<pre role="figure" aria-label="continue skips even numbers, printing only odd ones"><code>for (int i = 1; i &lt;= 10; i++) {
+    if (i % 2 == 0) {
+        continue;     // skip the rest of this iteration for even numbers
+    }
+    System.out.print(i + " ");
+}
+System.out.println();</code></pre>
+<div class="out">1 3 5 7 9</div>
+
+<h3>Use Both Sparingly</h3>
+<p><code>break</code> and <code>continue</code> are legitimate tools, but overusing them makes loops hard to read and reason about. If you're reaching for them frequently, your condition logic probably needs a rewrite instead.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Keyword</th>
+      <th scope="col">Effect</th>
+      <th scope="col">When It Helps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>break</code></td><td>Exits the loop entirely</td><td>Early exit after finding a result; error condition</td></tr>
+    <tr><td><code>continue</code></td><td>Skips rest of current iteration</td><td>Skip invalid or irrelevant values without nesting</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip" role="region" aria-label="Tip: break only exits the innermost loop">
+  <div class="callout-title">break Only Exits the Innermost Loop</div>
+  <p>In nested loops, <code>break</code> exits the loop it is directly inside &mdash; not all loops at once. If you need to break out of two levels, you'll need a flag variable or labeled breaks (an advanced feature).</p>
+</div>
+
+<!-- ============================================================ SECTION 6 -->
+<h2>6. Nested Loops</h2>
+
+<p>A nested loop is a loop inside another loop. The outer loop drives the rows; the inner loop drives the columns. Every time the outer loop runs once, the inner loop runs all the way through.</p>
+
+<h3>How Iteration Counts Multiply</h3>
+<p>Outer runs 3 times &times; inner runs 4 times = 12 total executions of the inner body. This multiplying effect matters a lot when you're dealing with large data sets &mdash; but for classroom-sized examples it's perfectly fine.</p>
+
+<pre role="figure" aria-label="Basic nested loop showing outer and inner variable values"><code>for (int outer = 1; outer &lt;= 3; outer++) {
+    for (int inner = 1; inner &lt;= 4; inner++) {
+        System.out.println("outer=" + outer + ", inner=" + inner);
+    }
+}</code></pre>
+<div class="out">outer=1, inner=1<br>outer=1, inner=2<br>outer=1, inner=3<br>outer=1, inner=4<br>outer=2, inner=1<br>outer=2, inner=2<br>outer=2, inner=3<br>outer=2, inner=4<br>outer=3, inner=1<br>outer=3, inner=2<br>outer=3, inner=3<br>outer=3, inner=4</div>
+
+<h3>Example: Multiplication Table</h3>
+<pre role="figure" aria-label="5x5 multiplication table using nested for loops"><code>for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= 5; col++) {
+        System.out.printf("%4d", row * col);
+    }
+    System.out.println();   // move to next row after each row is complete
+}</code></pre>
+<div class="out">   1   2   3   4   5<br>   2   4   6   8  10<br>   3   6   9  12  15<br>   4   8  12  16  20<br>   5  10  15  20  25</div>
+
+<h3>Example: Triangle of Stars</h3>
+<p>The inner loop runs a different number of times on each row &mdash; exactly <code>row</code> times &mdash; because the inner loop's limit is the outer loop variable:</p>
+
+<pre role="figure" aria-label="Nested loops printing a triangle of stars"><code>for (int row = 1; row &lt;= 5; row++) {
+    for (int star = 1; star &lt;= row; star++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}</code></pre>
+<div class="out">*<br>**<br>***<br>****<br>*****</div>
+
+<div class="callout tip" role="region" aria-label="Tip on tracing nested loops manually">
+  <div class="callout-title">How to Trace a Nested Loop</div>
+  <p>Fix the outer variable at its first value. Walk through all inner values. Write down what prints. Then advance the outer variable and repeat. A small table with columns for each loop variable is the fastest way to do this on an exam.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: nested loop grid exercise">
+  <div class="callout-title">Try It</div>
+  <p>Write nested loops to print a 4x4 grid where each cell shows the product of its row and column (both starting at 1). Row 2, col 3 should show 6.</p>
+</div>
+
+<!-- ============================================================ SECTION 7 -->
+<h2>7. Common Loop Patterns</h2>
+
+<p>These patterns appear constantly in real programs. Learn to recognize and write them without thinking.</p>
+
+<h3>Running Total (Accumulator)</h3>
+<p>Initialize a variable to zero before the loop. Add each new value to it inside the loop.</p>
+<pre role="figure" aria-label="Accumulator pattern summing numbers 1 through 10"><code>int sum = 0;   // accumulator — starts at 0
+
+for (int i = 1; i &lt;= 10; i++) {
+    sum += i;
+}
+
+System.out.println("Sum 1 to 10: " + sum);</code></pre>
+<div class="out">Sum 1 to 10: 55</div>
+
+<h3>Counting Occurrences</h3>
+<p>Same idea as an accumulator, but you only add 1 when a specific condition is met.</p>
+<pre role="figure" aria-label="Counting even numbers between 1 and 20"><code>int evenCount = 0;
+
+for (int i = 1; i &lt;= 20; i++) {
+    if (i % 2 == 0) {
+        evenCount++;
+    }
+}
+
+System.out.println("Even numbers from 1-20: " + evenCount);</code></pre>
+<div class="out">Even numbers from 1-20: 10</div>
+
+<h3>Finding the Maximum</h3>
+<p>Initialize max to the first value (or the smallest possible integer). Update it whenever you find something bigger.</p>
+<pre role="figure" aria-label="Finding the maximum in a set of numbers using a loop"><code>import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+System.out.print("How many numbers? ");
+int n = sc.nextInt();
+
+System.out.print("Enter number 1: ");
+int max = sc.nextInt();   // seed max with the first value
+
+for (int i = 2; i &lt;= n; i++) {
+    System.out.print("Enter number " + i + ": ");
+    int val = sc.nextInt();
+    if (val &gt; max) {
+        max = val;
+    }
+}
+
+System.out.println("Maximum: " + max);</code></pre>
+<div class="out">How many numbers? 4<br>Enter number 1: 12<br>Enter number 2: 47<br>Enter number 3: 8<br>Enter number 4: 31<br>Maximum: 47</div>
+
+<h3>Input Validation Loop</h3>
+<p>Keep asking until the user provides acceptable input. This is the <code>do-while</code> pattern from Section 3, but worth calling out explicitly as its own pattern:</p>
+<pre role="figure" aria-label="Input validation loop using do-while"><code>import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+int choice;
+
+do {
+    System.out.println("Choose an option:");
+    System.out.println("  1. Start");
+    System.out.println("  2. Settings");
+    System.out.println("  3. Quit");
+    System.out.print("Enter 1-3: ");
+    choice = sc.nextInt();
+} while (choice &lt; 1 || choice &gt; 3);
+
+System.out.println("You chose: " + choice);</code></pre>
+<div class="out">Choose an option:<br>  1. Start<br>  2. Settings<br>  3. Quit<br>Enter 1-3: 9<br>Choose an option:<br>  1. Start<br>  2. Settings<br>  3. Quit<br>Enter 1-3: 2<br>You chose: 2</div>
+
+<!-- ============================================================ SECTION 8 -->
+<h2>8. Common Loop Mistakes</h2>
+
+<p>These are the bugs that show up on nearly every intro Java exam. Know what they look like.</p>
+
+<h3>Off-by-One Error</h3>
+<p>Looping one too many or one too few times. Usually a wrong comparison operator (<code>&lt;</code> vs. <code>&lt;=</code>).</p>
+<pre role="figure" aria-label="Off-by-one error examples — less than vs less than or equal"><code>// Prints 1 through 4 — MISSING 5
+for (int i = 1; i &lt; 5; i++) {
+    System.out.print(i + " ");
+}
+// Output: 1 2 3 4
+
+// Prints 1 through 5 — CORRECT
+for (int i = 1; i &lt;= 5; i++) {
+    System.out.print(i + " ");
+}
+// Output: 1 2 3 4 5</code></pre>
+
+<p>Always ask: "Should the loop run when <code>i</code> equals the boundary value?" If yes, use <code>&lt;=</code>. If no, use <code>&lt;</code>.</p>
+
+<h3>Infinite Loop (Forgot to Update Counter)</h3>
+<pre role="figure" aria-label="Infinite loop caused by missing counter update"><code>int i = 0;
+while (i &lt; 5) {
+    System.out.println(i);
+    // BUG: i never changes — loops forever!
+}
+
+// Fix: add i++ inside the body
+int i = 0;
+while (i &lt; 5) {
+    System.out.println(i);
+    i++;   // now the condition eventually becomes false
+}</code></pre>
+
+<h3>Wrong Comparison Operator</h3>
+<pre role="figure" aria-label="Wrong operator causes loop to never execute"><code>// BUG: condition is false immediately — loop never runs
+for (int i = 10; i &lt; 1; i++) {
+    System.out.println(i);
+}
+
+// Fix: count down if starting high
+for (int i = 10; i &gt;= 1; i--) {
+    System.out.println(i);
+}</code></pre>
+
+<h3>Modifying the Loop Variable Inside a for Loop Body</h3>
+<pre role="figure" aria-label="Bug from modifying loop variable inside for body"><code>// BUG: i is incremented by the header AND by the body
+// Skips 1, 3, 5, 7, 9 — prints only 0, 2, 4, 6, 8
+for (int i = 0; i &lt; 10; i++) {
+    System.out.println(i);
+    i++;   // accidental double increment
+}</code></pre>
+
+<div class="callout warning" role="region" aria-label="Summary of common loop mistakes">
+  <div class="callout-title">Quick Checklist: Loop Mistakes to Avoid</div>
+  <ul>
+    <li>Did you initialize the counter before the loop?</li>
+    <li>Is your comparison operator (&lt;, &lt;=, &gt;, &gt;=) exactly right?</li>
+    <li>Does the loop body actually update whatever the condition checks?</li>
+    <li>Are you accidentally modifying the loop variable twice?</li>
+    <li>Did you test with the boundary values (first and last iteration)?</li>
+  </ul>
+</div>
+
+<!-- ============================================================ SECTION 9 -->
+<h2>9. The Enhanced for Loop (for-each)</h2>
+
+<p>Java has a fourth loop syntax designed specifically for iterating over arrays and collections. It is called the <strong>enhanced for loop</strong>, or informally the <strong>for-each loop</strong>. You will use it extensively once we cover arrays in a later module &mdash; here's a quick preview.</p>
+
+<h3>Syntax</h3>
+<pre role="figure" aria-label="Enhanced for loop syntax"><code>for (dataType variableName : arrayOrCollection) {
+    // use variableName here
+}</code></pre>
+
+<p>Read the colon as "in". So <code>for (int score : scores)</code> means "for each int named score in the scores array."</p>
+
+<h3>Example with an Array</h3>
+<pre role="figure" aria-label="Enhanced for loop iterating over an array of scores"><code>int[] scores = {85, 92, 78, 96, 88};
+
+for (int score : scores) {
+    System.out.println("Score: " + score);
+}</code></pre>
+<div class="out">Score: 85<br>Score: 92<br>Score: 78<br>Score: 96<br>Score: 88</div>
+
+<h3>Accumulator with for-each</h3>
+<pre role="figure" aria-label="Accumulator pattern using enhanced for loop"><code>int[] scores = {85, 92, 78, 96, 88};
+int total = 0;
+
+for (int score : scores) {
+    total += score;
+}
+
+double average = (double) total / scores.length;
+System.out.printf("Average: %.1f%n", average);</code></pre>
+<div class="out">Average: 87.8</div>
+
+<h3>When to Use for-each vs. Regular for</h3>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Situation</th>
+      <th scope="col">Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Just reading every element in order</td><td>Enhanced for (cleaner)</td></tr>
+    <tr><td>Need the index value (<code>i</code>)</td><td>Regular for</td></tr>
+    <tr><td>Need to modify the array while iterating</td><td>Regular for</td></tr>
+    <tr><td>Iterating part of the array</td><td>Regular for</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip" role="region" aria-label="Tip on enhanced for loop limitations">
+  <div class="callout-title">for-each Has Limits</div>
+  <p>The enhanced for loop is read-only from the array's perspective. If you do <code>score = 100</code> inside the loop, you're changing the local variable <code>score</code>, not the actual array element. Use a regular indexed <code>for</code> loop when you need to update array values.</p>
+</div>
+
+<!-- ============================================================ VOCABULARY -->
+<h2>Vocabulary Review</h2>
+<table class="vocab-table">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>loop</td><td>A control structure that repeats a block of code zero or more times</td></tr>
+    <tr><td>iteration</td><td>One single pass through a loop body</td></tr>
+    <tr><td>pre-test loop</td><td>A loop that checks its condition before executing the body (<code>while</code>, <code>for</code>)</td></tr>
+    <tr><td>post-test loop</td><td>A loop that executes the body first, then checks the condition (<code>do-while</code>)</td></tr>
+    <tr><td>sentinel value</td><td>A special input value that signals "stop looping"</td></tr>
+    <tr><td>infinite loop</td><td>A loop whose condition never becomes false; program runs forever</td></tr>
+    <tr><td>accumulator</td><td>A variable that builds up a running total across iterations</td></tr>
+    <tr><td>nested loop</td><td>A loop placed inside another loop; inner body runs outer&#215;inner total times</td></tr>
+    <tr><td>break</td><td>Statement that immediately exits the enclosing loop</td></tr>
+    <tr><td>continue</td><td>Statement that skips the rest of the current iteration and moves to the next</td></tr>
+    <tr><td>off-by-one error</td><td>A bug where a loop runs one too many or one too few times</td></tr>
+    <tr><td>enhanced for loop</td><td>The for-each syntax: <code>for (type item : collection)</code> — iterates over every element</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ SUMMARY -->
+<div class="callout summary" role="region" aria-label="Module Summary">
+  <div class="callout-title">Module Summary</div>
+  <ul>
+    <li><strong>while</strong> — pre-test loop; use when the iteration count isn't known in advance.</li>
+    <li><strong>do-while</strong> — post-test loop; body runs at least once; great for input validation and menus.</li>
+    <li><strong>for</strong> — pre-test loop; packs init, condition, and update in one line; use when you know the count.</li>
+    <li><strong>break</strong> exits the loop; <strong>continue</strong> skips to the next iteration. Use both sparingly.</li>
+    <li><strong>Nested loops</strong> multiply iteration counts. Outer variable controls rows; inner controls columns.</li>
+    <li>Common patterns: accumulator, occurrence counter, min/max finder, input validation.</li>
+    <li>Common bugs: off-by-one (wrong &lt; vs. &lt;=), infinite loop (forgot to update), accidental double increment.</li>
+    <li><strong>Enhanced for</strong> (for-each) is clean for reading every element; use indexed <code>for</code> when you need the index or need to modify elements.</li>
+  </ul>
+</div>
+
+<!-- ============================================================ QUIZ -->
+<div class="page-break"></div>
+<h2>Module 06 Quiz</h2>
+<p>Name: _________________________________ &nbsp;&nbsp; Date: _____________ &nbsp;&nbsp; Score: _____ / 10</p>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 1</div>
+  <p>What type of loop is the <code>while</code> loop?</p>
+  <ul class="quiz-options">
+    <li>A) Post-test loop</li>
+    <li>B) Mid-test loop</li>
+    <li>C) Pre-test loop</li>
+    <li>D) Enhanced loop</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 2</div>
+  <p>What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz question 2 code"><code>int x = 10;
+while (x &gt; 7) {
+    System.out.print(x + " ");
+    x--;
+}</code></pre>
+  <ul class="quiz-options">
+    <li>A) 10 9 8 7</li>
+    <li>B) 10 9 8</li>
+    <li>C) 9 8 7</li>
+    <li>D) 7 8 9 10</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 3</div>
+  <p>Which loop type guarantees the loop body executes at least once?</p>
+  <ul class="quiz-options">
+    <li>A) <code>for</code></li>
+    <li>B) <code>while</code></li>
+    <li>C) Enhanced <code>for</code></li>
+    <li>D) <code>do-while</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 4</div>
+  <p>How many times does the body of the inner loop execute in total in this code?</p>
+  <pre role="figure" aria-label="Quiz question 4 nested loop code"><code>for (int i = 0; i &lt; 4; i++) {
+    for (int j = 0; j &lt; 3; j++) {
+        System.out.print("*");
+    }
+}</code></pre>
+  <ul class="quiz-options">
+    <li>A) 7</li>
+    <li>B) 9</li>
+    <li>C) 12</li>
+    <li>D) 16</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 5</div>
+  <p>What does the <code>break</code> statement do inside a loop?</p>
+  <ul class="quiz-options">
+    <li>A) Restarts the loop from the beginning</li>
+    <li>B) Pauses the loop for one iteration</li>
+    <li>C) Skips the rest of the current iteration and continues with the next</li>
+    <li>D) Exits the loop entirely and continues after the closing brace</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 6</div>
+  <p>What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz question 6 code tracing for loop with continue"><code>for (int i = 1; i &lt;= 6; i++) {
+    if (i % 3 == 0) {
+        continue;
+    }
+    System.out.print(i + " ");
+}</code></pre>
+  <ul class="quiz-options">
+    <li>A) 1 2 4 5</li>
+    <li>B) 3 6</li>
+    <li>C) 1 2 3 4 5 6</li>
+    <li>D) 1 2 4</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 7</div>
+  <p>Which of the following correctly describes an <strong>off-by-one error</strong>?</p>
+  <ul class="quiz-options">
+    <li>A) A loop that runs one too many or one too few times due to a wrong boundary</li>
+    <li>B) Using the wrong variable name inside the loop body</li>
+    <li>C) Forgetting to declare the loop variable before the loop</li>
+    <li>D) Using <code>break</code> when <code>continue</code> was intended</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 8</div>
+  <p>What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz question 8 code tracing for loop accumulator"><code>int total = 0;
+for (int i = 1; i &lt;= 4; i++) {
+    total += i;
+}
+System.out.println(total);</code></pre>
+  <ul class="quiz-options">
+    <li>A) 4</li>
+    <li>B) 10</li>
+    <li>C) 16</li>
+    <li>D) 6</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 9</div>
+  <p>In an enhanced <code>for</code> loop (for-each), what happens if you assign a new value to the loop variable inside the body?</p>
+  <ul class="quiz-options">
+    <li>A) The corresponding array element is updated</li>
+    <li>B) A <code>NullPointerException</code> is thrown at runtime</li>
+    <li>C) Only the local loop variable changes; the original array is not modified</li>
+    <li>D) The compiler produces an error</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <div class="quiz-number">Question 10</div>
+  <p>A programmer writes the following loop. What is the most likely bug?</p>
+  <pre role="figure" aria-label="Quiz question 10 code — find the bug"><code>int count = 0;
+while (count &lt; 5) {
+    System.out.println("Count: " + count);
+}</code></pre>
+  <ul class="quiz-options">
+    <li>A) The condition should use <code>&lt;=</code> instead of <code>&lt;</code></li>
+    <li>B) The variable <code>count</code> is never incremented, causing an infinite loop</li>
+    <li>C) <code>println</code> should be <code>print</code></li>
+    <li>D) The loop will only execute once because the condition is checked after the body</li>
+  </ul>
+</div>
+
+<!-- ============================================================ FOOTER -->
+<div class="footer">
+  ITP 120 &mdash; Programming with Java &nbsp;|&nbsp; Module 06: Loops &nbsp;|&nbsp;
+  Northern Virginia Community College &nbsp;|&nbsp; &copy; Randy Michak
+</div>
+
+</body>
+</html>

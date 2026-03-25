@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 07 &#8212; Methods | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page { size: letter; margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 07 \2014 Methods"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: "Inter",-apple-system,BlinkMacSystemFont,sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: "Courier New",monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; white-space: pre-wrap; }
+    code { font-family: "Courier New",monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .out { background: #0f172a; color: #94a3b8; font-style: italic; border-radius: 0 0 8px 8px; padding: 8px 18px; margin: -12px 0 12px 0; font-family: "Courier New",monospace; font-size: 10pt; page-break-inside: avoid; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<div class="title-section">
+  <h1>Module 07 &#8212; Methods</h1>
+  <div class="course">ITP 120 &#8212; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">&#127919; Learning Objectives</div>
+  <ul>
+    <li>Explain what a method is and why methods make programs easier to write and maintain</li>
+    <li>Define both <code>void</code> and value-returning methods using correct Java syntax</li>
+    <li>Call a method from <code>main</code> and trace the execution flow step by step</li>
+    <li>Distinguish between formal parameters and actual arguments</li>
+    <li>Explain pass-by-value and predict what happens to the caller's variables</li>
+    <li>Write <code>return</code> statements and use returned values in expressions</li>
+    <li>Overload a method by writing multiple versions with different parameter lists</li>
+    <li>Explain variable scope and why two methods can use the same variable names without conflict</li>
+    <li>Build a multi-method program that solves a realistic problem</li>
+  </ul>
+</div>
+
+<div class="callout key-terms" role="region" aria-label="Key Terms">
+  <div class="callout-title">&#128218; Key Terms</div>
+  <p>
+    <strong>method</strong> &nbsp;&middot;&nbsp;
+    <strong>void method</strong> &nbsp;&middot;&nbsp;
+    <strong>value-returning method</strong> &nbsp;&middot;&nbsp;
+    <strong>parameter</strong> &nbsp;&middot;&nbsp;
+    <strong>argument</strong> &nbsp;&middot;&nbsp;
+    <strong>return type</strong> &nbsp;&middot;&nbsp;
+    <strong>return statement</strong> &nbsp;&middot;&nbsp;
+    <strong>pass-by-value</strong> &nbsp;&middot;&nbsp;
+    <strong>method overloading</strong> &nbsp;&middot;&nbsp;
+    <strong>scope</strong> &nbsp;&middot;&nbsp;
+    <strong>local variable</strong> &nbsp;&middot;&nbsp;
+    <strong>access modifier</strong>
+  </p>
+</div>
+
+<!-- ===== SECTION 1 ===== -->
+<h2>1. What Are Methods?</h2>
+
+<p>A <strong>method</strong> is a named block of code that performs a specific task. You define it once and call it as many times as you need. That is the whole idea.</p>
+
+<p>You have been using methods since day one: <code>main</code> is a method. So is <code>System.out.println()</code>. Every time you call <code>println</code>, you are handing some text to a block of code that knows how to write it to the screen. You did not write that block &#8212; Oracle did &#8212; but you use it constantly.</p>
+
+<h3>1.1 Why Methods Matter</h3>
+
+<p>Imagine writing a program that converts temperatures in five different places. Without methods, you copy-paste the same formula every time. When you find a bug, you fix it in five places. With a method, you fix it once and every call benefits.</p>
+
+<p>Methods give you three things:</p>
+<ul>
+  <li><strong>Code reuse</strong> &#8212; write once, call many times</li>
+  <li><strong>Organization</strong> &#8212; each method has one job; the program is easier to navigate</li>
+  <li><strong>Easier debugging</strong> &#8212; a bug in a method is one bug to fix, not five</li>
+</ul>
+
+<div class="callout analogy" role="region" aria-label="Analogy: methods as appliances">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>A method is like a kitchen appliance. Your blender knows how to blend. You do not care about its internal motor &#8212; you just put ingredients in, press the button, and get a smoothie out. Methods work the same way: you pass in data (ingredients), the method does its work, and optionally hands something back (the result). One appliance, used a hundred times.</p>
+</div>
+
+<h3>1.2 The main Method You Already Know</h3>
+
+<p>Every Java program starts at <code>main</code>. You have been writing it this way since Module 1:</p>
+
+<pre role="figure" aria-label="The main method structure">public static void main(String[] args) {
+    System.out.println("Hello from main!");
+}</pre>
+
+<p>Every word in that signature means something. By the end of this module, you will understand all of it. For now, just recognize: <code>main</code> itself is a method. You have been defining and calling methods all along.</p>
+
+
+<!-- ===== SECTION 2 ===== -->
+<h2>2. Defining a Method</h2>
+
+<p>Here is the general syntax for a method definition:</p>
+
+<pre role="figure" aria-label="Method definition general syntax">accessModifier  returnType  methodName(parameterList) {
+    // method body -- statements go here
+}</pre>
+
+<table aria-label="Method syntax components">
+  <thead>
+    <tr>
+      <th scope="col">Part</th>
+      <th scope="col">What It Is</th>
+      <th scope="col">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Access modifier</td><td>Controls who can call this method. Use <code>public static</code> for standalone methods in this course.</td><td><code>public static</code></td></tr>
+    <tr><td>Return type</td><td>The data type the method sends back. Use <code>void</code> if it sends nothing back.</td><td><code>int</code>, <code>double</code>, <code>String</code>, <code>void</code></td></tr>
+    <tr><td>Method name</td><td>What you call the method. camelCase, verb-based names are the standard.</td><td><code>calculateTax</code>, <code>printMenu</code></td></tr>
+    <tr><td>Parameter list</td><td>The inputs the method receives. Can be empty &#8212; just use <code>()</code>.</td><td><code>(double price, int qty)</code></td></tr>
+    <tr><td>Method body</td><td>The statements that run when the method is called. Enclosed in <code>{ }</code>.</td><td>Any valid Java statements</td></tr>
+  </tbody>
+</table>
+
+<h3>2.1 void Methods &#8212; Methods That Do But Don't Return</h3>
+
+<p>A <code>void</code> method performs a task but does not hand any value back to the caller. Printing output is the classic example.</p>
+
+<pre role="figure" aria-label="void method that prints a greeting">public static void printGreeting(String name) {
+    System.out.println("Hello, " + name + "!");
+    System.out.println("Welcome to ITP 120.");
+}</pre>
+
+<p>The return type is <code>void</code>, so no <code>return</code> statement is needed. The method runs and control automatically goes back to the caller when the closing brace is reached.</p>
+
+<h3>2.2 Value-Returning Methods</h3>
+
+<p>A value-returning method computes something and <em>sends the result back</em> to whoever called it. The return type tells Java what kind of value to expect.</p>
+
+<pre role="figure" aria-label="Value-returning method: add two integers">public static int add(int a, int b) {
+    return a + b;   // sends the sum back to the caller
+}</pre>
+
+<p>The return type is <code>int</code>. The <code>return</code> statement hands the value back. Every code path through the method must eventually reach a <code>return</code> statement.</p>
+
+<h3>2.3 Naming Conventions</h3>
+
+<ul>
+  <li>Use <strong>camelCase</strong>: first word lowercase, each additional word capitalized</li>
+  <li>Start with a <strong>verb</strong>: <code>calculate</code>, <code>print</code>, <code>get</code>, <code>check</code>, <code>convert</code>, <code>validate</code>, <code>is</code></li>
+  <li>Be specific: <code>calculateSalesTax</code> beats <code>doStuff</code> every time</li>
+</ul>
+
+<div class="callout tip" role="region" aria-label="Tip: one method one job">
+  <div class="callout-title">&#128161; One Method, One Job</div>
+  <p>If you find yourself naming a method <code>printReceiptAndSaveToFile</code>, that is two jobs. Split it into <code>printReceipt</code> and <code>saveToFile</code>. Short, focused methods are easier to test, reuse, and debug.</p>
+</div>
+
+
+<!-- ===== SECTION 3 ===== -->
+<h2>3. Calling a Method</h2>
+
+<p>Defining a method does nothing on its own. You have to <strong>call</strong> it to make it run.</p>
+
+<h3>3.1 Basic Method Call</h3>
+
+<pre role="figure" aria-label="Calling a void method from main">public class GreetingDemo {
+    public static void main(String[] args) {
+        printGreeting("Alice");   // first call
+        printGreeting("Bob");     // second call -- same method, different argument
+    }
+
+    public static void printGreeting(String name) {
+        System.out.println("Hello, " + name + "!");
+        System.out.println("Welcome to ITP 120.");
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">Hello, Alice!
+Welcome to ITP 120.
+Hello, Bob!
+Welcome to ITP 120.</div>
+
+<p>One method definition, two calls, two different results. That is reuse in action.</p>
+
+<h3>3.2 Execution Flow</h3>
+
+<p>When Java hits a method call, here is exactly what happens:</p>
+<ol>
+  <li>Java <strong>pauses</strong> execution in the current method</li>
+  <li><strong>Control jumps</strong> to the method definition</li>
+  <li>The method runs its statements</li>
+  <li>When done (or at <code>return</code>), <strong>control returns</strong> to right after the call</li>
+  <li>Execution continues with the next statement</li>
+</ol>
+
+<div class="callout analogy" role="region" aria-label="Analogy: method call as a detour">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>A method call is like a detour on a road trip. You are driving down the highway (<code>main</code>), take an exit (method call), complete what you needed on that side road, then merge back onto the highway exactly where you exited. The highway was waiting for you the whole time.</p>
+</div>
+
+<h3>3.3 Method Calls as Statements vs. in Expressions</h3>
+
+<p>A <code>void</code> method call is a complete statement by itself:</p>
+
+<pre role="figure" aria-label="void method call as statement">printGreeting("Alice");   // the call IS the statement</pre>
+
+<p>A value-returning method call can appear anywhere an expression of that type is valid:</p>
+
+<pre role="figure" aria-label="Value-returning method in various expression positions">int total = add(5, 3);                        // store in variable
+System.out.println("Sum: " + add(5, 3));      // inside print
+if (add(5, 3) > 7) {                          // in a condition
+    System.out.println("Greater than 7");
+}
+System.out.println(add(add(1, 2), add(3, 4))); // nested: add(3,7)=10</pre>
+<div class="out" role="figure" aria-label="Output">8
+Sum: 8
+Greater than 7
+10</div>
+
+<div class="callout warning" role="region" aria-label="Warning: void method in expression">
+  <div class="callout-title">&#9888;&#65039; Don't Use a void Method in an Expression</div>
+  <p><code>int x = printGreeting("Alice");</code> is a compile error. <code>void</code> means nothing comes back. Only value-returning methods produce something you can store or use in an expression.</p>
+</div>
+
+<!-- ===== SECTION 4 ===== -->
+<h2>4. Parameters and Arguments</h2>
+
+<p>These two words get mixed up constantly. Here is the exact difference:</p>
+
+<ul>
+  <li><strong>Parameters</strong> (formal parameters) &#8212; the variables listed in the method <em>definition</em>. They are placeholders waiting to receive data.</li>
+  <li><strong>Arguments</strong> (actual arguments) &#8212; the actual values you pass when <em>calling</em> the method.</li>
+</ul>
+
+<pre role="figure" aria-label="Parameters vs arguments illustrated">// DEFINITION: name and age are PARAMETERS
+public static void introduce(String name, int age) {
+    System.out.println("Hi, I'm " + name + " and I'm " + age + " years old.");
+}
+
+// CALL: "Alice" and 21 are ARGUMENTS
+introduce("Alice", 21);</pre>
+<div class="out" role="figure" aria-label="Output">Hi, I'm Alice and I'm 21 years old.</div>
+
+<p>Arguments must match parameters in <strong>count, order, and compatible type</strong>. If the definition expects a <code>String</code> then an <code>int</code>, your call must pass them in that exact order.</p>
+
+<h3>4.1 Multiple Parameters</h3>
+
+<pre role="figure" aria-label="Method with multiple parameters: rectangle area">public static double rectangleArea(double width, double height) {
+    return width * height;
+}
+
+// In main:
+double area = rectangleArea(5.0, 3.5);
+System.out.printf("Area: %.2f square units%n", area);</pre>
+<div class="out" role="figure" aria-label="Output">Area: 17.50 square units</div>
+
+<h3>4.2 Pass-by-Value &#8212; Java Sends a Copy</h3>
+
+<p>In Java, arguments are always passed <strong>by value</strong>. The method receives a <em>copy</em> of the argument's value. Whatever the method does to that copy has no effect on the original variable in the caller.</p>
+
+<pre role="figure" aria-label="Pass-by-value demonstration">public static void doubleIt(int x) {
+    x = x * 2;   // changes only the LOCAL copy
+    System.out.println("Inside method, x = " + x);
+}
+
+public static void main(String[] args) {
+    int num = 10;
+    doubleIt(num);
+    System.out.println("After call, num = " + num);   // still 10!
+}</pre>
+<div class="out" role="figure" aria-label="Output">Inside method, x = 20
+After call, num = 10</div>
+
+<p>The method received a copy of <code>10</code>, doubled that copy to <code>20</code>, and printed it. The original <code>num</code> in <code>main</code> was never touched.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: pass-by-value common mistake">
+  <div class="callout-title">&#9888;&#65039; Common Misconception: Methods Can Change My Variable</div>
+  <p>Java sends a copy of the value &#8212; not the variable itself. Whatever happens inside the method stays inside the method. The original is safe. Lock this in: <em>primitives are passed by value; the original never changes inside the method.</em></p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: pass-by-value experiment">
+  <div class="callout-title">&#128295; Try It &#8212; Pass-by-Value Experiment</div>
+  <p>Write a method called <code>triple(int n)</code> that multiplies <code>n</code> by 3 and prints the result inside the method. In <code>main</code>, declare <code>int myNum = 5</code>, call <code>triple(myNum)</code>, then print <code>myNum</code> again. Predict the output before you run it. Were you right?</p>
+</div>
+
+
+<!-- ===== SECTION 5 ===== -->
+<h2>5. Return Values</h2>
+
+<p>When a method computes a result the caller needs, it uses a <code>return</code> statement to send it back.</p>
+
+<h3>5.1 The return Statement</h3>
+
+<pre role="figure" aria-label="Return statement in a temperature converter">public static double celsiusToFahrenheit(double celsius) {
+    double fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+    return fahrenheit;   // send the result back
+}</pre>
+
+<p>When Java hits <code>return fahrenheit</code>, it immediately exits the method and sends that value back to the caller. Any code after <code>return</code> in the same block is unreachable.</p>
+
+<h3>5.2 The Return Type Must Match</h3>
+
+<p>The value you return must be compatible with the declared return type. Return a <code>String</code> from a method declared as <code>int</code> and the compiler will not let it through.</p>
+
+<pre role="figure" aria-label="Various value-returning methods">public static int square(int n) {
+    return n * n;          // int -- matches return type
+}
+
+public static String letterGrade(int score) {
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+    return "F";            // all paths covered -- compiler is happy
+}
+
+public static boolean isPassing(int score) {
+    return score >= 60;    // the expression evaluates to boolean directly
+}</pre>
+
+<h3>5.3 Storing and Using Return Values</h3>
+
+<pre role="figure" aria-label="Three ways to use a return value">public static double celsiusToFahrenheit(double c) {
+    return (c * 9.0 / 5.0) + 32.0;
+}
+
+public static void main(String[] args) {
+    // Option 1: store in a variable
+    double boiling = celsiusToFahrenheit(100.0);
+    System.out.println("Boiling: " + boiling + " F");
+
+    // Option 2: use directly in an expression
+    System.out.printf("Body temp: %.1f F%n", celsiusToFahrenheit(37.0));
+
+    // Option 3: use in a condition
+    if (celsiusToFahrenheit(-10.0) < 32.0) {
+        System.out.println("Below freezing!");
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">Boiling: 212.0 F
+Body temp: 98.6 F
+Below freezing!</div>
+
+<h3>5.4 Early Return in void Methods</h3>
+
+<p>A bare <code>return;</code> (no value) in a <code>void</code> method exits it immediately. Use it to bail out early when a condition makes the rest of the method pointless:</p>
+
+<pre role="figure" aria-label="Early return in a void method">public static void printPositive(int n) {
+    if (n <= 0) {
+        System.out.println("Not a positive number.");
+        return;   // exit -- nothing else to do
+    }
+    System.out.println("Positive: " + n);
+}</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: return exits immediately">
+  <div class="callout-title">&#128161; return Exits the Method Immediately</div>
+  <p><code>return value;</code> does two things: specifies what to send back <em>and</em> immediately exits the method. No extra break or jump needed. Once Java sees <code>return</code>, the method is done.</p>
+</div>
+
+
+<!-- ===== SECTION 6 ===== -->
+<h2>6. Method Overloading</h2>
+
+<p><strong>Method overloading</strong> lets you give multiple methods the same name, as long as their parameter lists are different. Java picks the right version at compile time based on the arguments you pass.</p>
+
+<h3>6.1 A Simple Overloading Example</h3>
+
+<pre role="figure" aria-label="Three overloaded versions of add">public static int add(int a, int b) {
+    return a + b;
+}
+
+public static double add(double a, double b) {
+    return a + b;
+}
+
+public static int add(int a, int b, int c) {
+    return a + b + c;
+}
+
+// In main:
+System.out.println(add(3, 4));        // int version -- 7
+System.out.println(add(3.5, 2.1));    // double version -- 5.6
+System.out.println(add(1, 2, 3));     // three-int version -- 6</pre>
+<div class="out" role="figure" aria-label="Output">7
+5.6
+6</div>
+
+<h3>6.2 println Is Already Overloaded</h3>
+
+<p>You have been using an overloaded method since Module 1. <code>System.out.println()</code> has over a dozen versions &#8212; one for each type. Java picks the right one automatically:</p>
+
+<pre role="figure" aria-label="println overloads used naturally">System.out.println(42);       // calls println(int)
+System.out.println(3.14);     // calls println(double)
+System.out.println("Hello");  // calls println(String)
+System.out.println(true);     // calls println(boolean)</pre>
+
+<h3>6.3 Rules for Valid Overloads</h3>
+
+<p>Two methods can share a name if they differ in at least one of:</p>
+<ul>
+  <li>Number of parameters</li>
+  <li>Types of parameters</li>
+  <li>Order of parameter types (when the types differ)</li>
+</ul>
+
+<div class="callout warning" role="region" aria-label="Warning: return type cannot distinguish overloads">
+  <div class="callout-title">&#9888;&#65039; Return Type Alone Is Not Enough</div>
+  <pre role="figure" aria-label="Invalid overload attempt">// COMPILE ERROR -- same name, same params, only return type differs
+public static int    getValue(int x) { return x; }
+public static double getValue(int x) { return x; }  // ERROR!</pre>
+  <p>Java picks which method to call based on the <em>arguments</em>, not what you plan to do with the result. Return type gives the compiler no information for disambiguation.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: overload a method">
+  <div class="callout-title">&#128295; Try It &#8212; Overload a Method</div>
+  <p>Write three overloaded versions of <code>describe</code>:</p>
+  <ul>
+    <li><code>describe(String name)</code> &#8212; prints "Name: Alice"</li>
+    <li><code>describe(String name, int age)</code> &#8212; prints "Name: Alice, Age: 21"</li>
+    <li><code>describe(String name, int age, String city)</code> &#8212; prints "Name: Alice, Age: 21, City: Fairfax"</li>
+  </ul>
+  <p>Call all three from <code>main</code> and verify the correct version runs each time.</p>
+</div>
+
+<!-- ===== SECTION 7 ===== -->
+<h2>7. Scope</h2>
+
+<p><strong>Scope</strong> refers to where in the program a variable exists and can be used. In Java, a variable declared inside a method is called a <strong>local variable</strong>, and it exists only for the life of that method call. When the method returns, the local variable is gone.</p>
+
+<h3>7.1 Local Variables Live in Their Method</h3>
+
+<pre role="figure" aria-label="Local variable scope demonstration">public static void methodA() {
+    int x = 100;   // x exists only inside methodA
+    System.out.println("methodA: x = " + x);
+}
+
+public static void methodB() {
+    // System.out.println(x);  // COMPILE ERROR -- x doesn't exist here!
+    int x = 999;   // a completely different x -- no conflict
+    System.out.println("methodB: x = " + x);
+}
+
+public static void main(String[] args) {
+    methodA();
+    methodB();
+}</pre>
+<div class="out" role="figure" aria-label="Output">methodA: x = 100
+methodB: x = 999</div>
+
+<p>Both methods have a variable named <code>x</code>, and there is zero conflict between them. They are completely separate variables that happen to share a name. Each one only exists inside its own method.</p>
+
+<h3>7.2 Parameters Are Local Variables Too</h3>
+
+<p>A method&#39;s parameters behave exactly like local variables declared at the top of the method. They receive their initial values from the arguments passed in, and they disappear when the method returns.</p>
+
+<pre role="figure" aria-label="Parameters as local variables">public static double applyDiscount(double price, double rate) {
+    // price and rate are local to this method
+    double savings = price * rate;
+    double finalPrice = price - savings;
+    return finalPrice;
+    // price, rate, savings, finalPrice -- all gone after this return
+}
+
+public static void main(String[] args) {
+    double result = applyDiscount(80.0, 0.20);
+    System.out.printf("After 20%% discount: $%.2f%n", result);
+    // price, rate, savings, finalPrice are NOT accessible here
+}</pre>
+<div class="out" role="figure" aria-label="Output">After 20% discount: $64.00</div>
+
+<h3>7.3 Scope Within a Method</h3>
+
+<p>Scope also applies within blocks inside a method. A variable declared inside an <code>if</code> block or a <code>for</code> loop only exists within that block:</p>
+
+<pre role="figure" aria-label="Block scope within a method">public static void scopeDemo() {
+    int total = 0;
+
+    for (int i = 1; i <= 5; i++) {
+        int squared = i * i;   // squared only exists inside the for loop
+        total += squared;
+    }
+    // i and squared are gone here -- cannot use them
+
+    System.out.println("Sum of squares 1-5: " + total);
+}
+// total is gone after this method returns</pre>
+<div class="out" role="figure" aria-label="Output">Sum of squares 1-5: 55</div>
+
+<div class="callout tip" role="region" aria-label="Tip: scope keeps methods independent">
+  <div class="callout-title">&#128161; Scope Keeps Methods Independent</div>
+  <p>Scope is a feature, not a limitation. It means you can write a method without worrying about what variable names other methods are using. Each method is its own little world. This is a huge reason why programs with methods are easier to write and debug than programs without them.</p>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: using a variable outside its scope">
+  <div class="callout-title">&#9888;&#65039; Common Scope Mistake</div>
+  <pre role="figure" aria-label="Scope error example">public static void main(String[] args) {
+    if (true) {
+        int msg = 42;   // msg lives only inside this if block
+    }
+    System.out.println(msg);  // COMPILE ERROR: msg cannot be found!</pre>
+  <p>Declare variables in the <em>outermost scope</em> where they need to be visible. If you need a variable both inside and outside an <code>if</code> block, declare it before the <code>if</code>.</p>
+</div>
+
+
+<!-- ===== SECTION 8 ===== -->
+<h2>8. Practical Examples</h2>
+
+<p>Everything so far &#8212; method definitions, parameters, return values, overloading, scope &#8212; comes together here. These four examples mirror real problems you will write in class.</p>
+
+<h3>8.1 Temperature Converter (F to C and C to F)</h3>
+
+<p>Two conversion methods, each focused on one direction. Clean and reusable:</p>
+
+<pre role="figure" aria-label="Temperature converter: both directions">public static double fahrenheitToCelsius(double f) {
+    return (f - 32.0) * 5.0 / 9.0;
+}
+
+public static double celsiusToFahrenheit(double c) {
+    return (c * 9.0 / 5.0) + 32.0;
+}
+
+public static void main(String[] args) {
+    System.out.printf("32 F = %.1f C%n",  fahrenheitToCelsius(32.0));   // 0.0 C
+    System.out.printf("100 C = %.1f F%n", celsiusToFahrenheit(100.0));  // 212.0 F
+    System.out.printf("98.6 F = %.1f C%n", fahrenheitToCelsius(98.6));  // 37.0 C
+}</pre>
+<div class="out" role="figure" aria-label="Output">32 F = 0.0 C
+100 C = 212.0 F
+98.6 F = 37.0 C</div>
+
+<h3>8.2 Grade Calculator</h3>
+
+<p>One method handles the scoring logic. <code>main</code> just collects input and displays the result:</p>
+
+<pre role="figure" aria-label="Grade calculator method">public static String letterGrade(int score) {
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+    return "F";
+}
+
+public static boolean isPassing(int score) {
+    return score >= 60;
+}
+
+public static void main(String[] args) {
+    int[] scores = {95, 83, 72, 58, 61};
+
+    for (int score : scores) {
+        String grade = letterGrade(score);
+        String status = isPassing(score) ? "PASS" : "FAIL";
+        System.out.printf("Score: %d  Grade: %s  Status: %s%n",
+                          score, grade, status);
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">Score: 95  Grade: A  Status: PASS
+Score: 83  Grade: B  Status: PASS
+Score: 72  Grade: C  Status: PASS
+Score: 58  Grade: F  Status: FAIL
+Score: 61  Grade: D  Status: PASS</div>
+
+<h3>8.3 Input Validation Method</h3>
+
+<p>A dedicated method that validates user input, called in a loop until valid data is entered. This pattern shows up in nearly every real program:</p>
+
+<pre role="figure" aria-label="Input validation method">import java.util.Scanner;
+
+public class ValidatedInput {
+
+    public static boolean isValidAge(int age) {
+        return age >= 0 && age <= 120;
+    }
+
+    public static int getValidAge(Scanner sc) {
+        int age;
+        do {
+            System.out.print("Enter age (0-120): ");
+            age = sc.nextInt();
+            if (!isValidAge(age)) {
+                System.out.println("Invalid. Try again.");
+            }
+        } while (!isValidAge(age));
+        return age;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int age = getValidAge(sc);
+        System.out.println("Valid age entered: " + age);
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">Enter age (0-120): -5
+Invalid. Try again.
+Enter age (0-120): 200
+Invalid. Try again.
+Enter age (0-120): 25
+Valid age entered: 25</div>
+
+<h3>8.4 Tax Calculator &#8212; Multiple Methods Working Together</h3>
+
+<p>This is the kind of program where methods shine. Each piece is isolated, testable, and reusable:</p>
+
+<pre role="figure" aria-label="Tax calculator with multiple methods">public class TaxCalculator {
+
+    // Calculate sales tax amount
+    public static double calculateTax(double subtotal, double taxRate) {
+        return subtotal * taxRate;
+    }
+
+    // Calculate the total after tax
+    public static double calculateTotal(double subtotal, double taxRate) {
+        return subtotal + calculateTax(subtotal, taxRate);
+    }
+
+    // Print a formatted receipt line
+    public static void printReceiptLine(String label, double amount) {
+        System.out.printf("  %-15s $%7.2f%n", label, amount);
+    }
+
+    public static void main(String[] args) {
+        double subtotal = 45.99;
+        double taxRate  = 0.06;   // 6% Virginia sales tax
+
+        double tax   = calculateTax(subtotal, taxRate);
+        double total = calculateTotal(subtotal, taxRate);
+
+        System.out.println("===== RECEIPT =====");
+        printReceiptLine("Subtotal:",  subtotal);
+        printReceiptLine("Tax (6%):",  tax);
+        printReceiptLine("Total:",     total);
+        System.out.println("===================");
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">===== RECEIPT =====
+  Subtotal:        $ 45.99
+  Tax (6%):        $  2.76
+  Total:           $ 48.75
+===================</div>
+
+<p>Notice that <code>calculateTotal</code> calls <code>calculateTax</code> &#8212; methods can call other methods. The logic is layered and easy to follow. If the tax rate changes, you update one method. If the receipt format changes, you update <code>printReceiptLine</code>. Nothing else has to change.</p>
+
+<div class="callout try-it" role="region" aria-label="Try It: extend the tax calculator">
+  <div class="callout-title">&#128295; Try It &#8212; Extend the Tax Calculator</div>
+  <p>Add these two methods to the tax calculator and call them from <code>main</code>:</p>
+  <ul>
+    <li><code>applyDiscount(double subtotal, double discountRate)</code> &#8212; returns the price after the discount</li>
+    <li><code>printSeparator()</code> &#8212; a void method that just prints <code>"==================="</code></li>
+  </ul>
+  <p>Then print a receipt that shows: original price, discounted price, tax on the discounted price, and final total.</p>
+</div>
+
+<!-- ===== VOCABULARY TABLE ===== -->
+<h2>Vocabulary Review</h2>
+
+<table class="vocab-table" aria-label="Module 07 vocabulary review">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>method</td><td>A named block of code that performs a specific task. Defined once, called as many times as needed.</td></tr>
+    <tr><td>void method</td><td>A method that performs a task but does not return a value to the caller. Declared with <code>void</code> as the return type.</td></tr>
+    <tr><td>value-returning method</td><td>A method that computes a result and sends it back to the caller using a <code>return</code> statement.</td></tr>
+    <tr><td>parameter</td><td>A variable in the method <em>definition</em> that receives data when the method is called. Also called a formal parameter.</td></tr>
+    <tr><td>argument</td><td>The actual value passed to a method when it is called. Also called an actual argument.</td></tr>
+    <tr><td>return type</td><td>The data type declared before the method name that specifies what kind of value the method returns. <code>void</code> means nothing is returned.</td></tr>
+    <tr><td>return statement</td><td>The statement that exits a method and optionally sends a value back to the caller: <code>return expression;</code></td></tr>
+    <tr><td>pass-by-value</td><td>Java's argument-passing mechanism: the method receives a copy of the argument's value. Changes to the parameter do not affect the original variable.</td></tr>
+    <tr><td>method overloading</td><td>Defining multiple methods with the same name but different parameter lists. Java picks the correct version based on the argument types at compile time.</td></tr>
+    <tr><td>scope</td><td>The region of a program where a variable is accessible. Local variables are in scope only within the method where they are declared.</td></tr>
+    <tr><td>local variable</td><td>A variable declared inside a method. It exists only during the execution of that method and cannot be accessed from other methods.</td></tr>
+    <tr><td>access modifier</td><td>A keyword that controls which code can call a method. <code>public</code> means any code can call it; <code>static</code> means it belongs to the class rather than an object instance.</td></tr>
+  </tbody>
+</table>
+
+
+<!-- ===== MODULE SUMMARY ===== -->
+<div class="callout summary" role="region" aria-label="Module 07 Summary">
+  <div class="callout-title">&#128203; Module 07 Summary</div>
+  <ul>
+    <li><strong>Methods</strong> are named blocks of code. Define once, call many times. You have been using them since Module 1.</li>
+    <li><strong>Syntax:</strong> <code>public static returnType methodName(parameterList) { body }</code></li>
+    <li><strong>void</strong> methods perform a task and return nothing. Value-returning methods compute a result and send it back with <code>return</code>.</li>
+    <li><strong>Calling a method</strong> transfers control to the method, runs it, then returns control to the next statement after the call.</li>
+    <li><strong>Parameters</strong> are placeholders in the definition. <strong>Arguments</strong> are the real values you pass in the call. They must match in count, order, and compatible type.</li>
+    <li><strong>Pass-by-value:</strong> Java passes a copy of the argument. The original variable in the caller is never modified by the method.</li>
+    <li><strong>Return values</strong> can be stored in variables, used in expressions, passed as arguments, or used in conditions.</li>
+    <li><strong>Method overloading:</strong> same name, different parameter lists. Java picks the right version at compile time. Return type alone does not distinguish overloads.</li>
+    <li><strong>Scope:</strong> local variables exist only inside their method. Parameters are local variables. Two methods can use the same variable names without conflict.</li>
+    <li><strong>Practical design:</strong> one method, one job. Short, well-named methods make programs easier to test, debug, and reuse.</li>
+  </ul>
+</div>
+
+
+<!-- ===== QUIZ ===== -->
+<div class="page-break"></div>
+<h2>Module 07 Quiz</h2>
+<p>Choose the best answer for each question. Record your answers on a separate sheet.</p>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">1.</span> Which of the following is a correct definition of a method that takes no parameters and returns nothing?</p>
+  <ul class="quiz-options">
+    <li>A) <code>public static int displayMenu() { System.out.println("Menu"); }</code></li>
+    <li>B) <code>public static void displayMenu() { System.out.println("Menu"); }</code></li>
+    <li>C) <code>static displayMenu() { System.out.println("Menu"); }</code></li>
+    <li>D) <code>public void static displayMenu() { System.out.println("Menu"); }</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">2.</span> What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz Q2 code snippet">public static int mystery(int a, int b) {
+    return a * 2 + b;
+}
+
+public static void main(String[] args) {
+    int result = mystery(3, 4);
+    System.out.println(result);
+}</pre>
+  <ul class="quiz-options">
+    <li>A) 12</li>
+    <li>B) 7</li>
+    <li>C) 14</li>
+    <li>D) 10</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">3.</span> In Java, when you pass a primitive (like an <code>int</code>) to a method, what does the method receive?</p>
+  <ul class="quiz-options">
+    <li>A) A copy of the value; the original variable cannot be changed by the method</li>
+    <li>B) A reference to the original variable so it can modify it</li>
+    <li>C) The variable itself, which the method can rename</li>
+    <li>D) Nothing &#8212; primitives cannot be passed to methods</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">4.</span> What is printed by this code?</p>
+  <pre role="figure" aria-label="Quiz Q4 code snippet">public static void changeIt(int n) {
+    n = n + 100;
+}
+
+public static void main(String[] args) {
+    int x = 5;
+    changeIt(x);
+    System.out.println(x);
+}</pre>
+  <ul class="quiz-options">
+    <li>A) 105</li>
+    <li>B) 100</li>
+    <li>C) 0</li>
+    <li>D) 5</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">5.</span> Which term describes the actual value you supply when calling a method?</p>
+  <ul class="quiz-options">
+    <li>A) Parameter</li>
+    <li>B) Argument</li>
+    <li>C) Return value</li>
+    <li>D) Identifier</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">6.</span> A student writes the following two methods. Which statement is true?</p>
+  <pre role="figure" aria-label="Quiz Q6 code snippet">public static int compute(int x)    { return x * 2; }
+public static double compute(int x) { return x * 2.0; }</pre>
+  <ul class="quiz-options">
+    <li>A) This is valid overloading because the return types are different</li>
+    <li>B) This is valid overloading because the method bodies differ</li>
+    <li>C) This will not compile because return type alone cannot distinguish overloaded methods</li>
+    <li>D) This is valid because Java will call the <code>double</code> version when the result is stored in a <code>double</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">7.</span> What is the output of the following program?</p>
+  <pre role="figure" aria-label="Quiz Q7 code snippet">public static String classify(int n) {
+    if (n > 0) return "positive";
+    if (n < 0) return "negative";
+    return "zero";
+}
+
+public static void main(String[] args) {
+    System.out.println(classify(-7));
+    System.out.println(classify(0));
+}</pre>
+  <ul class="quiz-options">
+    <li>A) positive<br>&nbsp;&nbsp;&nbsp;&nbsp;zero</li>
+    <li>B) negative<br>&nbsp;&nbsp;&nbsp;&nbsp;negative</li>
+    <li>C) negative<br>&nbsp;&nbsp;&nbsp;&nbsp;zero</li>
+    <li>D) zero<br>&nbsp;&nbsp;&nbsp;&nbsp;negative</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">8.</span> Which of the following correctly demonstrates method overloading?</p>
+  <ul class="quiz-options">
+    <li>A) Two methods with the same name, same parameters, and same return type</li>
+    <li>B) Two methods with the same name but a different number of parameters</li>
+    <li>C) Two methods with different names and different parameter types</li>
+    <li>D) Two methods with different names but the same parameter list</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">9.</span> What is the scope of a local variable declared inside a method?</p>
+  <ul class="quiz-options">
+    <li>A) It is accessible from any method in the same class</li>
+    <li>B) It is accessible from any method in the same file</li>
+    <li>C) It is accessible from <code>main</code> only</li>
+    <li>D) It exists only within the method where it is declared</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">10.</span> Trace this code carefully. What is printed?</p>
+  <pre role="figure" aria-label="Quiz Q10 code snippet">public static int doubleAndAdd(int x, int y) {
+    return x * 2 + y;
+}
+
+public static void main(String[] args) {
+    int a = 4;
+    int b = 3;
+    int result = doubleAndAdd(b, a);
+    System.out.println(result);
+}</pre>
+  <ul class="quiz-options">
+    <li>A) 11</li>
+    <li>B) 14</li>
+    <li>C) 10</li>
+    <li>D) 7</li>
+  </ul>
+</div>
+
+
+<div class="footer">
+  ITP 120 &#8212; Programming with Java &nbsp;|&nbsp; NOVA &nbsp;|&nbsp; Module 07 &#8212; Methods &nbsp;|&nbsp; Instructor: Randy Michak
+</div>
+
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 09 — Arrays | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page {
+      size: letter;
+      margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 09 — Arrays"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .objectives .callout-title::before { content: "🎯 "; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .key-terms .callout-title::before { content: "📖 "; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .analogy .callout-title::before { content: "🧠 "; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .warning .callout-title::before { content: "⚠️ "; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .tip .callout-title::before { content: "💡 "; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .try-it .callout-title::before { content: "🔧 "; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    .summary .callout-title::before { content: "📋 "; }
+    pre, .code-block { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; }
+    code { font-family: 'Courier New', monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .output { color: #94a3b8; font-style: italic; }
+    .comment { color: #6b7280; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    thead th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<div class="title-section" role="banner">
+  <h1>Module 09 &mdash; Arrays</h1>
+  <div class="course">ITP 120 &mdash; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<p><strong>Prerequisites:</strong> Modules 1&ndash;8 &mdash; you should be comfortable with variables, control flow, methods, and the basics of OOP before working through this module.</p>
+
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">Learning Objectives</div>
+  <ul>
+    <li>Declare, create, and initialize arrays in Java</li>
+    <li>Access and modify array elements using index notation</li>
+    <li>Use <code>.length</code> and loops to process every element</li>
+    <li>Implement common operations: sum, average, min, max, search, count</li>
+    <li>Pass arrays to methods and return arrays from methods</li>
+    <li>Use utility methods from <code>java.util.Arrays</code></li>
+    <li>Declare and traverse two-dimensional arrays with nested loops</li>
+    <li>Recognize and avoid the most common array bugs</li>
+  </ul>
+</div>
+
+<!-- ═══ SECTION 1 ═══ -->
+<h2>1. What Are Arrays?</h2>
+
+<p>Every variable you have written so far holds exactly one value. That is fine for a single score or a single name. But what if you need to store 30 quiz scores? Writing <code>score1</code>, <code>score2</code>, &hellip; <code>score30</code> is painful and nearly impossible to loop over.</p>
+
+<p>An <strong>array</strong> solves this. An array is a fixed-size, ordered collection of elements that are all the same type. Once you create an array with a certain size, that size never changes.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: Row of Mailboxes">
+  <div class="callout-title">Think of It Like a Row of Mailboxes</div>
+  <p>Picture a row of 5 mailboxes outside an apartment building. Each box is numbered 0&ndash;4. Every box holds exactly one piece of mail. You can reach any box instantly if you know its number &mdash; that instant access is what makes arrays efficient.</p>
+</div>
+
+<h3>Zero-Based Indexing</h3>
+<p>Java arrays start counting at <strong>0</strong>, not 1. An array with 5 elements has valid indexes 0, 1, 2, 3, and 4. Index 5 does not exist &mdash; trying to use it causes a runtime crash.</p>
+
+<pre role="region" aria-label="Array index diagram"><code><span class="comment">// 5-element array conceptual layout</span>
+Index:   0     1     2     3     4
+       +-----+-----+-----+-----+-----+
+Value: | 10  | 20  | 30  | 40  | 50  |
+       +-----+-----+-----+-----+-----+</code></pre>
+
+<div class="callout key-terms" role="region" aria-label="Key Terms">
+  <div class="callout-title">Key Terms</div>
+  <ul>
+    <li><strong>Array</strong> &mdash; a fixed-size, ordered collection of same-type elements stored in contiguous memory</li>
+    <li><strong>Element</strong> &mdash; one item stored inside an array</li>
+    <li><strong>Index</strong> &mdash; the integer position used to access a specific element (starts at 0)</li>
+    <li><strong>Zero-based indexing</strong> &mdash; the first element is at index 0, not index 1</li>
+  </ul>
+</div>
+
+<!-- ═══ SECTION 2 ═══ -->
+<h2>2. Declaring and Creating Arrays</h2>
+
+<h3>Declaration Syntax</h3>
+<p>Declaring an array tells Java the type and name. It does <em>not</em> create the array or allocate memory yet.</p>
+
+<pre role="region" aria-label="Array declaration syntax"><code><span class="comment">// Syntax: type[] arrayName;</span>
+int[]    scores;
+String[] names;
+double[] prices;</code></pre>
+
+<h3>Creating an Array with <code>new</code></h3>
+<p>Creating the array reserves memory for a specific number of elements. All elements are set to their default value automatically: <code>0</code> for numeric types, <code>false</code> for boolean, <code>null</code> for objects and Strings.</p>
+
+<pre role="region" aria-label="Creating arrays with the new keyword"><code><span class="comment">// Declaration and creation in one line (most common pattern)</span>
+int[]    scores = new int[5];      <span class="comment">// 5 ints, all initialized to 0</span>
+String[] names  = new String[3];   <span class="comment">// 3 Strings, all initialized to null</span>
+double[] prices = new double[10];  <span class="comment">// 10 doubles, all initialized to 0.0</span></code></pre>
+
+<h3>Initialization Lists</h3>
+<p>When you already know the values at compile time, use curly braces. Java counts the values and sets the array size automatically.</p>
+
+<pre role="region" aria-label="Array initialization lists with curly braces"><code>int[]    scores = { 88, 92, 75, 100, 63 };        <span class="comment">// length 5</span>
+String[] days   = { "Mon", "Tue", "Wed", "Thu", "Fri" }; <span class="comment">// length 5</span>
+double[] temps  = { 98.6, 37.0, 212.0 };          <span class="comment">// length 3</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: new vs initialization list">
+  <div class="callout-title">new vs. Initialization List</div>
+  <p>Use <code>new int[n]</code> when you know the size but not the values yet (you will fill them in with user input or calculations). Use an initialization list <code>{ v1, v2, &hellip; }</code> when you know the values at the time you write the code.</p>
+</div>
+
+<!-- ═══ SECTION 3 ═══ -->
+<h2>3. Accessing Array Elements</h2>
+
+<h3>Index Notation</h3>
+<p>Use <code>arrayName[index]</code> to read or write any element.</p>
+
+<pre role="region" aria-label="Reading and writing array elements with index notation"><code>int[] scores = { 88, 92, 75, 100, 63 };
+
+<span class="comment">// Reading elements</span>
+System.out.println(scores[0]);   <span class="output">// 88</span>
+System.out.println(scores[3]);   <span class="output">// 100</span>
+
+<span class="comment">// Writing (overwriting) an element</span>
+scores[2] = 80;
+System.out.println(scores[2]);   <span class="output">// 80  (was 75)</span>
+
+<span class="comment">// A variable can serve as the index</span>
+int i = 4;
+System.out.println(scores[i]);   <span class="output">// 63</span></code></pre>
+
+<h3>ArrayIndexOutOfBoundsException</h3>
+<p>This is the most common array crash. It happens the instant you use an index below 0 or at/above the array's length.</p>
+
+<pre role="region" aria-label="ArrayIndexOutOfBoundsException example"><code>int[] scores = new int[5];   <span class="comment">// valid indexes: 0, 1, 2, 3, 4</span>
+
+scores[5] = 90;
+<span class="output">// Exception in thread "main"
+// java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 5</span></code></pre>
+
+<div class="callout warning" role="region" aria-label="Warning: ArrayIndexOutOfBoundsException">
+  <div class="callout-title">ArrayIndexOutOfBoundsException</div>
+  <p>For an array of length <code>n</code>, valid indexes are <strong>0 through n&nbsp;&minus;&nbsp;1</strong>. Index <code>n</code> is always out of bounds. Read the exception message &mdash; it tells you the index you tried and the array's length, which is enough to find the bug.</p>
+</div>
+
+<!-- ═══ SECTION 4 ═══ -->
+<h2>4. Array Length</h2>
+
+<p>Every array has a built-in <code>.length</code> <strong>property</strong> that tells you how many elements it holds. It is a field, not a method &mdash; no parentheses.</p>
+
+<pre role="region" aria-label="Array length property"><code>int[] scores = { 88, 92, 75, 100, 63 };
+
+System.out.println(scores.length);   <span class="output">// 5</span>
+
+<span class="comment">// scores.length()  &lt;-- compile error: .length is a field, not a method</span></code></pre>
+
+<h3>Using <code>.length</code> in Loops</h3>
+<p>Hard-coding the number of elements in a loop condition is fragile. Use <code>.length</code> so the loop still works if the array size ever changes.</p>
+
+<pre role="region" aria-label="Using .length in a for loop"><code>int[] scores = { 88, 92, 75, 100, 63 };
+
+for (int i = 0; i &lt; scores.length; i++) {
+    System.out.println(scores[i]);
+}
+<span class="output">// 88
+// 92
+// 75
+// 100
+// 63</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: length vs length()">
+  <div class="callout-title">length vs. length()</div>
+  <p>Arrays use <code>.length</code> (no parentheses &mdash; it is a field). Strings use <code>.length()</code> (with parentheses &mdash; it is a method). The distinction is annoying but important. You will get a compiler error immediately if you mix them up, so at least it fails early.</p>
+</div>
+
+<!-- ═══ SECTION 5 ═══ -->
+<h2>5. Processing Arrays with Loops</h2>
+
+<h3>Standard for Loop</h3>
+<p>The standard <code>for</code> loop gives you the index at each step, so you can read <em>and</em> write elements, process every other element, or traverse in reverse.</p>
+
+<pre role="region" aria-label="Standard for loop processing an array"><code>int[] numbers = { 3, 7, 1, 9, 4 };
+
+<span class="comment">// Print each element with its index</span>
+for (int i = 0; i &lt; numbers.length; i++) {
+    System.out.println("numbers[" + i + "] = " + numbers[i]);
+}
+<span class="output">// numbers[0] = 3
+// numbers[1] = 7
+// numbers[2] = 1
+// numbers[3] = 9
+// numbers[4] = 4</span>
+
+<span class="comment">// Double every element (requires writing via index)</span>
+for (int i = 0; i &lt; numbers.length; i++) {
+    numbers[i] = numbers[i] * 2;
+}</code></pre>
+
+<h3>Enhanced for-each Loop</h3>
+<p>The for-each loop is cleaner when you just need to read every element in order. A local variable takes on each element's value, one at a time.</p>
+
+<pre role="region" aria-label="Enhanced for-each loop"><code>int[] numbers = { 3, 7, 1, 9, 4 };
+
+<span class="comment">// Syntax: for (type variable : arrayName)</span>
+for (int num : numbers) {
+    System.out.println(num);
+}
+<span class="output">// 3
+// 7
+// 1
+// 9
+// 4</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: when to use which loop">
+  <div class="callout-title">Which Loop to Use</div>
+  <ul>
+    <li><strong>Standard for loop</strong> &mdash; you need the index, you need to write to elements, you need to skip elements, or you need to traverse in reverse</li>
+    <li><strong>for-each</strong> &mdash; you are reading every element in order and the index does not matter</li>
+  </ul>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: for-each cannot modify the array">
+  <div class="callout-title">for-each Cannot Modify the Array</div>
+  <p>The loop variable is a <em>copy</em> of the element's value. Changing the copy does not change the array.</p>
+  <pre role="region" aria-label="for-each modification pitfall"><code>int[] nums = { 1, 2, 3 };
+for (int n : nums) {
+    n = n * 10;   <span class="comment">// modifies the copy only &mdash; array unchanged</span>
+}
+System.out.println(nums[0]);   <span class="output">// still 1</span></code></pre>
+</div>
+
+<!-- ═══ SECTION 6 ═══ -->
+<h2>6. Common Array Operations</h2>
+
+<h3>Sum and Average</h3>
+<pre role="region" aria-label="Computing sum and average of an array"><code>int[] scores = { 88, 92, 75, 100, 63 };
+int sum = 0;
+
+for (int score : scores) {
+    sum += score;
+}
+
+double average = (double) sum / scores.length;
+
+System.out.println("Sum: "     + sum);      <span class="output">// Sum: 418</span>
+System.out.println("Average: " + average);  <span class="output">// Average: 83.6</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: cast before dividing">
+  <div class="callout-title">Cast Before Dividing</div>
+  <p>Both <code>sum</code> and <code>scores.length</code> are integers. Integer division drops the decimal. Cast one to <code>double</code> first: <code>(double) sum / scores.length</code>.</p>
+</div>
+
+<h3>Find Minimum and Maximum</h3>
+<pre role="region" aria-label="Finding minimum and maximum values in an array"><code>int[] scores = { 88, 92, 75, 100, 63 };
+
+<span class="comment">// Seed with the first element, then challenge with every other</span>
+int min = scores[0];
+int max = scores[0];
+
+for (int i = 1; i &lt; scores.length; i++) {
+    if (scores[i] &lt; min) min = scores[i];
+    if (scores[i] &gt; max) max = scores[i];
+}
+
+System.out.println("Min: " + min);   <span class="output">// Min: 63</span>
+System.out.println("Max: " + max);   <span class="output">// Max: 100</span></code></pre>
+
+<h3>Search for a Value (Linear Search)</h3>
+<pre role="region" aria-label="Linear search through an array"><code>int[] scores = { 88, 92, 75, 100, 63 };
+int target  = 75;
+int foundAt = -1;   <span class="comment">// -1 signals "not found"</span>
+
+for (int i = 0; i &lt; scores.length; i++) {
+    if (scores[i] == target) {
+        foundAt = i;
+        break;
+    }
+}
+
+if (foundAt != -1) {
+    System.out.println("Found " + target + " at index " + foundAt);
+} else {
+    System.out.println(target + " not in array");
+}
+<span class="output">// Found 75 at index 2</span></code></pre>
+
+<h3>Count Occurrences</h3>
+<pre role="region" aria-label="Counting occurrences of a value in an array"><code>int[] rolls = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 };
+int count = 0;
+
+for (int roll : rolls) {
+    if (roll == 5) count++;
+}
+
+System.out.println("Fives rolled: " + count);   <span class="output">// Fives rolled: 3</span></code></pre>
+
+<div class="callout try-it" role="region" aria-label="Try It Yourself: array operations">
+  <div class="callout-title">Try It Yourself</div>
+  <p>Write a program that reads 6 integers from the user (Scanner in a loop), stores them in an array, then prints the sum, average, and the largest value. Use <code>.length</code> everywhere &mdash; never hard-code the number 6.</p>
+</div>
+
+<!-- ═══ SECTION 7 ═══ -->
+<h2>7. Arrays and Methods</h2>
+
+<h3>Passing Arrays to Methods</h3>
+<p>When you pass an array to a method, Java passes the <strong>reference</strong> &mdash; both the caller and the method are pointing at the same object in memory. Any changes made inside the method affect the original array.</p>
+
+<pre role="region" aria-label="Passing an array to a method by reference"><code>public static void doubleAll(int[] arr) {
+    for (int i = 0; i &lt; arr.length; i++) {
+        arr[i] *= 2;
+    }
+}
+
+public static void main(String[] args) {
+    int[] nums = { 1, 2, 3, 4, 5 };
+    doubleAll(nums);
+
+    for (int n : nums) {
+        System.out.print(n + " ");
+    }
+    <span class="output">// 2 4 6 8 10</span>
+}</code></pre>
+
+<div class="callout warning" role="region" aria-label="Warning: arrays are passed by reference">
+  <div class="callout-title">Arrays Are Passed by Reference</div>
+  <p>Unlike primitives (<code>int</code>, <code>double</code>, etc.), passing an array to a method does <em>not</em> give the method a copy. It gives the method access to the same array. If you need to protect the original, use <code>Arrays.copyOf()</code> to make a copy before passing it.</p>
+</div>
+
+<h3>Returning Arrays from Methods</h3>
+<pre role="region" aria-label="Returning an array from a method"><code>public static int[] buildSquares(int n) {
+    int[] result = new int[n];
+    for (int i = 0; i &lt; n; i++) {
+        result[i] = (i + 1) * (i + 1);
+    }
+    return result;
+}
+
+public static void main(String[] args) {
+    int[] squares = buildSquares(5);
+    for (int s : squares) {
+        System.out.print(s + " ");
+    }
+    <span class="output">// 1 4 9 16 25</span>
+}</code></pre>
+
+<!-- ═══ SECTION 8 ═══ -->
+<h2>8. The Arrays Class</h2>
+
+<p>Java's <code>java.util.Arrays</code> class has ready-made methods for the most common array tasks. Add the import at the top of your file.</p>
+
+<pre role="region" aria-label="Importing java.util.Arrays"><code>import java.util.Arrays;</code></pre>
+
+<h3>Arrays.sort()</h3>
+<pre role="region" aria-label="Arrays.sort example"><code>int[] nums = { 5, 2, 8, 1, 9, 3 };
+Arrays.sort(nums);
+System.out.println(Arrays.toString(nums));
+<span class="output">// [1, 2, 3, 5, 8, 9]</span></code></pre>
+
+<h3>Arrays.toString()</h3>
+<p>Prints the array in a readable <code>[a, b, c]</code> format. Without this, printing an array directly produces a useless memory address.</p>
+
+<pre role="region" aria-label="Arrays.toString example"><code>int[] nums = { 10, 20, 30 };
+System.out.println(nums);                  <span class="output">// [I@1b6d3586  &lt;-- useless</span>
+System.out.println(Arrays.toString(nums)); <span class="output">// [10, 20, 30]  &lt;-- readable</span></code></pre>
+
+<h3>Arrays.copyOf()</h3>
+<p>Creates a new array that is a copy of an existing one. Use this when you want to work with a modified version without touching the original.</p>
+
+<pre role="region" aria-label="Arrays.copyOf example"><code>int[] original = { 1, 2, 3, 4, 5 };
+
+int[] copy    = Arrays.copyOf(original, original.length);  <span class="comment">// all 5</span>
+int[] partial = Arrays.copyOf(original, 3);                <span class="comment">// first 3</span>
+
+System.out.println(Arrays.toString(copy));    <span class="output">// [1, 2, 3, 4, 5]</span>
+System.out.println(Arrays.toString(partial)); <span class="output">// [1, 2, 3]</span></code></pre>
+
+<h3>Arrays.fill()</h3>
+<p>Sets every element to the same value &mdash; handy for initializing to something other than zero.</p>
+
+<pre role="region" aria-label="Arrays.fill example"><code>int[] grades = new int[5];
+Arrays.fill(grades, 100);
+System.out.println(Arrays.toString(grades));
+<span class="output">// [100, 100, 100, 100, 100]</span></code></pre>
+
+<table role="grid" aria-label="java.util.Arrays method summary">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">What It Does</th>
+      <th scope="col">Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Arrays.sort(arr)</code></td><td>Sorts elements ascending (modifies the array in-place)</td><td><code>void</code></td></tr>
+    <tr><td><code>Arrays.toString(arr)</code></td><td>Produces a readable string like <code>[1, 2, 3]</code></td><td><code>String</code></td></tr>
+    <tr><td><code>Arrays.copyOf(arr, len)</code></td><td>Returns a new copy with the specified length</td><td>New array</td></tr>
+    <tr><td><code>Arrays.fill(arr, val)</code></td><td>Sets every element to <code>val</code></td><td><code>void</code></td></tr>
+  </tbody>
+</table>
+
+<div class="callout try-it" role="region" aria-label="Try It Yourself: Arrays class">
+  <div class="callout-title">Try It Yourself</div>
+  <p>Create an unsorted array of 7 integers. Print it with <code>Arrays.toString()</code>. Sort it with <code>Arrays.sort()</code> and print again. Then copy it with <code>Arrays.copyOf()</code>, fill the copy with <code>-1</code> using <code>Arrays.fill()</code>, and print the copy to confirm.</p>
+</div>
+
+<!-- ═══ SECTION 9 ═══ -->
+<h2>9. Two-Dimensional Arrays</h2>
+
+<p>A 2D array is an array of arrays &mdash; think of it as a table with rows and columns.</p>
+
+<h3>Declaration and Creation</h3>
+<pre role="region" aria-label="Declaring and creating a 2D array"><code><span class="comment">// Syntax: type[][] name = new type[rows][cols];</span>
+int[][] grid = new int[3][4];   <span class="comment">// 3 rows, 4 columns, all 0</span>
+
+<span class="comment">// Initialization list</span>
+int[][] matrix = {
+    { 1, 2, 3 },
+    { 4, 5, 6 },
+    { 7, 8, 9 }
+};
+<span class="comment">// matrix[0][0] = 1   matrix[0][2] = 3
+// matrix[1][1] = 5   matrix[2][2] = 9</span></code></pre>
+
+<h3>Accessing Elements</h3>
+<p>Use two indexes: <code>[row][col]</code>. Both start at 0.</p>
+
+<pre role="region" aria-label="Accessing 2D array elements"><code>int[][] matrix = {
+    { 1, 2, 3 },
+    { 4, 5, 6 },
+    { 7, 8, 9 }
+};
+
+System.out.println(matrix[0][0]);   <span class="output">// 1  (row 0, col 0)</span>
+System.out.println(matrix[1][2]);   <span class="output">// 6  (row 1, col 2)</span>
+System.out.println(matrix[2][1]);   <span class="output">// 8  (row 2, col 1)</span>
+
+matrix[1][1] = 99;
+System.out.println(matrix[1][1]);   <span class="output">// 99</span></code></pre>
+
+<h3>Nested Loops to Process a 2D Array</h3>
+<p>Use an outer loop for rows and an inner loop for columns. <code>matrix.length</code> gives the row count; <code>matrix[0].length</code> gives the column count.</p>
+
+<pre role="region" aria-label="Nested loops processing a 2D array"><code>int[][] matrix = {
+    { 1, 2, 3 },
+    { 4, 5, 6 },
+    { 7, 8, 9 }
+};
+
+for (int row = 0; row &lt; matrix.length; row++) {
+    for (int col = 0; col &lt; matrix[row].length; col++) {
+        System.out.print(matrix[row][col] + " ");
+    }
+    System.out.println();   <span class="comment">// newline after each row</span>
+}
+<span class="output">// 1 2 3
+// 4 5 6
+// 7 8 9</span></code></pre>
+
+<h3>Practical Example: Classroom Grade Table</h3>
+<pre role="region" aria-label="2D array practical example: grade table"><code><span class="comment">// 3 students, 4 quiz scores each</span>
+int[][] grades = {
+    { 88, 92, 75, 100 },   <span class="comment">// Student 0</span>
+    { 70, 85, 90,  78 },   <span class="comment">// Student 1</span>
+    { 95, 60, 88,  82 }    <span class="comment">// Student 2</span>
+};
+
+<span class="comment">// Print each student's average</span>
+for (int s = 0; s &lt; grades.length; s++) {
+    int sum = 0;
+    for (int q = 0; q &lt; grades[s].length; q++) {
+        sum += grades[s][q];
+    }
+    double avg = (double) sum / grades[s].length;
+    System.out.printf("Student %d average: %.1f%n", s, avg);
+}
+<span class="output">// Student 0 average: 88.8
+// Student 1 average: 80.8
+// Student 2 average: 81.3</span></code></pre>
+
+<!-- ═══ SECTION 10 ═══ -->
+<h2>10. Common Mistakes</h2>
+
+<div class="callout warning" role="region" aria-label="Warning: Off-by-one errors">
+  <div class="callout-title">Mistake 1: Off-by-One Errors</div>
+  <p>The last valid index is <code>length - 1</code>, not <code>length</code>. Using <code>&lt;=</code> instead of <code>&lt;</code> in a loop condition is the classic version of this bug.</p>
+  <pre role="region" aria-label="Off-by-one error example"><code>int[] arr = new int[5];
+
+<span class="comment">// WRONG: i <= arr.length runs i = 5, which crashes</span>
+for (int i = 0; i &lt;= arr.length; i++) { arr[i] = i; }
+
+<span class="comment">// CORRECT</span>
+for (int i = 0; i &lt; arr.length; i++) { arr[i] = i; }</code></pre>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: null vs empty array">
+  <div class="callout-title">Mistake 2: null vs. Empty Array</div>
+  <p><code>null</code> means the variable does not point to any array at all. An empty array (<code>new int[0]</code>) exists but has zero elements. Calling <code>.length</code> on a <code>null</code> reference crashes with a <code>NullPointerException</code>.</p>
+  <pre role="region" aria-label="null vs empty array example"><code>int[] a = null;          <span class="comment">// no array at all</span>
+int[] b = new int[0];    <span class="comment">// empty array: exists, length = 0</span>
+
+System.out.println(b.length);   <span class="output">// 0  (fine)</span>
+System.out.println(a.length);   <span class="output">// NullPointerException  (crash)</span></code></pre>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: forgetting the new keyword">
+  <div class="callout-title">Mistake 3: Forgetting <code>new</code></div>
+  <p>Declaring an array variable without creating the array leaves it as <code>null</code>. You must call <code>new</code> (or use an initialization list) before using the array.</p>
+  <pre role="region" aria-label="Forgetting new keyword example"><code>int[] scores;        <span class="comment">// declared but null</span>
+scores[0] = 90;      <span class="output">// NullPointerException</span>
+
+<span class="comment">// Fix: create it first</span>
+int[] scores = new int[5];
+scores[0] = 90;      <span class="comment">// fine</span></code></pre>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: modifying array in for-each">
+  <div class="callout-title">Mistake 4: Trying to Modify the Array in a for-each Loop</div>
+  <p>As covered in Section 5, the for-each loop variable is a copy. Assigning to it has no effect on the original array. Use a standard <code>for</code> loop when you need to write to elements.</p>
+  <pre role="region" aria-label="for-each modification mistake example"><code>int[] nums = { 1, 2, 3 };
+
+<span class="comment">// WRONG: does not change the array</span>
+for (int n : nums) { n = 0; }
+
+<span class="comment">// CORRECT</span>
+for (int i = 0; i &lt; nums.length; i++) { nums[i] = 0; }</code></pre>
+</div>
+
+<!-- ═══ SUMMARY ═══ -->
+<h2>Module Summary</h2>
+
+<div class="callout summary" role="region" aria-label="Module Summary">
+  <div class="callout-title">Module Summary</div>
+  <ul>
+    <li>An array stores a fixed number of same-type elements, indexed from 0 to length&minus;1.</li>
+    <li>Declare with <code>type[] name</code>, create with <code>new type[size]</code> or an initialization list.</li>
+    <li>Access elements with <code>name[index]</code>; using an out-of-range index throws <code>ArrayIndexOutOfBoundsException</code>.</li>
+    <li><code>.length</code> (no parentheses) gives the number of elements &mdash; use it in loop conditions.</li>
+    <li>Standard <code>for</code> loop when you need the index or need to write; for-each when reading in order.</li>
+    <li>Common operations: sum/average, min/max, linear search, count &mdash; all use loops.</li>
+    <li>Arrays are passed by reference: changes inside a method affect the original array.</li>
+    <li><code>java.util.Arrays</code> provides <code>sort()</code>, <code>toString()</code>, <code>copyOf()</code>, and <code>fill()</code>.</li>
+    <li>2D arrays use <code>[row][col]</code> notation; nested loops process every element.</li>
+    <li>Watch out for: off-by-one, null vs. empty, missing <code>new</code>, for-each modification.</li>
+  </ul>
+</div>
+
+<!-- ═══ VOCABULARY ═══ -->
+<h2>Vocabulary</h2>
+
+<table class="vocab-table" role="grid" aria-label="Module 09 Vocabulary">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Array</td><td>A fixed-size, ordered collection of same-type elements stored in contiguous memory</td></tr>
+    <tr><td>Element</td><td>A single item stored inside an array</td></tr>
+    <tr><td>Index</td><td>The integer position used to access an element; starts at 0</td></tr>
+    <tr><td>Zero-based indexing</td><td>A numbering convention where the first element is at position 0</td></tr>
+    <tr><td><code>.length</code></td><td>A field on every array that holds its total number of elements</td></tr>
+    <tr><td>Initialization list</td><td>A set of values in curly braces used to create and populate an array at declaration</td></tr>
+    <tr><td>for-each loop</td><td>An enhanced loop that iterates over every element without exposing the index</td></tr>
+    <tr><td>Pass by reference</td><td>Passing the memory address of an object (like an array) so the method accesses the original</td></tr>
+    <tr><td>Linear search</td><td>Scanning an array from start to end to find a target value</td></tr>
+    <tr><td><code>java.util.Arrays</code></td><td>A Java utility class with helper methods for sorting, copying, and printing arrays</td></tr>
+    <tr><td>2D array</td><td>An array of arrays; accessed with two indexes <code>[row][col]</code></td></tr>
+    <tr><td><code>ArrayIndexOutOfBoundsException</code></td><td>A runtime exception thrown when an index is below 0 or at/above the array's length</td></tr>
+    <tr><td><code>NullPointerException</code></td><td>A runtime exception thrown when you use a variable that points to <code>null</code> instead of an object</td></tr>
+  </tbody>
+</table>
+
+<!-- ═══ QUIZ ═══ -->
+<div class="page-break"></div>
+<h2>Module 09 Quiz</h2>
+<p>Choose the best answer for each question. Write the letter on your answer sheet.</p>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 1">
+  <p><span class="quiz-number">1.</span> What is the index of the <em>last</em> element in an array declared as <code>int[] data = new int[8];</code>?</p>
+  <ul class="quiz-options">
+    <li>A) 7</li>
+    <li>B) 9</li>
+    <li>C) 0</li>
+    <li>D) 8</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 2">
+  <p><span class="quiz-number">2.</span> Which of the following correctly declares <em>and</em> creates an array of 4 doubles?</p>
+  <ul class="quiz-options">
+    <li>A) <code>double[] arr = new double[4];</code></li>
+    <li>B) <code>double arr = new double[4];</code></li>
+    <li>C) <code>double[] arr = double[4];</code></li>
+    <li>D) <code>new double[4] arr;</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 3">
+  <p><span class="quiz-number">3.</span> What does the following code print?</p>
+  <pre role="region" aria-label="Quiz 3 code"><code>int[] vals = { 10, 20, 30, 40, 50 };
+System.out.println(vals[2] + vals[4]);</code></pre>
+  <ul class="quiz-options">
+    <li>A) 50</li>
+    <li>B) 70</li>
+    <li>C) 80</li>
+    <li>D) 60</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 4">
+  <p><span class="quiz-number">4.</span> Which exception is thrown when you access an array with an index equal to the array's length?</p>
+  <ul class="quiz-options">
+    <li>A) <code>NullPointerException</code></li>
+    <li>B) <code>IllegalArgumentException</code></li>
+    <li>C) <code>IndexOutOfRangeException</code></li>
+    <li>D) <code>ArrayIndexOutOfBoundsException</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 5">
+  <p><span class="quiz-number">5.</span> What does <code>scores.length</code> return for the array <code>int[] scores = { 5, 3, 8, 1 };</code>?</p>
+  <ul class="quiz-options">
+    <li>A) 3</li>
+    <li>B) 4</li>
+    <li>C) 5</li>
+    <li>D) 8</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 6">
+  <p><span class="quiz-number">6.</span> What is the output of the following code?</p>
+  <pre role="region" aria-label="Quiz 6 code"><code>int[] nums = { 2, 4, 6, 8 };
+int total = 0;
+for (int n : nums) {
+    total += n;
+}
+System.out.println(total);</code></pre>
+  <ul class="quiz-options">
+    <li>A) 10</li>
+    <li>B) 48</li>
+    <li>C) 20</li>
+    <li>D) 14</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 7">
+  <p><span class="quiz-number">7.</span> A method receives an <code>int[]</code> parameter and doubles every element. After the method returns, the caller's array:</p>
+  <ul class="quiz-options">
+    <li>A) Is unchanged because arrays are passed by value</li>
+    <li>B) Is doubled because arrays are passed by reference</li>
+    <li>C) Has all elements set to zero</li>
+    <li>D) Throws an exception when the method returns</li>
+  </ul>
+</div>
+
+<div class="quiz-question" aria-label="Quiz Question 8">
+  <p><span class="quiz-number">8.</span> Which <code>java.util.Arrays</code> method would you call to display an array as <code>[3, 7, 12]</code>?</p>
+  <ul class="quiz-options">
+    <li>A) <code>Arrays.toString()</code></li>
+    <li>B) <code>Arrays.display()</code></li>
+    <li>C) <code>Arrays.toArray()</code></li>
+    <li>D) <code>Arrays.print()</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 9">
+  <p><span class="quiz-number">9.</span> What is the output of the following code?</p>
+  <pre role="region" aria-label="Quiz 9 code"><code>int[][] table = {
+    { 1, 2 },
+    { 3, 4 },
+    { 5, 6 }
+};
+System.out.println(table[2][0] + table[0][1]);</code></pre>
+  <ul class="quiz-options">
+    <li>A) 8</li>
+    <li>B) 6</li>
+    <li>C) 7</li>
+    <li>D) 3</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 10">
+  <p><span class="quiz-number">10.</span> Which loop structure should you use when you need to <em>write</em> new values into every element of an existing array?</p>
+  <ul class="quiz-options">
+    <li>A) Enhanced for-each loop, because it is cleaner</li>
+    <li>B) A while loop only &mdash; for loops cannot modify arrays</li>
+    <li>C) Either loop works identically for writing</li>
+    <li>D) Standard indexed for loop, because you need the index to assign values</li>
+  </ul>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer" role="contentinfo">
+  <p>ITP 120 &mdash; Programming with Java &nbsp;|&nbsp; Module 09: Arrays &nbsp;|&nbsp; Northern Virginia Community College</p>
+  <p>Instructor: Randy Michak &nbsp;|&nbsp; &copy; 2025 NOVA</p>
+</div>
+
+</body>
+</html>

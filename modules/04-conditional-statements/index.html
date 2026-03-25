@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 04 — Conditional Statements | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page {
+      size: letter;
+      margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 04 \2014 Conditional Statements"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 11pt; line-height: 1.7; color: #1f2937;
+      margin: 0; padding: 0;
+    }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .objectives .callout-title::before { content: "🎯 "; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .key-terms .callout-title::before { content: "📖 "; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .analogy .callout-title::before { content: "🧠 "; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .warning .callout-title::before { content: "⚠️ "; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .tip .callout-title::before { content: "💡 "; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .try-it .callout-title::before { content: "🔧 "; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    .summary .callout-title::before { content: "📋 "; }
+    pre, .code-block {
+      background: #1e293b; color: #e2e8f0; border-radius: 8px;
+      padding: 14px 18px; margin: 12px 0; font-family: 'Courier New', monospace;
+      font-size: 10pt; line-height: 1.6; overflow-wrap: break-word;
+      page-break-inside: avoid;
+    }
+    code {
+      font-family: 'Courier New', monospace; background: #f1f5f9;
+      color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt;
+    }
+    pre code { background: none; color: inherit; padding: 0; }
+    .output { color: #94a3b8; font-style: italic; }
+    .cm { color: #64748b; font-style: italic; }
+    .kw { color: #93c5fd; }
+    .str { color: #86efac; }
+    .type { color: #c4b5fd; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+    p { margin: 8px 0 12px 0; }
+</style>
+</head>
+<body>
+
+<!-- TITLE -->
+<div class="title-section">
+  <h1>Module 04 &#8212; Conditional Statements</h1>
+  <div class="course">ITP 120 &#8212; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<!-- LEARNING OBJECTIVES -->
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">Learning Objectives</div>
+  <p>By the end of this module, you will be able to:</p>
+  <ol>
+    <li>Write boolean expressions using relational operators and boolean variables.</li>
+    <li>Use <code>if</code>, <code>if-else</code>, and <code>if-else-if</code> statements to control program flow.</li>
+    <li>Combine conditions with logical operators <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code>.</li>
+    <li>Explain why <code>==</code> does not work reliably for String comparison and use <code>.equals()</code> correctly.</li>
+    <li>Write concise expressions using the ternary operator.</li>
+    <li>Build a <code>switch</code> statement with proper <code>case</code>, <code>break</code>, and <code>default</code> clauses.</li>
+    <li>Identify and fix the most common mistakes beginners make with conditionals.</li>
+  </ol>
+</div>
+
+<!-- KEY TERMS -->
+<div class="callout key-terms" role="region" aria-label="Key Terms">
+  <div class="callout-title">Key Terms</div>
+  <p><strong>Boolean expression</strong> &middot; <strong>relational operator</strong> &middot; <strong>if statement</strong> &middot; <strong>if-else statement</strong> &middot; <strong>if-else-if chain</strong> &middot; <strong>nested if</strong> &middot; <strong>logical operator</strong> &middot; <strong>short-circuit evaluation</strong> &middot; <strong>ternary operator</strong> &middot; <strong>switch statement</strong> &middot; <strong>fall-through</strong> &middot; <strong>.equals()</strong> &middot; <strong>dangling else</strong></p>
+</div>
+
+<!-- ANALOGY -->
+<div class="callout analogy" role="region" aria-label="Opening Analogy">
+  <div class="callout-title">Think of It This Way</div>
+  <p>Your program is a GPS. Every time it reaches a fork in the road, it has to make a decision: <em>"Turn left or keep going straight?"</em> Conditional statements are those decision points. Without them, your program just blasts through every intersection the same way &#8212; no matter what the user does or what values it encounters.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 1: BOOLEAN EXPRESSIONS
+     ============================================================ -->
+<h2>1. Boolean Expressions</h2>
+
+<p>Every decision in Java starts with a question that has exactly one answer: yes or no. That question is called a <strong>boolean expression</strong>. It evaluates to either <code>true</code> or <code>false</code> &#8212; nothing else.</p>
+
+<h3>Relational Operators</h3>
+
+<p>You build boolean expressions by comparing values with <strong>relational operators</strong>:</p>
+
+<table aria-label="Relational Operators Table">
+  <thead>
+    <tr>
+      <th scope="col">Operator</th>
+      <th scope="col">Meaning</th>
+      <th scope="col">Example</th>
+      <th scope="col">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>==</code></td><td>Equal to</td><td><code>5 == 5</code></td><td><code>true</code></td></tr>
+    <tr><td><code>!=</code></td><td>Not equal to</td><td><code>5 != 3</code></td><td><code>true</code></td></tr>
+    <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>10 &gt; 7</code></td><td><code>true</code></td></tr>
+    <tr><td><code>&lt;</code></td><td>Less than</td><td><code>3 &lt; 1</code></td><td><code>false</code></td></tr>
+    <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>6 &gt;= 6</code></td><td><code>true</code></td></tr>
+    <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>4 &lt;= 9</code></td><td><code>true</code></td></tr>
+  </tbody>
+</table>
+
+<h3>Boolean Variables</h3>
+
+<p>Java has a primitive type called <code>boolean</code> that stores exactly two values: <code>true</code> or <code>false</code>. You can assign a literal or the result of a relational expression directly to it:</p>
+
+<pre role="figure" aria-label="Boolean variable examples">
+<span class="type">boolean</span> isRaining = <span class="kw">true</span>;
+<span class="type">boolean</span> hasUmbrella = <span class="kw">false</span>;
+<span class="type">int</span> score = 85;
+<span class="type">boolean</span> passed = score &gt;= 70;  <span class="cm">// evaluates to true</span>
+
+System.out.println(passed);      <span class="output">// true</span>
+System.out.println(isRaining);   <span class="output">// true</span>
+System.out.println(5 &gt; 3);       <span class="output">// true</span>
+System.out.println(2 == 9);      <span class="output">// false</span>
+</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: Naming boolean variables">
+  <div class="callout-title">Tip: Name Booleans Like Questions</div>
+  <p>Name boolean variables so they read like a yes/no question: <code>isLoggedIn</code>, <code>hasPermission</code>, <code>isGameOver</code>. When you read the condition later, it makes instant sense: <code>if (isLoggedIn)</code> is clearer than <code>if (loginStatus == 1)</code>.</p>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: = versus ==">
+  <div class="callout-title">Do Not Confuse = and ==</div>
+  <p><code>=</code> is assignment &#8212; it stores a value. <code>==</code> is comparison &#8212; it asks a question. Writing <code>if (x = 5)</code> instead of <code>if (x == 5)</code> is one of the most common beginner bugs. Java will flag this with primitives, but it pays to understand the difference deeply before we get to objects.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 2: THE if STATEMENT
+     ============================================================ -->
+<h2>2. The <code>if</code> Statement</h2>
+
+<p>The <code>if</code> statement runs a block of code <em>only when</em> a condition is true. If the condition is false, Java skips that block entirely and continues with whatever comes after.</p>
+
+<h3>Syntax</h3>
+
+<pre role="figure" aria-label="if statement syntax">
+<span class="kw">if</span> (condition) {
+    <span class="cm">// code here runs only when condition is true</span>
+}
+</pre>
+
+<h3>Example</h3>
+
+<pre role="figure" aria-label="if statement example">
+<span class="type">int</span> temperature = 95;
+
+<span class="kw">if</span> (temperature &gt; 90) {
+    System.out.println(<span class="str">"Stay hydrated &#8212; it's hot out there!"</span>);
+}
+
+System.out.println(<span class="str">"Program continues."</span>);
+
+<span class="output">// Output (when temperature is 95):
+// Stay hydrated &#8212; it's hot out there!
+// Program continues.
+
+// Output (when temperature is 75):
+// Program continues.</span>
+</pre>
+
+<h3>Always Use Braces</h3>
+
+<p>Java technically allows you to skip braces when only one statement follows the <code>if</code>:</p>
+
+<pre role="figure" aria-label="if without braces (not recommended)">
+<span class="kw">if</span> (score &gt;= 90)
+    System.out.println(<span class="str">"A grade"</span>);   <span class="cm">// compiles, but risky</span>
+</pre>
+
+<div class="callout warning" role="region" aria-label="Warning: Always use braces">
+  <div class="callout-title">Always Use Braces &#8212; No Exceptions</div>
+  <p>In this class, and in professional Java, always use braces even for single-statement bodies. Apple's infamous SSL "goto fail" bug (2014) happened because a developer added a second line without braces &#8212; it executed unconditionally. A missing pair of curly braces compromised millions of devices. Get in the habit now: always wrap the body in <code>{ }</code>.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: Basic if statement">
+  <div class="callout-title">Try It</div>
+  <p>Write a program that reads an integer from the user (use <code>Scanner</code>). If the number is negative, print <code>"Negative number entered."</code> Then, regardless of what the user typed, print <code>"Done."</code></p>
+</div>
+
+<!-- ============================================================
+     SECTION 3: THE if-else STATEMENT
+     ============================================================ -->
+<h2>3. The <code>if-else</code> Statement</h2>
+
+<p>When you need to do one thing <em>or</em> another &#8212; but never both &#8212; use <code>if-else</code>. Exactly one of the two blocks runs every single time.</p>
+
+<h3>Syntax</h3>
+
+<pre role="figure" aria-label="if-else syntax">
+<span class="kw">if</span> (condition) {
+    <span class="cm">// runs when condition is true</span>
+} <span class="kw">else</span> {
+    <span class="cm">// runs when condition is false</span>
+}
+</pre>
+
+<h3>Example: Pass or Fail</h3>
+
+<pre role="figure" aria-label="if-else pass or fail example">
+<span class="type">int</span> score = 62;
+
+<span class="kw">if</span> (score &gt;= 70) {
+    System.out.println(<span class="str">"You passed!"</span>);
+} <span class="kw">else</span> {
+    System.out.println(<span class="str">"You did not pass. Come to office hours."</span>);
+}
+
+<span class="output">// Output: You did not pass. Come to office hours.</span>
+</pre>
+
+<div class="callout analogy" role="region" aria-label="Analogy: if-else">
+  <div class="callout-title">Think of It This Way</div>
+  <p>A vending machine: you insert money. The machine checks &#8212; <em>"Is this enough?"</em> If yes, dispense the snack. If no, return the money. Both outcomes are handled. There is no third option &#8212; the machine always does one or the other.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: Even or Odd">
+  <div class="callout-title">Try It</div>
+  <p>Read an integer from the user. Print <code>"Even"</code> if the number is divisible by 2, or <code>"Odd"</code> otherwise. Hint: use the modulo operator <code>%</code>. The expression <code>number % 2 == 0</code> is true when a number is even.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 4: THE if-else-if CHAIN
+     ============================================================ -->
+<h2>4. The <code>if-else-if</code> Chain</h2>
+
+<p>When there are more than two possible paths, chain multiple <code>else if</code> clauses together. Java checks them in order from top to bottom and runs the <em>first one that is true</em>. Everything after that is skipped, even if it would also be true.</p>
+
+<h3>Syntax</h3>
+
+<pre role="figure" aria-label="if-else-if chain syntax">
+<span class="kw">if</span> (condition1) {
+    <span class="cm">// runs if condition1 is true</span>
+} <span class="kw">else if</span> (condition2) {
+    <span class="cm">// runs if condition1 is false AND condition2 is true</span>
+} <span class="kw">else if</span> (condition3) {
+    <span class="cm">// runs if conditions 1-2 are false AND condition3 is true</span>
+} <span class="kw">else</span> {
+    <span class="cm">// runs if ALL conditions above were false (catch-all)</span>
+}
+</pre>
+
+<h3>Example: Letter Grade</h3>
+
+<pre role="figure" aria-label="Letter grade example with if-else-if chain">
+<span class="type">int</span> score = 78;
+<span class="type">char</span> grade;
+
+<span class="kw">if</span> (score &gt;= 90) {
+    grade = <span class="str">'A'</span>;
+} <span class="kw">else if</span> (score &gt;= 80) {
+    grade = <span class="str">'B'</span>;
+} <span class="kw">else if</span> (score &gt;= 70) {
+    grade = <span class="str">'C'</span>;
+} <span class="kw">else if</span> (score &gt;= 60) {
+    grade = <span class="str">'D'</span>;
+} <span class="kw">else</span> {
+    grade = <span class="str">'F'</span>;
+}
+
+System.out.printf(<span class="str">"Grade: %c%n"</span>, grade);
+<span class="output">// Output: Grade: C</span>
+</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: Order matters in chains">
+  <div class="callout-title">Order Matters &#8212; Most Restrictive First</div>
+  <p>Always check the most restrictive (most specific) condition first. In the grade example, if you checked <code>score &gt;= 60</code> before <code>score &gt;= 90</code>, a score of 95 would fall into the "D" bucket &#8212; because 95 is also &gt;= 60, and that branch fires first. Put the tightest check at the top.</p>
+</div>
+
+<p>The final <code>else</code> acts as a catch-all. It runs when nothing else matched. Always include one when there's a scenario where none of your conditions will be true &#8212; otherwise your variable might end up uninitialized and the compiler will complain.</p>
+
+<div class="callout try-it" role="region" aria-label="Try It: Temperature classifier">
+  <div class="callout-title">Try It</div>
+  <p>Read a temperature in Fahrenheit. Print one of these based on the value:</p>
+  <ul>
+    <li>Below 32 &#8212; <code>"Freezing"</code></li>
+    <li>32 to 59 &#8212; <code>"Cold"</code></li>
+    <li>60 to 79 &#8212; <code>"Comfortable"</code></li>
+    <li>80 and above &#8212; <code>"Hot"</code></li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     SECTION 5: NESTED if STATEMENTS
+     ============================================================ -->
+<h2>5. Nested <code>if</code> Statements</h2>
+
+<p>You can place an <code>if</code> statement inside another <code>if</code> statement. This is called <strong>nesting</strong>. The inner <code>if</code> only executes when the outer condition is already true, so it applies an additional check within a specific context.</p>
+
+<h3>Example: Age and ID Check</h3>
+
+<pre role="figure" aria-label="Nested if: age and ID check">
+<span class="type">int</span> age = 20;
+<span class="type">boolean</span> hasID = <span class="kw">true</span>;
+
+<span class="kw">if</span> (age &gt;= 18) {
+    <span class="kw">if</span> (hasID) {
+        System.out.println(<span class="str">"Welcome &#8212; enjoy the event."</span>);
+    } <span class="kw">else</span> {
+        System.out.println(<span class="str">"You're old enough, but we need to see your ID."</span>);
+    }
+} <span class="kw">else</span> {
+    System.out.println(<span class="str">"Sorry, you must be 18 or older."</span>);
+}
+
+<span class="output">// Output: Welcome &#8212; enjoy the event.</span>
+</pre>
+
+<p>Here, we only check for an ID after confirming the person is old enough. The ID check makes no sense for someone under 18, so it lives inside the age check.</p>
+
+<h3>When to Nest vs. When to Chain</h3>
+
+<p>Before you nest, ask yourself: <em>"Can I rewrite this as a single condition using a logical operator?"</em> Often the answer is yes:</p>
+
+<pre role="figure" aria-label="Nesting vs logical AND comparison">
+<span class="cm">// Nested version &#8212; reads like two separate gatekeepers</span>
+<span class="kw">if</span> (age &gt;= 18) {
+    <span class="kw">if</span> (hasID) {
+        System.out.println(<span class="str">"Welcome"</span>);
+    }
+}
+
+<span class="cm">// Flattened with logical AND &#8212; often cleaner</span>
+<span class="kw">if</span> (age &gt;= 18 &amp;&amp; hasID) {
+    System.out.println(<span class="str">"Welcome"</span>);
+}
+</pre>
+
+<p>Both produce the same result. The flattened version is usually preferred unless you need different messages for each failed condition (like the age-vs-ID example above).</p>
+
+<div class="callout tip" role="region" aria-label="Tip: Limit nesting depth">
+  <div class="callout-title">Tip: Keep It Shallow</div>
+  <p>If you're nesting more than two levels deep, step back and refactor. Deep nesting &#8212; four or five levels &#8212; is almost always a sign there's a cleaner approach. Your future self (and your grader) will thank you.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 6: LOGICAL OPERATORS
+     ============================================================ -->
+<h2>6. Logical Operators</h2>
+
+<p>Logical operators let you combine multiple boolean expressions into one compound condition. Java has three: <code>&amp;&amp;</code> (AND), <code>||</code> (OR), and <code>!</code> (NOT).</p>
+
+<h3>&amp;&amp; &#8212; Logical AND</h3>
+
+<p>The whole expression is <code>true</code> only if <em>both</em> sides are <code>true</code>.</p>
+
+<pre role="figure" aria-label="Logical AND example">
+<span class="type">int</span> age = 25;
+<span class="type">boolean</span> hasLicense = <span class="kw">true</span>;
+
+<span class="kw">if</span> (age &gt;= 16 &amp;&amp; hasLicense) {
+    System.out.println(<span class="str">"You may drive."</span>);
+}
+<span class="output">// Output: You may drive.</span>
+</pre>
+
+<h3>|| &#8212; Logical OR</h3>
+
+<p>The whole expression is <code>true</code> if <em>at least one</em> side is <code>true</code>.</p>
+
+<pre role="figure" aria-label="Logical OR example">
+<span class="type">boolean</span> isMember = <span class="kw">false</span>;
+<span class="type">boolean</span> hasCoupon = <span class="kw">true</span>;
+
+<span class="kw">if</span> (isMember || hasCoupon) {
+    System.out.println(<span class="str">"10% discount applied."</span>);
+}
+<span class="output">// Output: 10% discount applied.</span>
+</pre>
+
+<h3>! &#8212; Logical NOT</h3>
+
+<p>Flips a boolean value: <code>true</code> becomes <code>false</code>, <code>false</code> becomes <code>true</code>.</p>
+
+<pre role="figure" aria-label="Logical NOT example">
+<span class="type">boolean</span> isLoggedIn = <span class="kw">false</span>;
+
+<span class="kw">if</span> (!isLoggedIn) {
+    System.out.println(<span class="str">"Please log in to continue."</span>);
+}
+<span class="output">// Output: Please log in to continue.</span>
+</pre>
+
+<h3>Truth Tables</h3>
+
+<table aria-label="Truth table for logical operators">
+  <thead>
+    <tr>
+      <th scope="col">A</th>
+      <th scope="col">B</th>
+      <th scope="col">A &amp;&amp; B</th>
+      <th scope="col">A || B</th>
+      <th scope="col">!A</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>true</td><td>true</td><td>true</td><td>true</td><td>false</td></tr>
+    <tr><td>true</td><td>false</td><td>false</td><td>true</td><td>false</td></tr>
+    <tr><td>false</td><td>true</td><td>false</td><td>true</td><td>true</td></tr>
+    <tr><td>false</td><td>false</td><td>false</td><td>false</td><td>true</td></tr>
+  </tbody>
+</table>
+
+<h3>Short-Circuit Evaluation</h3>
+
+<p>Java doesn't evaluate more than it has to. With <code>&amp;&amp;</code>: if the left side is <code>false</code>, the right side is never checked &#8212; the result is already <code>false</code>. With <code>||</code>: if the left side is <code>true</code>, the right side is skipped. This is called <strong>short-circuit evaluation</strong>.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: Short-circuit ordering">
+  <div class="callout-title">Tip: Put the Cheap Check First</div>
+  <p>Place the condition that's quickest to evaluate on the left. If it short-circuits, the right side never runs. This matters in performance-sensitive code, but it's also a good habit to build now.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 7:     COMPARING STRINGS
+     ============================================================ -->
+<h2>7. Comparing Strings</h2>
+
+<p>This one trips up almost every Java beginner. When you compare two Strings using <code>==</code>, you're not comparing their contents &#8212; you're comparing their <em>memory addresses</em>. Two String variables can hold the exact same text but still fail a <code>==</code> check.</p>
+
+<h3>Why == Doesn't Work for Strings</h3>
+
+<pre role="figure" aria-label="String == comparison pitfall">
+String a = new String("hello");
+String b = new String("hello");
+
+System.out.println(a == b);        <span class="output">// false  (different objects in memory)</span>
+System.out.println(a.equals(b));   <span class="output">// true   (same content)</span>
+</pre>
+
+<p>Think of it this way: <code>==</code> asks "are these the same physical object?" <code>.equals()</code> asks "do these contain the same text?" For Strings, you almost always want the second question.</p>
+
+<h3>Using .equals()</h3>
+
+<pre role="figure" aria-label="String .equals() example">
+String userInput = "yes";
+
+if (userInput.equals("yes")) {
+    System.out.println("Great, let's continue.");
+}
+<span class="output">// Output: Great, let's continue.</span>
+</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: String literal on the left">
+  <div class="callout-title">Tip: Put the Literal on the Left</div>
+  <p>It's a common Java convention to call <code>.equals()</code> on the known string literal, not the variable: <code>"yes".equals(userInput)</code> instead of <code>userInput.equals("yes")</code>. If <code>userInput</code> is <code>null</code>, the first version won't crash &#8212; the second will throw a NullPointerException.</p>
+</div>
+
+<h3>Case-Insensitive Comparison: .equalsIgnoreCase()</h3>
+
+<p>When you don't care whether the user typed "YES", "yes", or "Yes", use <code>.equalsIgnoreCase()</code>:</p>
+
+<pre role="figure" aria-label=".equalsIgnoreCase example">
+String answer = "YES";
+
+if (answer.equalsIgnoreCase("yes")) {
+    System.out.println("Got it &#8212; answer is yes.");
+}
+<span class="output">// Output: Got it &#8212; answer is yes.</span>
+</pre>
+
+<h3>The .compareTo() Method (Brief Introduction)</h3>
+
+<p>There's a third option: <code>.compareTo()</code>. It returns an integer, not a boolean. It returns 0 if the strings are equal, a negative number if the calling string comes before the argument alphabetically, and a positive number if it comes after. We'll see this more when we get to sorting. For now, just know it exists:</p>
+
+<pre role="figure" aria-label=".compareTo brief example">
+String s1 = "apple";
+String s2 = "banana";
+
+System.out.println(s1.compareTo(s2));  <span class="output">// negative (apple comes before banana)</span>
+System.out.println(s2.compareTo(s1));  <span class="output">// positive</span>
+System.out.println(s1.compareTo(s1));  <span class="output">// 0 (same)</span>
+</pre>
+
+<div class="callout warning" role="region" aria-label="Warning: Always use .equals() for Strings">
+  <div class="callout-title">Always Use .equals() for String Comparison</div>
+  <p>Using <code>==</code> on Strings produces unpredictable results. Sometimes it works (when Java reuses the same string literal from its pool). Sometimes it doesn't. Never rely on it &#8212; always use <code>.equals()</code> or <code>.equalsIgnoreCase()</code>.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 8: THE TERNARY OPERATOR
+     ============================================================ -->
+<h2>8. The Conditional (Ternary) Operator</h2>
+
+<p>The <strong>ternary operator</strong> is a compact way to write a simple <code>if-else</code> that produces a value. The name comes from the fact that it takes three operands.</p>
+
+<h3>Syntax</h3>
+
+<pre role="figure" aria-label="Ternary operator syntax">
+result = condition ? valueIfTrue : valueIfFalse;
+</pre>
+
+<p>Read it as: <em>"If condition is true, use valueIfTrue; otherwise use valueIfFalse."</em></p>
+
+<h3>Example</h3>
+
+<pre role="figure" aria-label="Ternary operator example: pass or fail">
+int score = 74;
+
+<span class="cm">// Long way with if-else:</span>
+String result;
+if (score >= 70) {
+    result = "Pass";
+} else {
+    result = "Fail";
+}
+
+<span class="cm">// Shorter with ternary:</span>
+String result2 = (score >= 70) ? "Pass" : "Fail";
+
+System.out.println(result2);
+<span class="output">// Output: Pass</span>
+</pre>
+
+<h3>Another Common Use</h3>
+
+<pre role="figure" aria-label="Ternary for max value">
+int a = 15, b = 22;
+int max = (a > b) ? a : b;
+
+System.out.println("Larger value: " + max);
+<span class="output">// Output: Larger value: 22</span>
+</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: When to use ternary">
+  <div class="callout-title">Tip: Use It for Simple Assignments</div>
+  <p>The ternary operator is great for one-liners where you're assigning one of two values. But don't nest ternary operators or use them for complex logic &#8212; that's when regular <code>if-else</code> is clearer. Readability beats cleverness every time.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 9: THE switch STATEMENT
+     ============================================================ -->
+<h2>9. The <code>switch</code> Statement</h2>
+
+<p>When you're testing a single variable against a list of specific values, <code>switch</code> is often cleaner than a long <code>if-else-if</code> chain. It jumps directly to the matching <code>case</code> instead of checking each condition in sequence.</p>
+
+<h3>Syntax</h3>
+
+<pre role="figure" aria-label="switch statement syntax">
+switch (expression) {
+    case value1:
+        <span class="cm">// code for value1</span>
+        break;
+    case value2:
+        <span class="cm">// code for value2</span>
+        break;
+    case value3:
+        <span class="cm">// code for value3</span>
+        break;
+    default:
+        <span class="cm">// code when nothing matched</span>
+}
+</pre>
+
+<h3>Example: Day of Week</h3>
+
+<pre role="figure" aria-label="switch: day of week example">
+int day = 3;  <span class="cm">// 1 = Monday, 7 = Sunday</span>
+
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    case 3:
+        System.out.println("Wednesday");
+        break;
+    case 4:
+        System.out.println("Thursday");
+        break;
+    case 5:
+        System.out.println("Friday");
+        break;
+    case 6:
+        System.out.println("Saturday");
+        break;
+    case 7:
+        System.out.println("Sunday");
+        break;
+    default:
+        System.out.println("Invalid day");
+}
+<span class="output">// Output: Wednesday</span>
+</pre>
+
+<h3>The break Statement</h3>
+
+<p>The <code>break</code> at the end of each case tells Java to exit the <code>switch</code> block. Without it, Java "falls through" to the next case and keeps executing code until it hits a <code>break</code> or the end of the switch. This is called <strong>fall-through</strong>.</p>
+
+<h3>Fall-Through (When It's Intentional)</h3>
+
+<p>Most of the time, fall-through is a mistake. But occasionally it's useful when multiple cases should do the same thing:</p>
+
+<pre role="figure" aria-label="switch fall-through intentional example">
+int month = 4;  <span class="cm">// April</span>
+
+switch (month) {
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        System.out.println("30 days");
+        break;
+    case 2:
+        System.out.println("28 or 29 days");
+        break;
+    default:
+        System.out.println("31 days");
+}
+<span class="output">// Output: 30 days</span>
+</pre>
+
+<p>Cases 4, 6, 9, and 11 all fall through to the same output. This is intentional and clean &#8212; no duplicated code.</p>
+
+<h3>Strings in switch (Java 7+)</h3>
+
+<p>Since Java 7, you can use <code>String</code> values in a <code>switch</code> expression:</p>
+
+<pre role="figure" aria-label="switch with String example">
+String command = "start";
+
+switch (command) {
+    case "start":
+        System.out.println("Starting the engine...");
+        break;
+    case "stop":
+        System.out.println("Stopping the engine...");
+        break;
+    case "status":
+        System.out.println("Engine is running.");
+        break;
+    default:
+        System.out.println("Unknown command: " + command);
+}
+<span class="output">// Output: Starting the engine...</span>
+</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: switch vs if-else-if">
+  <div class="callout-title">switch vs. if-else-if &#8212; Which One?</div>
+  <p>Use <code>switch</code> when: (1) you're testing one variable against a fixed list of exact values, and (2) the cases are discrete &#8212; not ranges. Use <code>if-else-if</code> for ranges (<code>score &gt;= 90</code>), complex boolean expressions, or when you need <code>&amp;&amp;</code> / <code>||</code>. You can't do <code>case score &gt;= 90:</code> &#8212; that's not valid in a switch.</p>
+</div>
+
+<!-- ============================================================
+     SECTION 10: COMMON MISTAKES
+     ============================================================ -->
+<h2>10. Common Mistakes</h2>
+
+<p>These are the bugs I see most often in student code. Learn them now so you don't waste debugging time later.</p>
+
+<h3>Mistake 1: Forgetting Braces</h3>
+
+<pre role="figure" aria-label="Mistake: forgetting braces">
+<span class="cm">// WRONG &#8212; second line always runs</span>
+if (score >= 90)
+    System.out.println("Excellent!");
+    System.out.println("You got an A.");   <span class="cm">// not inside the if!</span>
+
+<span class="cm">// CORRECT</span>
+if (score >= 90) {
+    System.out.println("Excellent!");
+    System.out.println("You got an A.");
+}
+</pre>
+
+<p>The indentation tricks your eye, but Java doesn't care about indentation. Without braces, only the <em>first</em> line after the <code>if</code> is conditional. The second line runs no matter what.</p>
+
+<h3>Mistake 2: Using = Instead of ==</h3>
+
+<pre role="figure" aria-label="Mistake: = instead of ==">
+<span class="cm">// WRONG &#8212; this assigns 5 to x, doesn't compare</span>
+if (x = 5) {   <span class="cm">// compiler error with int; doesn't work as expected</span>
+    ...
+}
+
+<span class="cm">// CORRECT</span>
+if (x == 5) {
+    ...
+}
+</pre>
+
+<h3>Mistake 3: The Dangling Else</h3>
+
+<p>When you have nested <code>if</code>s without braces, it can be unclear which <code>if</code> an <code>else</code> belongs to. This is called the <strong>dangling else</strong> problem:</p>
+
+<pre role="figure" aria-label="Dangling else mistake">
+<span class="cm">// Ambiguous formatting &#8212; where does the else go?</span>
+if (x > 0)
+    if (y > 0)
+        System.out.println("Both positive");
+else                        <span class="cm">// this else belongs to the INNER if!</span>
+    System.out.println("x is not positive");  <span class="cm">// misleading</span>
+
+<span class="cm">// CORRECT &#8212; use braces to make it explicit</span>
+if (x > 0) {
+    if (y > 0) {
+        System.out.println("Both positive");
+    }
+} else {
+    System.out.println("x is not positive");
+}
+</pre>
+
+<p>Java matches an <code>else</code> to the nearest preceding <code>if</code>. When you use braces consistently, this is never a problem.</p>
+
+<h3>Mistake 4: Missing break in switch</h3>
+
+<pre role="figure" aria-label="Mistake: missing break in switch">
+int day = 2;
+
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+        <span class="cm">// forgot break!</span>
+    case 2:
+        System.out.println("Tuesday");
+        <span class="cm">// forgot break!</span>
+    case 3:
+        System.out.println("Wednesday");
+        break;
+}
+<span class="output">// Output (when day = 2):
+// Tuesday
+// Wednesday      &lt;-- not what you wanted!</span>
+</pre>
+
+<p>Without <code>break</code>, execution falls through from case 2 into case 3. Always add <code>break</code> unless you're intentionally using fall-through, and comment it clearly when you do.</p>
+
+<h3>Mistake 5: Using == for String Comparison</h3>
+
+<pre role="figure" aria-label="Mistake: == for String comparison">
+String input = "yes";
+
+<span class="cm">// WRONG &#8212; may work sometimes, but unreliable</span>
+if (input == "yes") {
+    System.out.println("OK");
+}
+
+<span class="cm">// CORRECT</span>
+if (input.equals("yes")) {
+    System.out.println("OK");
+}
+</pre>
+
+<div class="callout summary" role="region" aria-label="Common Mistakes Summary">
+  <div class="callout-title">Common Mistakes Summary</div>
+  <ul>
+    <li>Always use <code>{ }</code> &#8212; even for single-statement bodies.</li>
+    <li>Use <code>==</code> for comparison, <code>=</code> for assignment. Never swap them.</li>
+    <li>Brace your nested <code>if</code>s to avoid dangling else confusion.</li>
+    <li>Every <code>case</code> in a <code>switch</code> needs a <code>break</code> (unless fall-through is intentional).</li>
+    <li>Compare Strings with <code>.equals()</code>, never <code>==</code>.</li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     VOCABULARY REVIEW
+     ============================================================ -->
+<h2>Vocabulary Review</h2>
+
+<table class="vocab-table" aria-label="Vocabulary Review Table">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>boolean expression</td><td>An expression that evaluates to either <code>true</code> or <code>false</code>.</td></tr>
+    <tr><td>relational operator</td><td>An operator that compares two values: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>.</td></tr>
+    <tr><td>if statement</td><td>A conditional statement that executes a block only when its condition is true.</td></tr>
+    <tr><td>if-else statement</td><td>A conditional that chooses between two paths: one when true, one when false.</td></tr>
+    <tr><td>if-else-if chain</td><td>Multiple conditions checked in sequence; the first true branch runs.</td></tr>
+    <tr><td>nested if</td><td>An <code>if</code> statement inside another <code>if</code> statement.</td></tr>
+    <tr><td>logical operator</td><td>An operator that combines boolean expressions: <code>&amp;&amp;</code>, <code>||</code>, <code>!</code>.</td></tr>
+    <tr><td>short-circuit evaluation</td><td>Java stops evaluating a compound condition as soon as the result is determined.</td></tr>
+    <tr><td>ternary operator</td><td>A compact three-part operator: <code>condition ? valueIfTrue : valueIfFalse</code>.</td></tr>
+    <tr><td>switch statement</td><td>A multi-branch statement that jumps to the matching <code>case</code> value.</td></tr>
+    <tr><td>fall-through</td><td>Execution continues into the next <code>case</code> when no <code>break</code> is present.</td></tr>
+    <tr><td>.equals()</td><td>A String method that compares content (not memory address).</td></tr>
+    <tr><td>dangling else</td><td>An ambiguous <code>else</code> that attaches to the wrong <code>if</code> due to missing braces.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================
+     MODULE SUMMARY
+     ============================================================ -->
+<div class="callout summary" role="region" aria-label="Module Summary">
+  <div class="callout-title">Module 04 Summary</div>
+  <ul>
+    <li>Boolean expressions evaluate to <code>true</code> or <code>false</code> using relational operators.</li>
+    <li>The <code>if</code> statement conditionally executes a block; always wrap the body in braces.</li>
+    <li><code>if-else</code> handles two-way decisions; <code>if-else-if</code> handles multiple paths checked in order.</li>
+    <li>Nested <code>if</code>s work but can often be simplified with logical operators.</li>
+    <li><code>&amp;&amp;</code> requires both sides true; <code>||</code> requires at least one; <code>!</code> flips a boolean.</li>
+    <li>Use <code>.equals()</code> (not <code>==</code>) to compare String contents.</li>
+    <li>The ternary operator (<code>? :</code>) is a shorthand for simple one-value <code>if-else</code> assignments.</li>
+    <li><code>switch</code> is ideal for testing one variable against specific discrete values; always include <code>break</code>.</li>
+    <li>The five most common mistakes: missing braces, <code>=</code> vs <code>==</code>, dangling else, missing <code>break</code>, <code>==</code> on Strings.</li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     QUIZ
+     ============================================================ -->
+<div class="page-break"></div>
+<h2>Module 04 Quiz &#8212; Conditional Statements</h2>
+<p><em>Choose the best answer for each question. Write your answer on the line provided.</em></p>
+
+<!-- Q1 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">1.</span> Which of the following boolean expressions evaluates to <code>true</code>?</p>
+  <ul class="quiz-options">
+    <li>A) <code>10 &gt;= 10</code></li>
+    <li>B) <code>5 != 5</code></li>
+    <li>C) <code>7 == 8</code></li>
+    <li>D) <code>3 &gt; 9</code></li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">2.</span> What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz question 2 code">int x = 15;
+if (x > 10) {
+    System.out.println("Big");
+} else {
+    System.out.println("Small");
+}</pre>
+  <ul class="quiz-options">
+    <li>A) <code>Small</code></li>
+    <li>B) <code>Big</code></li>
+    <li>C) <code>Big Small</code></li>
+    <li>D) Nothing prints</li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">3.</span> In an <code>if-else-if</code> chain, what happens after one branch executes?</p>
+  <ul class="quiz-options">
+    <li>A) All remaining branches are checked and may also run.</li>
+    <li>B) The remaining branches are skipped entirely.</li>
+    <li>C) The program restarts from the top of the chain.</li>
+    <li>D) A compile-time error is thrown.</li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">4.</span> What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz question 4 code">boolean a = true;
+boolean b = false;
+
+if (a && b) {
+    System.out.println("Both true");
+} else if (a || b) {
+    System.out.println("At least one true");
+} else {
+    System.out.println("Neither true");
+}</pre>
+  <ul class="quiz-options">
+    <li>A) <code>Both true</code></li>
+    <li>B) <code>Neither true</code></li>
+    <li>C) <code>At least one true</code></li>
+    <li>D) <code>Both true At least one true</code></li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">5.</span> Why should you use <code>.equals()</code> instead of <code>==</code> when comparing two String objects?</p>
+  <ul class="quiz-options">
+    <li>A) <code>==</code> only works with numbers; it causes a compile error with Strings.</li>
+    <li>B) <code>==</code> compares memory addresses, not string content, which can give wrong results.</li>
+    <li>C) <code>.equals()</code> is faster than <code>==</code> for all data types.</li>
+    <li>D) <code>==</code> ignores whitespace differences; <code>.equals()</code> does not.</li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">6.</span> What is the value of <code>result</code> after this line executes?</p>
+  <pre role="figure" aria-label="Quiz question 6 code">int score = 55;
+String result = (score >= 70) ? "Pass" : "Fail";</pre>
+  <ul class="quiz-options">
+    <li>A) <code>"Pass"</code></li>
+    <li>B) <code>null</code></li>
+    <li>C) Compile error &#8212; ternary can't return Strings</li>
+    <li>D) <code>"Fail"</code></li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q7 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">7.</span> What is the output of the following <code>switch</code> statement?</p>
+  <pre role="figure" aria-label="Quiz question 7 code">int n = 2;
+switch (n) {
+    case 1:
+        System.out.println("One");
+        break;
+    case 2:
+        System.out.println("Two");
+    case 3:
+        System.out.println("Three");
+        break;
+    default:
+        System.out.println("Other");
+}</pre>
+  <ul class="quiz-options">
+    <li>A) <code>Two</code></li>
+    <li>B) <code>Two Three Other</code></li>
+    <li>C) <code>Two Three</code></li>
+    <li>D) <code>Three</code></li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q8 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">8.</span> Which of the following correctly checks whether a String variable <code>color</code> equals <code>"blue"</code>, ignoring case?</p>
+  <ul class="quiz-options">
+    <li>A) <code>color == "blue"</code></li>
+    <li>B) <code>color.equals("blue")</code></li>
+    <li>C) <code>color.equalsIgnoreCase("blue")</code></li>
+    <li>D) <code>"blue".compareTo(color) == 0</code></li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q9 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">9.</span> What is printed by the following code?</p>
+  <pre role="figure" aria-label="Quiz question 9 code">int x = 5;
+if (x > 3)
+    System.out.println("A");
+    System.out.println("B");</pre>
+  <ul class="quiz-options">
+    <li>A) <code>A B</code></li>
+    <li>B) <code>A</code> only</li>
+    <li>C) <code>B</code> only</li>
+    <li>D) Nothing</li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- Q10 -->
+<div class="quiz-question">
+  <p><span class="quiz-number">10.</span> When should you prefer a <code>switch</code> statement over an <code>if-else-if</code> chain?</p>
+  <ul class="quiz-options">
+    <li>A) When you need to check a range of values (e.g., <code>score &gt;= 90</code>).</li>
+    <li>B) When you need to use <code>&amp;&amp;</code> or <code>||</code> inside the conditions.</li>
+    <li>C) When the condition involves multiple variables at the same time.</li>
+    <li>D) When you are testing one variable against a list of specific discrete values.</li>
+  </ul>
+  <p>Answer: ______</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  ITP 120 &#8212; Programming with Java &nbsp;|&nbsp; Module 04 &#8212; Conditional Statements<br>
+  Northern Virginia Community College &nbsp;|&nbsp; Randy Michak
+</div>
+
+</body>
+</html>

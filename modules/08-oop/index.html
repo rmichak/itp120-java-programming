@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 08 &#8212; Object-Oriented Programming | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page { size: letter; margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 08 \2014 OOP"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: "Inter",-apple-system,BlinkMacSystemFont,sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: "Courier New",monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; white-space: pre-wrap; }
+    code { font-family: "Courier New",monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .out { background: #0f172a; color: #94a3b8; font-style: italic; border-radius: 0 0 8px 8px; padding: 8px 18px; margin: -12px 0 12px 0; font-family: "Courier New",monospace; font-size: 10pt; page-break-inside: avoid; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+    .uml-box { border: 2px solid #374151; border-radius: 4px; display: inline-block; min-width: 260px; font-family: "Courier New",monospace; font-size: 10pt; margin: 12px 0; }
+    .uml-classname { background: #374151; color: #f9fafb; text-align: center; padding: 8px 16px; font-weight: 700; }
+    .uml-section { border-top: 1px solid #374151; padding: 8px 16px; }
+</style>
+</head>
+<body>
+
+<div class="title-section">
+  <h1>Module 08 &#8212; Object-Oriented Programming</h1>
+  <div class="course">ITP 120 &#8212; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">&#127919; Learning Objectives</div>
+  <ul>
+    <li>Explain the difference between procedural and object-oriented programming</li>
+    <li>Describe what a class is and how objects are created from it</li>
+    <li>Write a class with private fields, a constructor, and public methods</li>
+    <li>Use the <code>this</code> keyword to resolve naming conflicts in constructors</li>
+    <li>Create and use objects with the <code>new</code> keyword and dot notation</li>
+    <li>Write getter and setter methods that enforce encapsulation</li>
+    <li>Override <code>toString()</code> to give objects a meaningful string representation</li>
+    <li>Explain the principle of encapsulation and why it matters</li>
+    <li>Read and sketch a basic UML class diagram</li>
+    <li>Build and test a complete <code>BankAccount</code> class from scratch</li>
+  </ul>
+</div>
+
+<div class="callout key-terms" role="region" aria-label="Key Terms">
+  <div class="callout-title">&#128218; Key Terms</div>
+  <p>
+    <strong>object</strong> &nbsp;&middot;&nbsp; <strong>class</strong> &nbsp;&middot;&nbsp;
+    <strong>instance</strong> &nbsp;&middot;&nbsp; <strong>field</strong> &nbsp;&middot;&nbsp;
+    <strong>constructor</strong> &nbsp;&middot;&nbsp; <strong>encapsulation</strong> &nbsp;&middot;&nbsp;
+    <strong>access modifier</strong> &nbsp;&middot;&nbsp; <strong>getter</strong> &nbsp;&middot;&nbsp;
+    <strong>setter</strong> &nbsp;&middot;&nbsp; <strong>dot notation</strong> &nbsp;&middot;&nbsp;
+    <strong>this</strong> &nbsp;&middot;&nbsp; <strong>toString()</strong> &nbsp;&middot;&nbsp;
+    <strong>UML</strong> &nbsp;&middot;&nbsp; <strong>overriding</strong>
+  </p>
+</div>
+
+
+<h2>1. What Is Object-Oriented Programming?</h2>
+
+<p>Up through Module 7 you have been writing <strong>procedural</strong> code: a list of instructions that runs top-to-bottom, broken up by methods. That works fine for small programs. Once a project grows, though, procedural code gets messy fast. Variables get passed everywhere, methods have to know about all the data, and adding a new feature often breaks existing ones.</p>
+
+<p><strong>Object-Oriented Programming (OOP)</strong> takes a different angle. Instead of writing a sequence of steps, you model your program as a collection of <em>objects</em> that each know their own data and what they can do with it.</p>
+
+<h3>1.1 Procedural vs. Object-Oriented</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Procedural</th>
+      <th scope="col">Object-Oriented</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Program = sequence of steps</td><td>Program = collection of objects</td></tr>
+    <tr><td>Data and logic are separate</td><td>Data and logic live together in a class</td></tr>
+    <tr><td>Methods receive all data as parameters</td><td>Methods operate on the object&#8217;s own fields</td></tr>
+    <tr><td>Harder to scale, easier to start</td><td>More setup upfront, much easier to maintain at scale</td></tr>
+  </tbody>
+</table>
+
+<h3>1.2 Objects Have State and Behavior</h3>
+
+<p>Think about a bank account. It has <em>data</em>: the owner&#8217;s name, the balance. It also has <em>things it can do</em>: accept a deposit, process a withdrawal, report the balance. In OOP those two ideas have names:</p>
+
+<ul>
+  <li><strong>State</strong> &#8212; the data an object holds (also called <em>fields</em> or <em>instance variables</em>)</li>
+  <li><strong>Behavior</strong> &#8212; what the object can do (its <em>methods</em>)</li>
+</ul>
+
+<p>A <code>BankAccount</code> object knows its own balance and knows how to deposit and withdraw. A <code>Student</code> object knows its own name and GPA. That pairing &#8212; state plus behavior &#8212; is the core idea of OOP.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: Why OOP matters">
+  <div class="callout-title">&#128161; Why This Matters in Real Projects</div>
+  <p>Almost every major Java codebase &#8212; Android apps, Spring web services, enterprise software &#8212; is built with OOP. Learning to think in objects now sets you up for the rest of your Java career. Every framework you will ever use assumes you understand classes and objects.</p>
+</div>
+
+<h2>2. Classes and Objects</h2>
+
+<p>The words <em>class</em> and <em>object</em> get used a lot. Here are the precise definitions:</p>
+<ul>
+  <li>A <strong>class</strong> is a blueprint or template. It describes what an object looks like and what it can do. No actual data yet &#8212; just the design.</li>
+  <li>An <strong>object</strong> is an <em>instance</em> of a class. It is the real thing created from that blueprint, with its own actual data values.</li>
+</ul>
+
+<div class="callout analogy" role="region" aria-label="Analogy: cookie cutter and cookies">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>A class is like a cookie cutter. The cutter itself is not a cookie &#8212; it is just the shape. Every time you press it into dough you get a new <em>cookie</em> (an object). All cookies share the same shape (same fields and methods), but each one is its own separate thing with its own frosting, its own place on the tray. You can make as many cookies as you want from one cutter.</p>
+</div>
+
+<h3>2.1 Your First Class</h3>
+
+<p>Here is a minimal <code>Dog</code> class with two fields and one method:</p>
+
+<pre role="figure" aria-label="Simple Dog class definition">public class Dog {
+    String name;   // field: the dog's name
+    int age;       // field: the dog's age
+
+    void bark() {
+        System.out.println(name + " says: Woof!");
+    }
+}</pre>
+
+<p>And here is a separate <code>Main</code> class that creates two <code>Dog</code> objects from that blueprint:</p>
+
+<pre role="figure" aria-label="Creating Dog objects in Main">public class Main {
+    public static void main(String[] args) {
+        Dog d1 = new Dog();   // create first Dog object
+        d1.name = "Rex";
+        d1.age  = 3;
+
+        Dog d2 = new Dog();   // create second Dog object
+        d2.name = "Bella";
+        d2.age  = 5;
+
+        d1.bark();
+        d2.bark();
+    }
+}</pre>
+<div class="out">Rex says: Woof!
+Bella says: Woof!</div>
+
+<p>Both objects share the same <code>bark()</code> method defined in the class, but each has its own <code>name</code> and <code>age</code>. That is the blueprint-versus-instance relationship in action.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: public fields">
+  <div class="callout-title">&#9888;&#65039; Hold On &#8212; Those Fields Shouldn&#8217;t Be Public</div>
+  <p>The <code>Dog</code> above lets anyone write <code>d1.age = -99</code>. That is a real problem. We will fix it in the next section with <strong>access modifiers</strong> and <strong>encapsulation</strong>. For now, just notice the issue.</p>
+</div>
+
+
+<h2>3. Defining a Class</h2>
+
+<p>A well-written Java class has three sections in this order:</p>
+<ol>
+  <li><strong>Fields</strong> &#8212; the data the object holds</li>
+  <li><strong>Constructor(s)</strong> &#8212; special methods that set up a new object</li>
+  <li><strong>Methods</strong> &#8212; what the object can do</li>
+</ol>
+
+<h3>3.1 Access Modifiers: public and private</h3>
+
+<p>Java lets you control who can see each part of a class. The two you will use most:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Modifier</th>
+      <th scope="col">Who can access it?</th>
+      <th scope="col">Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>public</code></td><td>Any code anywhere</td><td>Methods you want others to call</td></tr>
+    <tr><td><code>private</code></td><td>Only code inside this class</td><td>Fields, internal helper methods</td></tr>
+  </tbody>
+</table>
+
+<h3>3.2 Fields Should Be private</h3>
+
+<p>The rule you will follow from now on: <strong>fields are always <code>private</code></strong>. This prevents outside code from directly reading or changing an object&#8217;s data without going through methods you control. That is the whole point of encapsulation (more in Section 8).</p>
+
+<pre role="figure" aria-label="Person class with private fields">public class Person {
+    private String name;   // private -- only accessible inside this class
+    private int age;
+
+    // constructors and methods go here
+}</pre>
+
+<div class="callout tip" role="region" aria-label="Tip about standard convention">
+  <div class="callout-title">&#128161; Private Fields Are the Standard</div>
+  <p>In every Java textbook, course, and professional codebase you will encounter, fields are private. Start that habit now and it will be second nature by the time you build anything serious.</p>
+</div>
+
+<h2>4. Constructors</h2>
+
+<p>A <strong>constructor</strong> is a special method that runs automatically when you create a new object with <code>new</code>. Its job is to <em>initialize</em> the object &#8212; give its fields starting values.</p>
+
+<p>Constructor rules:</p>
+<ul>
+  <li>Same name as the class (exact capitalization matters)</li>
+  <li>No return type &#8212; not even <code>void</code></li>
+  <li>Called exactly once, at the moment the object is created</li>
+</ul>
+
+<h3>4.1 Default Constructor</h3>
+
+<p>If you write no constructor at all, Java quietly provides a <strong>default constructor</strong> with no parameters. It sets every field to its zero/null default: <code>0</code> for numbers, <code>null</code> for objects, <code>false</code> for booleans. That is what happened in the <code>Dog</code> example above.</p>
+
+<h3>4.2 Custom Constructor with Parameters</h3>
+
+<pre role="figure" aria-label="Person class with parameterized constructor">public class Person {
+    private String name;
+    private int age;
+
+    // This constructor runs when "new Person(...)" is called
+    public Person(String name, int age) {
+        this.name = name;   // assign the parameter to the field
+        this.age  = age;
+    }
+}</pre>
+
+<h3>4.3 The this Keyword</h3>
+
+<p>Notice <code>this.name = name</code>. There is a naming conflict: the constructor parameter is called <code>name</code>, and the field is also called <code>name</code>. Java needs a way to tell them apart.</p>
+
+<p><code>this</code> refers to <em>the current object</em>. So <code>this.name</code> means &#8220;the <code>name</code> field that belongs to this object.&#8221; The plain <code>name</code> on the right side is the constructor parameter.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: this keyword">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>Imagine filling out a form that asks &#8220;Name: ___&#8221;. The blank on the form is <code>this.name</code> &#8212; the field on the object. The piece of paper someone handed you to copy from is <code>name</code> &#8212; the parameter. You are copying from the paper into the form.</p>
+</div>
+
+<h3>4.4 Overloaded Constructors</h3>
+
+<p>You can have more than one constructor as long as they have different parameter lists. This is <strong>constructor overloading</strong> &#8212; the same concept as method overloading from Module 7.</p>
+
+<pre role="figure" aria-label="Overloaded constructors example">public class Person {
+    private String name;
+    private int age;
+
+    // Constructor 1: name and age provided
+    public Person(String name, int age) {
+        this.name = name;
+        this.age  = age;
+    }
+
+    // Constructor 2: only name provided, default age to 0
+    public Person(String name) {
+        this.name = name;
+        this.age  = 0;
+    }
+}
+
+// Usage:
+Person p1 = new Person("Alice", 30);   // calls Constructor 1
+Person p2 = new Person("Bob");         // calls Constructor 2</pre>
+
+<div class="callout warning" role="region" aria-label="Warning: custom constructor removes default">
+  <div class="callout-title">&#9888;&#65039; Watch Out: Writing a Constructor Removes the Default One</div>
+  <p>The moment you write any constructor yourself, Java stops providing the free no-argument version. If you still need a no-arg constructor, write it explicitly: <code>public Person() { }</code>.</p>
+</div>
+
+
+<h2>5. Creating and Using Objects</h2>
+
+<p>You create an object with the <code>new</code> keyword. This does three things:</p>
+<ol>
+  <li>Allocates memory for the new object</li>
+  <li>Calls the matching constructor to initialize it</li>
+  <li>Returns a <em>reference</em> to the object, which you store in a variable</li>
+</ol>
+
+<h3>5.1 The new Keyword</h3>
+
+<pre role="figure" aria-label="Creating objects with new keyword">Person p1 = new Person("Alice", 30);
+Person p2 = new Person("Bob",   22);
+
+// p1 and p2 are completely independent objects
+// Changing p1 does not affect p2</pre>
+
+<h3>5.2 Dot Notation</h3>
+
+<p>Once you have an object, you call its methods using a dot:</p>
+
+<pre role="figure" aria-label="Dot notation syntax">objectVariable.methodName(arguments);</pre>
+
+<p>Full example with a <code>greet()</code> method:</p>
+
+<pre role="figure" aria-label="Dot notation greet example">public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age  = age;
+    }
+
+    public void greet() {
+        System.out.println("Hi, I'm " + name + " and I'm " + age + " years old.");
+    }
+}
+
+// In Main:
+Person p1 = new Person("Alice", 30);
+Person p2 = new Person("Bob",   22);
+p1.greet();
+p2.greet();</pre>
+<div class="out">Hi, I'm Alice and I'm 30 years old.
+Hi, I'm Bob and I'm 22 years old.</div>
+
+<h3>5.3 Multiple Objects from One Class</h3>
+
+<pre role="figure" aria-label="Multiple objects from one class">Person alice = new Person("Alice", 30);
+Person bob   = new Person("Bob",   22);
+Person carol = new Person("Carol", 45);
+
+alice.greet();
+bob.greet();
+carol.greet();</pre>
+<div class="out">Hi, I'm Alice and I'm 30 years old.
+Hi, I'm Bob and I'm 22 years old.
+Hi, I'm Carol and I'm 45 years old.</div>
+
+<p>Each object has its own independent copy of the fields. They do not share data &#8212; only the method definitions are shared across all instances.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: variable vs object">
+  <div class="callout-title">&#128161; Variable vs. Object</div>
+  <p><code>alice</code> is a variable that <em>refers to</em> a <code>Person</code> object. The variable holds the memory address of where the object lives &#8212; it is not the object itself. This distinction matters when you start passing objects as method arguments and working with arrays of objects.</p>
+</div>
+
+<h2>6. Getters and Setters</h2>
+
+<p>Fields are private. So how does outside code read or change them? Through methods you write specifically for that purpose:</p>
+
+<ul>
+  <li>A <strong>getter</strong> (accessor method) returns the value of a field. Convention: name it <code>getFieldName()</code>.</li>
+  <li>A <strong>setter</strong> (mutator method) changes the value of a field. Convention: name it <code>setFieldName()</code>.</li>
+</ul>
+
+<h3>6.1 Why Not Just Use Public Fields?</h3>
+
+<p>If a field is public, anyone can set it to anything &#8212; including nonsense values like a negative age or an empty name. A setter gives you a place to validate the incoming value before you accept it.</p>
+
+<pre role="figure" aria-label="Person class with getters and setters">public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age  = age;
+    }
+
+    // --- Getters ---
+    public String getName() { return name; }
+    public int    getAge()  { return age;  }
+
+    // --- Setters with validation ---
+    public void setName(String name) {
+        if (name != null &amp;&amp; !name.isEmpty()) {
+            this.name = name;
+        }
+    }
+
+    public void setAge(int age) {
+        if (age &gt;= 0) {
+            this.age = age;
+        }
+        // if negative, the old value is kept -- no error thrown yet
+    }
+}
+
+// In Main:
+Person p = new Person("Alice", 30);
+System.out.println(p.getName());    // Alice
+p.setAge(31);
+System.out.println(p.getAge());     // 31
+p.setAge(-5);                       // rejected by setter
+System.out.println(p.getAge());     // still 31</pre>
+<div class="out">Alice
+31
+31</div>
+
+<div class="callout analogy" role="region" aria-label="Analogy: front desk">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>Private fields with getters and setters are like a front desk at an office. You cannot walk into the back room and grab files yourself (no direct field access). You go through the front desk (getters/setters). The front desk checks your request, applies rules, and either hands you what you need or says no.</p>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: setter naming matters">
+  <div class="callout-title">&#9888;&#65039; Naming Matters &#8212; Especially for Frameworks</div>
+  <p>Java frameworks like JavaBeans, Spring, and Hibernate <em>expect</em> getters named <code>getFieldName()</code> and setters named <code>setFieldName()</code>. Deviate and those tools break. Stick with the convention.</p>
+</div>
+
+
+<h2>7. The toString() Method</h2>
+
+<p>Every Java class automatically inherits a method called <code>toString()</code>. By default it returns something like <code>Person@3764951d</code> &#8212; the class name plus a memory address. Not useful for debugging.</p>
+
+<p>You can <strong>override</strong> <code>toString()</code> to return something meaningful instead.</p>
+
+<h3>7.1 Overriding toString()</h3>
+
+<pre role="figure" aria-label="Person class with toString override">public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age  = age;
+    }
+
+    public String getName() { return name; }
+    public int    getAge()  { return age;  }
+
+    @Override
+    public String toString() {
+        return "Person[name=" + name + ", age=" + age + "]";
+    }
+}
+
+// In Main:
+Person p = new Person("Alice", 30);
+System.out.println(p);       // Java calls toString() automatically</pre>
+<div class="out">Person[name=Alice, age=30]</div>
+
+<p>The <code>@Override</code> annotation tells Java (and other programmers) that you are intentionally replacing the inherited version. The compiler uses it to catch typos in the method signature. Always include it.</p>
+
+<h3>7.2 How println Uses toString()</h3>
+
+<p>Whenever you pass an object to <code>System.out.println()</code>, Java automatically calls that object&#8217;s <code>toString()</code> and prints the result. The same thing happens when you concatenate an object into a String:</p>
+
+<pre role="figure" aria-label="Automatic toString in concatenation">Person p = new Person("Alice", 30);
+String msg = "Employee: " + p;   // toString() called automatically here
+System.out.println(msg);</pre>
+<div class="out">Employee: Person[name=Alice, age=30]</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: toString">
+  <div class="callout-title">&#128295; Try It</div>
+  <p>Add a <code>toString()</code> to your <code>Dog</code> class from Section 2. Return something like <code>Dog[name=Rex, age=3]</code>. Then print a <code>Dog</code> object with <code>System.out.println()</code> and confirm it uses your version instead of the cryptic default.</p>
+</div>
+
+<h2>8. Encapsulation</h2>
+
+<p><strong>Encapsulation</strong> is the principle of bundling data and behavior together in one class, and restricting direct access to the data from outside. The recipe:</p>
+
+<ul>
+  <li>Fields: <code>private</code></li>
+  <li>Methods intended for outside use: <code>public</code></li>
+</ul>
+
+<p>That combination hides the internals and forces all interaction through a controlled interface you design.</p>
+
+<h3>8.1 Benefits of Encapsulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Benefit</th>
+      <th scope="col">What it means in practice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Data protection</td><td>Outside code cannot set a field to an invalid value</td></tr>
+    <tr><td>Validation</td><td>Setters can enforce business rules before storing a value</td></tr>
+    <tr><td>Flexibility</td><td>You can change internal implementation without breaking callers</td></tr>
+    <tr><td>Easier debugging</td><td>Only one place where a field can change &#8212; inside the class</td></tr>
+    <tr><td>Readable API</td><td>The public methods tell you exactly what an object can do</td></tr>
+  </tbody>
+</table>
+
+<h3>8.2 A Broken Example (No Encapsulation)</h3>
+
+<pre role="figure" aria-label="Broken example without encapsulation">// BAD -- public fields, no protection
+public class BankAccount {
+    public double balance;   // anyone can set this directly
+}
+
+// In Main:
+BankAccount acct = new BankAccount();
+acct.balance = -50000;   // no one stopped us -- this is a bug waiting to happen</pre>
+
+<h3>8.3 Fixed with Encapsulation</h3>
+
+<pre role="figure" aria-label="Fixed example with encapsulation">// GOOD -- private field, controlled access
+public class BankAccount {
+    private double balance = 0;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount &gt; 0) {
+            balance += amount;
+        }
+    }
+}
+
+// In Main:
+BankAccount acct = new BankAccount();
+acct.deposit(500);
+System.out.println(acct.getBalance());   // 500.0
+// acct.balance = -50000;  -- COMPILER ERROR: balance is private</pre>
+<div class="out">500.0</div>
+
+<div class="callout tip" role="region" aria-label="Tip: encapsulation is the default mindset">
+  <div class="callout-title">&#128161; Make Encapsulation the Default</div>
+  <p>Get into the habit of making every field <code>private</code> and every useful method <code>public</code>. If you are ever tempted to make a field public, stop and ask whether a getter/setter would serve the purpose instead. Nine times out of ten it will.</p>
+</div>
+
+
+<h2>9. UML Class Diagrams</h2>
+
+<p><strong>UML</strong> (Unified Modeling Language) is a standard way to draw pictures of classes before or after you code them. A class diagram is the most common type &#8212; you will see it in textbooks, job interviews, and design meetings.</p>
+
+<p>A class diagram has three sections stacked vertically:</p>
+<ol>
+  <li><strong>Class name</strong> &#8212; at the top, usually bold</li>
+  <li><strong>Fields</strong> &#8212; in the middle, with their types</li>
+  <li><strong>Methods</strong> &#8212; at the bottom, with return types and parameters</li>
+</ol>
+
+<p>Visibility symbols:</p>
+<ul>
+  <li><strong>&#43;</strong> means <code>public</code></li>
+  <li><strong>&#8722;</strong> means <code>private</code></li>
+</ul>
+
+<h3>9.1 UML for the Person Class</h3>
+
+<div role="figure" aria-label="UML class diagram for Person">
+  <div class="uml-box">
+    <div class="uml-classname">Person</div>
+    <div class="uml-section">
+      &#8722; name : String<br>
+      &#8722; age : int
+    </div>
+    <div class="uml-section">
+      &#43; Person(name : String, age : int)<br>
+      &#43; getName() : String<br>
+      &#43; getAge() : int<br>
+      &#43; setName(name : String) : void<br>
+      &#43; setAge(age : int) : void<br>
+      &#43; toString() : String
+    </div>
+  </div>
+</div>
+
+<p>Reading left to right in the methods section: visibility &#8212; method name &#8212; parameters &#8212; return type. Simple once you know the notation.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: UML comes before code">
+  <div class="callout-title">&#128161; Sketch Before You Type</div>
+  <p>In real projects, developers draw a UML class diagram <em>before</em> writing any code. It forces you to think through what fields and methods you need, spots design problems early, and makes it much easier to communicate with teammates. Get in the habit.</p>
+</div>
+
+<h3>9.2 Reading a UML Diagram</h3>
+
+<p>Given this diagram for a <code>Car</code> class:</p>
+
+<div role="figure" aria-label="UML class diagram for Car">
+  <div class="uml-box">
+    <div class="uml-classname">Car</div>
+    <div class="uml-section">
+      &#8722; make : String<br>
+      &#8722; model : String<br>
+      &#8722; year : int<br>
+      &#8722; speed : double
+    </div>
+    <div class="uml-section">
+      &#43; Car(make : String, model : String, year : int)<br>
+      &#43; getMake() : String<br>
+      &#43; getSpeed() : double<br>
+      &#43; accelerate(amount : double) : void<br>
+      &#43; brake(amount : double) : void<br>
+      &#43; toString() : String
+    </div>
+  </div>
+</div>
+
+<p>You can immediately tell: four private fields, a constructor that takes three arguments, six public methods. You could write the Java skeleton for this class without reading another word of documentation.</p>
+
+<div class="callout try-it" role="region" aria-label="Try It: UML">
+  <div class="callout-title">&#128295; Try It</div>
+  <p>Draw a UML class diagram for a <code>Student</code> class with fields <code>name</code>, <code>id</code>, and <code>gpa</code>, a constructor, getters, a setter for <code>gpa</code> (reject values outside 0.0&#8211;4.0), and a <code>toString()</code>. Then write the Java code from your diagram.</p>
+</div>
+
+
+<h2>10. Complete Example &#8212; The BankAccount Class</h2>
+
+<p>Let&#8217;s build a real, working <code>BankAccount</code> class from scratch, applying everything from Sections 1 through 9. We will follow this UML diagram:</p>
+
+<div role="figure" aria-label="UML class diagram for BankAccount">
+  <div class="uml-box">
+    <div class="uml-classname">BankAccount</div>
+    <div class="uml-section">
+      &#8722; owner : String<br>
+      &#8722; balance : double
+    </div>
+    <div class="uml-section">
+      &#43; BankAccount(owner : String, initialBalance : double)<br>
+      &#43; getOwner() : String<br>
+      &#43; getBalance() : double<br>
+      &#43; deposit(amount : double) : void<br>
+      &#43; withdraw(amount : double) : boolean<br>
+      &#43; toString() : String
+    </div>
+  </div>
+</div>
+
+<h3>10.1 The BankAccount Class</h3>
+
+<pre role="figure" aria-label="Complete BankAccount class">public class BankAccount {
+
+    // Fields -- always private
+    private String owner;
+    private double balance;
+
+    // Constructor
+    public BankAccount(String owner, double initialBalance) {
+        this.owner = owner;
+        if (initialBalance &gt;= 0) {
+            this.balance = initialBalance;
+        } else {
+            this.balance = 0;   // reject negative starting balance
+        }
+    }
+
+    // Getters
+    public String getOwner()   { return owner;   }
+    public double getBalance() { return balance; }
+
+    // deposit -- add money to the account
+    public void deposit(double amount) {
+        if (amount &gt; 0) {
+            balance += amount;
+            System.out.println("Deposited $" + amount
+                               + " | New balance: $" + balance);
+        } else {
+            System.out.println("Deposit rejected: amount must be positive.");
+        }
+    }
+
+    // withdraw -- remove money if funds are available
+    // returns true if successful, false if not enough funds
+    public boolean withdraw(double amount) {
+        if (amount &lt;= 0) {
+            System.out.println("Withdrawal rejected: amount must be positive.");
+            return false;
+        }
+        if (amount &gt; balance) {
+            System.out.println("Withdrawal rejected: insufficient funds.");
+            return false;
+        }
+        balance -= amount;
+        System.out.println("Withdrew $" + amount
+                           + " | New balance: $" + balance);
+        return true;
+    }
+
+    // toString -- readable summary of the account
+    @Override
+    public String toString() {
+        return "BankAccount[owner=" + owner + ", balance=$" + balance + "]";
+    }
+}</pre>
+
+<h3>10.2 Using BankAccount from Main</h3>
+
+<pre role="figure" aria-label="Main class using BankAccount">public class Main {
+    public static void main(String[] args) {
+
+        // Create two accounts
+        BankAccount alice = new BankAccount("Alice", 1000.00);
+        BankAccount bob   = new BankAccount("Bob",    250.00);
+
+        // Print using toString()
+        System.out.println(alice);
+        System.out.println(bob);
+        System.out.println();
+
+        // Alice deposits and withdraws
+        alice.deposit(500.00);
+        alice.withdraw(200.00);
+        alice.withdraw(2000.00);   // should be rejected
+        System.out.println();
+
+        // Bob tries a bad deposit
+        bob.deposit(-100.00);      // should be rejected
+        bob.deposit(75.00);
+        System.out.println();
+
+        // Final state
+        System.out.println("Final balances:");
+        System.out.println(alice.getOwner() + ": $" + alice.getBalance());
+        System.out.println(bob.getOwner()   + ": $" + bob.getBalance());
+    }
+}</pre>
+<div class="out">BankAccount[owner=Alice, balance=$1000.0]
+BankAccount[owner=Bob, balance=$250.0]
+
+Deposited $500.0 | New balance: $1500.0
+Withdrew $200.0 | New balance: $1300.0
+Withdrawal rejected: insufficient funds.
+
+Deposit rejected: amount must be positive.
+Deposited $75.0 | New balance: $325.0
+
+Final balances:
+Alice: $1300.0
+Bob: $325.0</div>
+
+<h3>10.3 What This Demonstrates</h3>
+
+<ul>
+  <li><strong>Private fields</strong> &#8212; <code>owner</code> and <code>balance</code> cannot be changed directly from <code>Main</code></li>
+  <li><strong>Constructor with validation</strong> &#8212; negative starting balances are silently corrected to 0</li>
+  <li><strong>Getter methods</strong> &#8212; <code>getOwner()</code> and <code>getBalance()</code> give read access</li>
+  <li><strong>Validated behavior</strong> &#8212; <code>deposit()</code> rejects negative amounts; <code>withdraw()</code> checks for sufficient funds</li>
+  <li><strong>Return values from methods</strong> &#8212; <code>withdraw()</code> returns <code>boolean</code> so callers know if it succeeded</li>
+  <li><strong>toString()</strong> &#8212; <code>System.out.println(alice)</code> gives useful output automatically</li>
+  <li><strong>Two independent objects</strong> &#8212; Alice&#8217;s account and Bob&#8217;s account do not affect each other</li>
+</ul>
+
+<div class="callout try-it" role="region" aria-label="Try It: extend BankAccount">
+  <div class="callout-title">&#128295; Try It</div>
+  <p>Extend the <code>BankAccount</code> class with a <code>transfer(BankAccount target, double amount)</code> method. It should withdraw from this account and deposit to the target account. Both operations should use the existing validated methods &#8212; do not manipulate <code>balance</code> directly. Test it from <code>Main</code>.</p>
+</div>
+
+
+<h2>&#128203; Summary</h2>
+
+<div class="callout summary" role="region" aria-label="Module Summary">
+  <div class="callout-title">Module 08 &#8212; Key Takeaways</div>
+  <ul>
+    <li><strong>OOP</strong> models programs as collections of objects, each with state (fields) and behavior (methods).</li>
+    <li>A <strong>class</strong> is a blueprint; an <strong>object</strong> is an instance created from that blueprint with <code>new</code>.</li>
+    <li><strong>Fields should always be <code>private</code></strong>. This is the foundation of encapsulation.</li>
+    <li>A <strong>constructor</strong> initializes a new object. It has the same name as the class and no return type.</li>
+    <li>The <code>this</code> keyword refers to the current object and resolves naming conflicts between fields and parameters.</li>
+    <li><strong>Getters</strong> return field values; <strong>setters</strong> change them with validation. Name them <code>getFieldName()</code> / <code>setFieldName()</code>.</li>
+    <li>Override <code>toString()</code> to give objects a readable string representation. <code>println()</code> calls it automatically.</li>
+    <li><strong>Encapsulation</strong> = private fields + public methods. It protects data, enables validation, and makes code easier to maintain.</li>
+    <li><strong>UML class diagrams</strong> have three sections: class name, fields (&#8722; for private), methods (&#43; for public).</li>
+    <li>A well-designed class like <code>BankAccount</code> uses all of these ideas together: private fields, a validating constructor, getters, validated behavior methods, and <code>toString()</code>.</li>
+  </ul>
+</div>
+
+<h2>Vocabulary</h2>
+
+<table class="vocab-table">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>object</td><td>An instance of a class, with its own copy of the class&#8217;s fields</td></tr>
+    <tr><td>class</td><td>A blueprint that defines the fields and methods of its objects</td></tr>
+    <tr><td>instance</td><td>A single object created from a class; often used interchangeably with &#8220;object&#8221;</td></tr>
+    <tr><td>field</td><td>A variable declared inside a class that stores part of an object&#8217;s state</td></tr>
+    <tr><td>instance variable</td><td>Another name for a field; each object gets its own copy</td></tr>
+    <tr><td>constructor</td><td>A special method (same name as the class, no return type) that initializes a new object</td></tr>
+    <tr><td>access modifier</td><td>A keyword (<code>public</code>, <code>private</code>) that controls who can access a class member</td></tr>
+    <tr><td>encapsulation</td><td>Bundling data and behavior together and hiding the data behind a controlled interface</td></tr>
+    <tr><td>getter</td><td>A public method that returns the value of a private field; named <code>getFieldName()</code></td></tr>
+    <tr><td>setter</td><td>A public method that validates and sets a private field; named <code>setFieldName()</code></td></tr>
+    <tr><td>dot notation</td><td>The syntax <code>object.method()</code> used to call a method on an object</td></tr>
+    <tr><td>this</td><td>A reference to the current object; used to distinguish fields from parameters with the same name</td></tr>
+    <tr><td>toString()</td><td>An inherited method that returns a string representation of an object; override it for useful output</td></tr>
+    <tr><td>@Override</td><td>An annotation that tells the compiler you are intentionally replacing an inherited method</td></tr>
+    <tr><td>overriding</td><td>Providing a new implementation of a method that was inherited from a parent class</td></tr>
+    <tr><td>overloading</td><td>Writing multiple constructors (or methods) with the same name but different parameter lists</td></tr>
+    <tr><td>UML</td><td>Unified Modeling Language; a standard notation for diagramming classes and their relationships</td></tr>
+    <tr><td>state</td><td>The data an object holds at a given moment, represented by its field values</td></tr>
+    <tr><td>behavior</td><td>The actions an object can perform, represented by its methods</td></tr>
+    <tr><td>new</td><td>The keyword that allocates memory, calls the constructor, and creates a new object</td></tr>
+  </tbody>
+</table>
+
+
+<div class="page-break"></div>
+<h2>&#128203; Module 08 Quiz</h2>
+
+<p>Choose the best answer for each question. Each question has exactly one correct answer.</p>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 1">
+  <p><span class="quiz-number">1.</span> Which term describes the data an object holds &#8212; for example, the <code>balance</code> in a <code>BankAccount</code>?</p>
+  <ul class="quiz-options">
+    <li>A. State</li>
+    <li>B. Constructor</li>
+    <li>C. Behavior</li>
+    <li>D. Access modifier</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 2">
+  <p><span class="quiz-number">2.</span> What does the keyword <code>new</code> do in the statement <code>Person p = new Person("Alice", 30);</code>?</p>
+  <ul class="quiz-options">
+    <li>A. Declares a variable named <code>p</code></li>
+    <li>B. Allocates memory, calls the constructor, and returns a reference to the new object</li>
+    <li>C. Copies an existing object</li>
+    <li>D. Deletes the old object and replaces it</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 3">
+  <p><span class="quiz-number">3.</span> A developer writes this class. What is printed when <code>System.out.println(c);</code> is called?</p>
+<pre role="figure" aria-label="Code for Question 3">public class Counter {
+    private int count = 5;
+
+    @Override
+    public String toString() {
+        return "Count: " + count;
+    }
+}
+
+Counter c = new Counter();</pre>
+  <ul class="quiz-options">
+    <li>A. <code>Counter@</code> followed by a memory address</li>
+    <li>B. <code>count = 5</code></li>
+    <li>C. A compiler error &#8212; you cannot print an object directly</li>
+    <li>D. <code>Count: 5</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 4">
+  <p><span class="quiz-number">4.</span> Which access modifier should be used on a class field to enforce encapsulation?</p>
+  <ul class="quiz-options">
+    <li>A. <code>private</code></li>
+    <li>B. <code>protected</code></li>
+    <li>C. <code>public</code></li>
+    <li>D. No modifier (package-private)</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 5">
+  <p><span class="quiz-number">5.</span> What is the purpose of the <code>this</code> keyword in the constructor below?</p>
+<pre role="figure" aria-label="Code for Question 5">public Product(String name, double price) {
+    this.name  = name;
+    this.price = price;
+}</pre>
+  <ul class="quiz-options">
+    <li>A. It calls the parent class constructor</li>
+    <li>B. It creates a second copy of the object</li>
+    <li>C. It distinguishes the object&#8217;s fields from the constructor parameters that have the same names</li>
+    <li>D. It marks the fields as static</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 6">
+  <p><span class="quiz-number">6.</span> A class has a private field <code>speed</code>. Which method signature follows the standard Java getter convention for that field?</p>
+  <ul class="quiz-options">
+    <li>A. <code>public double speed()</code></li>
+    <li>B. <code>public double getSpeed()</code></li>
+    <li>C. <code>public void returnSpeed()</code></li>
+    <li>D. <code>private double getSpeed()</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 7">
+  <p><span class="quiz-number">7.</span> Look at this code. What is the output?</p>
+<pre role="figure" aria-label="Code for Question 7">public class Box {
+    private int value;
+
+    public Box(int value) { this.value = value; }
+
+    public void setValue(int v) {
+        if (v &gt; 0) this.value = v;
+    }
+
+    public int getValue() { return value; }
+}
+
+Box b = new Box(10);
+b.setValue(-5);
+b.setValue(20);
+System.out.println(b.getValue());</pre>
+  <ul class="quiz-options">
+    <li>A. <code>-5</code></li>
+    <li>B. <code>10</code></li>
+    <li>C. <code>0</code></li>
+    <li>D. <code>20</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 8">
+  <p><span class="quiz-number">8.</span> In a UML class diagram, what does the &#8722; (minus) symbol before a member name indicate?</p>
+  <ul class="quiz-options">
+    <li>A. The member is <code>private</code></li>
+    <li>B. The member has been removed from the design</li>
+    <li>C. The member is <code>public</code></li>
+    <li>D. The member is a constructor</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 9">
+  <p><span class="quiz-number">9.</span> You define a custom constructor <code>public Dog(String name)</code> in your <code>Dog</code> class. What happens if you then try to create a dog with <code>Dog d = new Dog();</code>?</p>
+  <ul class="quiz-options">
+    <li>A. Java uses the default no-arg constructor automatically</li>
+    <li>B. A runtime error occurs</li>
+    <li>C. A compile-time error occurs because the no-arg constructor no longer exists</li>
+    <li>D. The custom constructor is called with <code>null</code> as the argument</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz Question 10">
+  <p><span class="quiz-number">10.</span> Which statement best describes the relationship between a class and an object?</p>
+  <ul class="quiz-options">
+    <li>A. An object is a blueprint; a class is an instance created from that blueprint</li>
+    <li>B. A class and an object are the same thing &#8212; just different terms</li>
+    <li>C. A class is the blueprint; an object is a specific instance created from that blueprint</li>
+    <li>D. An object can only be created once from a given class</li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p>ITP 120 &#8212; Programming with Java &nbsp;|&nbsp; Module 08 &#8212; Object-Oriented Programming &nbsp;|&nbsp; Randy Michak &nbsp;|&nbsp; NOVA</p>
+</div>
+
+</body>
+</html>

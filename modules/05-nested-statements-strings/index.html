@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 05 &#8212; Nested Statements and Strings | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page { size: letter; margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 05 — Nested Statements and Strings"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: "Inter",-apple-system,BlinkMacSystemFont,sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: "Courier New",monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; white-space: pre-wrap; }
+    code { font-family: "Courier New",monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .out { background: #0f172a; color: #94a3b8; font-style: italic; border-radius: 0 0 8px 8px; padding: 8px 18px; margin: -12px 0 12px 0; font-family: "Courier New",monospace; font-size: 10pt; page-break-inside: avoid; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<div class="title-section">
+  <h1>Module 05 &#8212; Nested Statements and Strings</h1>
+  <div class="course">ITP 120 &#8212; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">&#127919; Learning Objectives</div>
+  <ul>
+    <li>Write and trace nested <code>if</code> statements across multiple levels</li>
+    <li>Combine nested logic with <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code> for cleaner decisions</li>
+    <li>Declare, concatenate, and explain why Strings are immutable</li>
+    <li>Call common String methods: <code>length()</code>, <code>charAt()</code>, <code>substring()</code>, <code>indexOf()</code>, <code>contains()</code>, and more</li>
+    <li>Compare Strings correctly using <code>equals()</code> &#8212; not <code>==</code></li>
+    <li>Use <code>StringBuilder</code> to build strings efficiently in loops</li>
+    <li>Process strings character by character with the <code>Character</code> class</li>
+    <li>Apply everything in a realistic password validator and email format checker</li>
+  </ul>
+</div>
+
+<div class="callout key-terms" role="region" aria-label="Key Terms">
+  <div class="callout-title">&#128218; Key Terms</div>
+  <p>
+    <strong>nested if</strong> &nbsp;&middot;&nbsp; <strong>decision tree</strong> &nbsp;&middot;&nbsp;
+    <strong>immutable</strong> &nbsp;&middot;&nbsp; <strong>String pool</strong> &nbsp;&middot;&nbsp;
+    <strong>reference type</strong> &nbsp;&middot;&nbsp; <strong>zero-based index</strong> &nbsp;&middot;&nbsp;
+    <strong>substring</strong> &nbsp;&middot;&nbsp; <strong>StringBuilder</strong> &nbsp;&middot;&nbsp;
+    <strong>Character class</strong> &nbsp;&middot;&nbsp; <strong>lexicographic order</strong>
+  </p>
+</div>
+
+<h2>1. Nested if Statements &#8212; A Quick Recap</h2>
+<p>You saw basic <code>if</code>/<code>else if</code>/<code>else</code> chains in Module 4. A <strong>nested if</strong> is an <code>if</code> statement living <em>inside</em> another <code>if</code> statement. The inner block only runs when the outer condition was already true.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: nested ifs as locked doors">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>Nesting is like a series of locked doors. You only reach door #2 if door #1 already opened. The inner <code>if</code> block only executes when the outer condition evaluated to <code>true</code>. There is no shortcut to door #2.</p>
+</div>
+
+<h3>1.1 The Basic Shape</h3>
+<pre role="figure" aria-label="Nested if basic structure">if (outerCondition) {
+    // We are inside the outer if
+    if (innerCondition) {
+        System.out.println("Both are true");
+    } else {
+        System.out.println("Only outer is true");
+    }
+} else {
+    // Outer is false -- inner block never runs
+    System.out.println("Outer is false");
+}</pre>
+
+<h3>1.2 Multi-Level Nesting &#8212; Number Classifier</h3>
+<pre role="figure" aria-label="Multi-level nested if number classification">int num = 42;
+
+if (num != 0) {
+    if (num &gt; 0) {
+        if (num % 2 == 0) {
+            System.out.println("Positive and even");
+        } else {
+            System.out.println("Positive and odd");
+        }
+    } else {
+        System.out.println("Negative number");
+    }
+} else {
+    System.out.println("Zero");
+}</pre>
+<div class="out" role="figure" aria-label="Output">Output: Positive and even</div>
+
+<h3>1.3 Nesting vs. Logical Operators</h3>
+<p>Sometimes a nested <code>if</code> can be collapsed into one compound condition. Compare:</p>
+<pre role="figure" aria-label="Nested if vs logical AND">// Nested -- more verbose, same result
+if (age &gt;= 18) {
+    if (hasID) {
+        System.out.println("Allowed entry");
+    }
+}
+
+// Cleaner with &amp;&amp;
+if (age &gt;= 18 &amp;&amp; hasID) {
+    System.out.println("Allowed entry");
+}</pre>
+
+<p>Use nesting when the inner logic is complex enough that flattening it would create an unreadable condition. Use <code>&amp;&amp;</code> and <code>||</code> when you can express the whole check on one clean line.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: consistent indentation">
+  <div class="callout-title">&#128161; Indentation Is Not Optional</div>
+  <p>Java ignores whitespace, but your teammates &#8212; and your future self &#8212; do not. Use consistent indentation (2 or 4 spaces per level). If your code is stair-stepping off the right edge of the screen, it is time to refactor.</p>
+</div>
+
+<h2>2. Complex Decision Logic</h2>
+<p>Real programs make layered decisions. A grade calculator needs a score. A shipping calculator needs the weight <em>and</em> the destination zone. This is where nested ifs really pay off.</p>
+
+<h3>2.1 Grade Calculator</h3>
+<pre role="figure" aria-label="Grade calculator using else-if ladder">import java.util.Scanner;
+
+public class GradeCalc {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter score (0-100): ");
+        int score = input.nextInt();
+
+        String grade;
+        if (score &gt;= 90) {
+            grade = "A";
+        } else if (score &gt;= 80) {
+            grade = "B";
+        } else if (score &gt;= 70) {
+            grade = "C";
+        } else if (score &gt;= 60) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+
+        System.out.println("Grade: " + grade);
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">Enter score (0-100): 85
+Grade: B</div>
+
+<p>As soon as one branch matches, Java skips the rest. That is the <em>else-if ladder</em> &#8212; the cleanest approach for mutually exclusive numeric ranges.</p>
+
+<h3>2.2 Shipping Cost by Weight and Zone</h3>
+<p>Here the cost depends on two independent factors, so two-level nesting makes sense:</p>
+<pre role="figure" aria-label="Shipping cost nested by zone and weight">String zone = "East";
+double weightLbs = 8.5;
+double cost;
+
+if (zone.equals("East")) {
+    if (weightLbs &lt;= 5) {
+        cost = 5.99;
+    } else if (weightLbs &lt;= 20) {
+        cost = 9.99;
+    } else {
+        cost = 19.99;
+    }
+} else if (zone.equals("West")) {
+    if (weightLbs &lt;= 5) {
+        cost = 7.99;
+    } else if (weightLbs &lt;= 20) {
+        cost = 12.99;
+    } else {
+        cost = 24.99;
+    }
+} else {
+    cost = 39.99;  // International flat rate
+}
+
+System.out.printf("Shipping cost: $%.2f%n", cost);</pre>
+<div class="out" role="figure" aria-label="Output">Shipping cost: $9.99</div>
+
+<div class="callout warning" role="region" aria-label="Warning: dangling else">
+  <div class="callout-title">&#9888;&#65039; The Dangling Else Problem</div>
+  <p>Java matches each <code>else</code> with the <em>nearest</em> unmatched <code>if</code>. Always use curly braces <code>{ }</code> around every block, even single-line bodies. Skipping braces is the number-one source of hard-to-find logic bugs in nested code.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: tax bracket calculator">
+  <div class="callout-title">&#128295; Try It &#8212; Tax Bracket Calculator</div>
+  <p>Write a program that reads annual income and prints the marginal tax rate:</p>
+  <ul>
+    <li>$0 &#8211; $11,000 &#8594; 10%</li>
+    <li>$11,001 &#8211; $44,725 &#8594; 12%</li>
+    <li>$44,726 &#8211; $95,375 &#8594; 22%</li>
+    <li>Above $95,375 &#8594; 24%</li>
+  </ul>
+  <p>Then add a nested check: if the rate is 22%+ <em>and</em> <code>hasDependents</code> is true, print "You may qualify for additional deductions."</p>
+</div>
+
+<h2>3. String Basics</h2>
+<p>You have been using Strings since Module 1. Now it is time to understand what they actually are under the hood &#8212; because that knowledge explains some surprising behavior you are about to encounter.</p>
+
+<h3>3.1 String Is a Class, Not a Primitive</h3>
+<p>Java has eight primitive types: <code>int</code>, <code>double</code>, <code>boolean</code>, <code>char</code>, and four others. <code>String</code> is <strong>not</strong> on that list. It is a full Java class, so String variables hold <em>references</em> to objects in memory &#8212; not the data itself. That distinction matters a lot when we get to comparisons.</p>
+
+<pre role="figure" aria-label="String declaration and concatenation">// Most common: string literal
+String name = "Alice";
+
+// Explicit object creation (rare, usually unnecessary)
+String greeting = new String("Hello");
+
+// Empty string -- NOT null, has length 0
+String empty = "";
+
+// Concatenation with +
+String full = greeting + ", " + name + "!";
+System.out.println(full);</pre>
+<div class="out" role="figure" aria-label="Output">Hello, Alice!</div>
+
+<h3>3.2 Strings Are Immutable</h3>
+<p>Once a String object is created, its content <strong>cannot change</strong>. When you write <code>s = s + "!"</code>, Java creates a brand-new String with the added character and points your variable at it. The old object floats in memory until the garbage collector removes it.</p>
+
+<pre role="figure" aria-label="String immutability demo">String s = "Hello";
+s = s + " World";   // New object created; s now points to it
+System.out.println(s);</pre>
+<div class="out" role="figure" aria-label="Output">Hello World</div>
+
+<p>For most code, immutability does not matter. But inside a loop that builds a string piece by piece, creating hundreds of throwaway objects tanks performance. That is why <code>StringBuilder</code> exists &#8212; covered in Section 7.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: String as printed photo">
+  <div class="callout-title">&#129504; Think of It This Way</div>
+  <p>A String is like a printed photograph. You can look at it, copy it, and label it differently &#8212; but you cannot change the image on the print. To "edit" it, you print a new photo. <code>StringBuilder</code> is the digital negative: modify it in place, then print the final version.</p>
+</div>
+
+<h2>4. String Methods</h2>
+<p>The <code>String</code> class has over 60 methods. Here are the ones you need right now:</p>
+
+<table aria-label="Common String methods reference">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">Returns</th>
+      <th scope="col">What It Does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>length()</code></td><td><code>int</code></td><td>Number of characters in the string</td></tr>
+    <tr><td><code>charAt(i)</code></td><td><code>char</code></td><td>Character at zero-based index <em>i</em></td></tr>
+    <tr><td><code>toUpperCase()</code></td><td><code>String</code></td><td>All letters converted to uppercase</td></tr>
+    <tr><td><code>toLowerCase()</code></td><td><code>String</code></td><td>All letters converted to lowercase</td></tr>
+    <tr><td><code>trim()</code></td><td><code>String</code></td><td>Removes leading and trailing whitespace</td></tr>
+    <tr><td><code>substring(begin)</code></td><td><code>String</code></td><td>Characters from <em>begin</em> through the end</td></tr>
+    <tr><td><code>substring(begin, end)</code></td><td><code>String</code></td><td>From <em>begin</em> up to but NOT including <em>end</em></td></tr>
+    <tr><td><code>indexOf(str)</code></td><td><code>int</code></td><td>First position of <em>str</em>; -1 if not found</td></tr>
+    <tr><td><code>contains(str)</code></td><td><code>boolean</code></td><td><code>true</code> if <em>str</em> appears anywhere</td></tr>
+    <tr><td><code>startsWith(str)</code></td><td><code>boolean</code></td><td><code>true</code> if string begins with <em>str</em></td></tr>
+    <tr><td><code>endsWith(str)</code></td><td><code>boolean</code></td><td><code>true</code> if string ends with <em>str</em></td></tr>
+    <tr><td><code>replace(old, new)</code></td><td><code>String</code></td><td>Replaces every occurrence of <em>old</em> with <em>new</em></td></tr>
+    <tr><td><code>isEmpty()</code></td><td><code>boolean</code></td><td><code>true</code> if the length is 0</td></tr>
+  </tbody>
+</table>
+
+<h3>4.1 length() and charAt()</h3>
+<pre role="figure" aria-label="length and charAt">String word = "Java";
+System.out.println(word.length());   // 4
+System.out.println(word.charAt(0));  // J
+System.out.println(word.charAt(3));  // a
+// word.charAt(4) throws StringIndexOutOfBoundsException!</pre>
+
+<p>Indexes always start at <strong>0</strong>. The last valid index is always <code>length() - 1</code>. That rule applies everywhere in Java.</p>
+
+<h3>4.2 toUpperCase(), toLowerCase(), trim()</h3>
+<pre role="figure" aria-label="String case and trim">String messy = "  Hello, World!  ";
+System.out.println(messy.toUpperCase());         // "  HELLO, WORLD!  "
+System.out.println(messy.toLowerCase());         // "  hello, world!  "
+System.out.println(messy.trim());                // "Hello, World!"
+System.out.println(messy.trim().toLowerCase());  // "hello, world!"</pre>
+
+<h3>4.3 substring()</h3>
+<pre role="figure" aria-label="substring">String url = "https://nova.edu";
+System.out.println(url.substring(8));       // "nova.edu"
+System.out.println(url.substring(0, 5));    // "https"
+System.out.println(url.substring(8, 12));   // "nova"</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: substring end index is exclusive">
+  <div class="callout-title">&#128161; Off-by-One Is Real</div>
+  <p><code>substring(0, 5)</code> gives you positions 0, 1, 2, 3, 4 &#8212; five characters. The end index is <em>exclusive</em>. Think: "start here, stop <em>before</em> this index." Same convention in Python, JavaScript, and most other languages.</p>
+</div>
+
+<h3>4.4 indexOf(), contains(), startsWith(), endsWith()</h3>
+<pre role="figure" aria-label="indexOf contains startsWith endsWith">String email = "student@nova.edu";
+System.out.println(email.indexOf("@"));       // 7
+System.out.println(email.indexOf("."));       // 12  (first dot)
+System.out.println(email.indexOf("xyz"));     // -1  (not found)
+System.out.println(email.contains("nova"));   // true
+System.out.println(email.startsWith("stu"));  // true
+System.out.println(email.endsWith(".edu"));   // true
+System.out.println(email.endsWith(".com"));   // false</pre>
+
+<h3>4.5 replace() and isEmpty()</h3>
+<pre role="figure" aria-label="replace and isEmpty">String s = "I love cats. Cats are great.";
+System.out.println(s.replace("cats", "dogs"));
+// "I love dogs. Cats are great."  (case-sensitive -- "Cats" unchanged)
+
+String blank  = "";
+String spaces = "   ";
+System.out.println(blank.isEmpty());          // true
+System.out.println(spaces.isEmpty());         // false
+System.out.println(spaces.trim().isEmpty());  // true</pre>
+
+<div class="callout try-it" role="region" aria-label="Try It: String method practice">
+  <div class="callout-title">&#128295; Try It &#8212; String Method Practice</div>
+  <p>Given <code>String s = "  Northern Virginia  ";</code>, write code that:</p>
+  <ol>
+    <li>Removes whitespace and prints the trimmed result</li>
+    <li>Prints the length of the trimmed string</li>
+    <li>Prints the character at index 9 of the trimmed string</li>
+    <li>Prints the first 8 characters of the trimmed string</li>
+    <li>Prints the trimmed string in all uppercase</li>
+  </ol>
+</div>
+
+<h2>5. String Comparison</h2>
+<p>This is where a lot of beginners make a mistake that costs hours of debugging. Pay close attention.</p>
+
+<h3>5.1 Why == Fails on Strings</h3>
+<p><code>==</code> on objects checks whether two variables point to the <em>same object in memory</em> &#8212; not whether they hold the same text. For string literals, Java sometimes reuses the same object (the string pool), so <code>==</code> might appear to work. But it is unreliable &#8212; when it fails silently, you get a bug that is nearly impossible to track down.</p>
+
+<pre role="figure" aria-label="== vs equals demo">String a = "hello";
+String b = "hello";
+String c = new String("hello");
+
+System.out.println(a == b);          // true  (same pool object -- gets lucky)
+System.out.println(a == c);          // false (c is a separate heap object)
+System.out.println(a.equals(c));     // true  (same characters)
+System.out.println(a.equals(b));     // true</pre>
+
+<div class="callout warning" role="region" aria-label="Warning: use equals not ==">
+  <div class="callout-title">&#9888;&#65039; The Golden Rule of String Comparison</div>
+  <p>Always use <code>.equals()</code> to compare String content. Never use <code>==</code> on Strings. Your instructor will dock points on every assignment where you use <code>==</code> to compare strings. Consider yourself warned.</p>
+</div>
+
+<h3>5.2 equals() and equalsIgnoreCase()</h3>
+<pre role="figure" aria-label="equals and equalsIgnoreCase">String input = "YES";
+
+if (input.equals("yes")) {
+    System.out.println("Exact match");           // does NOT print
+}
+if (input.equalsIgnoreCase("yes")) {
+    System.out.println("Case-insensitive match"); // prints this
+}</pre>
+
+<p>Use <code>equalsIgnoreCase()</code> any time user input is involved. Users type "YES", "Yes", and "yes" interchangeably &#8212; always meet them where they are.</p>
+
+<h3>5.3 compareTo() &#8212; Alphabetical Order</h3>
+<p><code>compareTo()</code> determines lexicographic order. It returns 0 if equal, negative if the calling string comes first alphabetically, positive if it comes after.</p>
+<pre role="figure" aria-label="compareTo example">String s1 = "apple";
+String s2 = "banana";
+
+System.out.println(s1.compareTo(s2));      // negative (apple &lt; banana)
+System.out.println(s2.compareTo(s1));      // positive (banana &gt; apple)
+System.out.println(s1.compareTo("apple")); // 0
+
+if (s1.compareTo(s2) &lt; 0) {
+    System.out.println(s1 + " comes before " + s2);
+}</pre>
+<div class="out" role="figure" aria-label="Output">apple comes before banana</div>
+
+<div class="callout tip" role="region" aria-label="Tip: String pool explanation">
+  <div class="callout-title">&#128161; The String Pool (Brief Version)</div>
+  <p>When you write <code>String a = "hello"</code>, Java stores "hello" in a special cache called the <em>string pool</em>. The next time you write <code>String b = "hello"</code>, Java reuses that same object &#8212; that is why <code>a == b</code> is sometimes <code>true</code>. But <code>new String("hello")</code> always creates a fresh object outside the pool. Takeaway: never rely on <code>==</code>. Always use <code>equals()</code>.</p>
+</div>
+
+<h2>6. String Parsing and Searching</h2>
+<p>Combining <code>indexOf()</code> and <code>substring()</code> lets you extract meaningful pieces from a larger string. This is the backbone of most real string-processing tasks.</p>
+
+<h3>6.1 Extracting Domain from an Email</h3>
+<pre role="figure" aria-label="Extract domain from email">String email = "student@nova.edu";
+
+int atPos   = email.indexOf("@");           // 7
+String domain = email.substring(atPos + 1); // "nova.edu"
+
+int dotPos  = domain.indexOf(".");          // 4
+String tld  = domain.substring(dotPos + 1); // "edu"
+
+System.out.println("Domain : " + domain);
+System.out.println("TLD    : " + tld);</pre>
+<div class="out" role="figure" aria-label="Output">Domain : nova.edu
+TLD    : edu</div>
+
+<h3>6.2 Counting a Character</h3>
+<pre role="figure" aria-label="Count vowels using a for loop and charAt">String sentence = "Hello from NOVA";
+int vowelCount = 0;
+
+for (int i = 0; i &lt; sentence.length(); i++) {
+    char c = sentence.charAt(i);
+    String lower = String.valueOf(c).toLowerCase();
+    if (lower.equals("a") || lower.equals("e") || lower.equals("i")
+            || lower.equals("o") || lower.equals("u")) {
+        vowelCount++;
+    }
+}
+System.out.println("Vowels: " + vowelCount);</pre>
+<div class="out" role="figure" aria-label="Output">Vowels: 5</div>
+
+<h3>6.3 Finding Multiple Occurrences with indexOf(start)</h3>
+<p><code>indexOf(str, fromIndex)</code> lets you search starting at a specific position &#8212; useful for finding every occurrence of a character:</p>
+<pre role="figure" aria-label="Finding all occurrences of a character">String text = "banana";
+int pos = 0;
+int count = 0;
+
+while ((pos = text.indexOf("a", pos)) != -1) {
+    System.out.println("Found 'a' at index " + pos);
+    count++;
+    pos++;  // move past this occurrence
+}
+System.out.println("Total 'a' count: " + count);</pre>
+<div class="out" role="figure" aria-label="Output">Found 'a' at index 1
+Found 'a' at index 3
+Found 'a' at index 5
+Total 'a' count: 3</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: parse user input">
+  <div class="callout-title">&#128295; Try It &#8212; Parse User Input</div>
+  <p>Ask the user to enter a full name in "Firstname Lastname" format. Use <code>indexOf(" ")</code> and <code>substring()</code> to split it into first and last name. Print them on separate lines. Bonus: handle the case where the user enters no space.</p>
+</div>
+
+<h2>7. StringBuilder</h2>
+<p>You know that Strings are immutable. That means every time you use <code>+</code> to add something to a String, Java creates a new object. For a handful of concatenations, that is fine. For a loop that runs a thousand times, it is wasteful.</p>
+
+<p>Enter <code>StringBuilder</code> &#8212; a mutable sequence of characters you can modify in place. When you are done building, call <code>toString()</code> to get a regular String.</p>
+
+<h3>7.1 Why StringBuilder Matters</h3>
+<pre role="figure" aria-label="Performance: String concat vs StringBuilder">// Slow approach -- creates 1000 temporary String objects
+String result = "";
+for (int i = 0; i &lt; 1000; i++) {
+    result += i + " ";
+}
+
+// Fast approach -- modifies one object in place
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i &lt; 1000; i++) {
+    sb.append(i);
+    sb.append(" ");
+}
+String result2 = sb.toString();</pre>
+
+<p>For small strings, you will never notice the difference. For large strings built in loops &#8212; like generating HTML or processing log files &#8212; <code>StringBuilder</code> can be orders of magnitude faster.</p>
+
+<h3>7.2 Key StringBuilder Methods</h3>
+<table aria-label="StringBuilder methods reference">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">What It Does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>append(value)</code></td><td>Adds <em>value</em> at the end (accepts any type)</td></tr>
+    <tr><td><code>insert(i, value)</code></td><td>Inserts <em>value</em> at index <em>i</em></td></tr>
+    <tr><td><code>delete(start, end)</code></td><td>Removes characters from <em>start</em> to <em>end</em> (exclusive)</td></tr>
+    <tr><td><code>replace(start, end, str)</code></td><td>Replaces characters from <em>start</em> to <em>end</em> with <em>str</em></td></tr>
+    <tr><td><code>reverse()</code></td><td>Reverses the entire sequence</td></tr>
+    <tr><td><code>length()</code></td><td>Number of characters currently in the builder</td></tr>
+    <tr><td><code>toString()</code></td><td>Converts to an immutable String</td></tr>
+  </tbody>
+</table>
+
+<h3>7.3 StringBuilder Examples</h3>
+<pre role="figure" aria-label="StringBuilder append insert delete reverse">StringBuilder sb = new StringBuilder("Hello");
+
+sb.append(", World");
+System.out.println(sb);          // "Hello, World"
+
+sb.insert(5, " there");
+System.out.println(sb);          // "Hello there, World"
+
+sb.delete(5, 11);
+System.out.println(sb);          // "Hello, World"
+
+sb.reverse();
+System.out.println(sb);          // "dlroW ,olleH"
+
+// Convert back to String when done
+String finished = sb.reverse().toString();
+System.out.println(finished);    // "Hello, World"</pre>
+
+<h3>7.4 Building a Table of Squares</h3>
+<pre role="figure" aria-label="Building a table with StringBuilder">StringBuilder table = new StringBuilder();
+table.append("n\tn^2\n");
+table.append("---\t---\n");
+
+for (int n = 1; n &lt;= 5; n++) {
+    table.append(n);
+    table.append("\t");
+    table.append(n * n);
+    table.append("\n");
+}
+
+System.out.print(table.toString());</pre>
+<div class="out" role="figure" aria-label="Output: table of squares">n   n^2
+---  ---
+1   1
+2   4
+3   9
+4   16
+5   25</div>
+
+<div class="callout tip" role="region" aria-label="Tip: use StringBuilder in loops">
+  <div class="callout-title">&#128161; Use StringBuilder in Loops</div>
+  <p>Any time you are building a String inside a loop, use <code>StringBuilder</code>. Outside loops, <code>+</code> concatenation is fine &#8212; the Java compiler often optimizes it to a <code>StringBuilder</code> behind the scenes anyway.</p>
+</div>
+
+<h2>8. The Character Class</h2>
+<p>The <code>Character</code> class wraps a single <code>char</code> and provides static utility methods for testing and converting characters. You call these as <code>Character.methodName(c)</code> where <code>c</code> is a <code>char</code>.</p>
+
+<table aria-label="Character class methods reference">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">Returns</th>
+      <th scope="col">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Character.isLetter(c)</code></td><td><code>boolean</code></td><td><code>isLetter('A')</code> &#8594; true</td></tr>
+    <tr><td><code>Character.isDigit(c)</code></td><td><code>boolean</code></td><td><code>isDigit('7')</code> &#8594; true</td></tr>
+    <tr><td><code>Character.isUpperCase(c)</code></td><td><code>boolean</code></td><td><code>isUpperCase('Z')</code> &#8594; true</td></tr>
+    <tr><td><code>Character.isLowerCase(c)</code></td><td><code>boolean</code></td><td><code>isLowerCase('z')</code> &#8594; true</td></tr>
+    <tr><td><code>Character.isWhitespace(c)</code></td><td><code>boolean</code></td><td><code>isWhitespace(' ')</code> &#8594; true</td></tr>
+    <tr><td><code>Character.isLetterOrDigit(c)</code></td><td><code>boolean</code></td><td><code>isLetterOrDigit('@')</code> &#8594; false</td></tr>
+    <tr><td><code>Character.toUpperCase(c)</code></td><td><code>char</code></td><td><code>toUpperCase('a')</code> &#8594; 'A'</td></tr>
+    <tr><td><code>Character.toLowerCase(c)</code></td><td><code>char</code></td><td><code>toLowerCase('A')</code> &#8594; 'a'</td></tr>
+  </tbody>
+</table>
+
+<h3>8.1 Processing a String Character by Character</h3>
+<pre role="figure" aria-label="Count letters digits and symbols in a string">String input = "Hello123!";
+int letters = 0, digits = 0, symbols = 0;
+
+for (int i = 0; i &lt; input.length(); i++) {
+    char c = input.charAt(i);
+    if (Character.isLetter(c)) {
+        letters++;
+    } else if (Character.isDigit(c)) {
+        digits++;
+    } else {
+        symbols++;
+    }
+}
+
+System.out.println("Letters: " + letters);   // 5
+System.out.println("Digits : " + digits);    // 3
+System.out.println("Symbols: " + symbols);   // 1</pre>
+
+<h3>8.2 Reversing a String and Converting Case</h3>
+<pre role="figure" aria-label="Reverse string and swap case">String word = "Java";
+StringBuilder reversed = new StringBuilder();
+
+for (int i = word.length() - 1; i &gt;= 0; i--) {
+    char c = word.charAt(i);
+    if (Character.isUpperCase(c)) {
+        reversed.append(Character.toLowerCase(c));
+    } else {
+        reversed.append(Character.toUpperCase(c));
+    }
+}
+
+System.out.println(reversed.toString());   // "AVAj"</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: char vs String">
+  <div class="callout-title">&#128161; char vs. String &#8212; Know the Difference</div>
+  <p>A <code>char</code> holds a single character and uses <em>single quotes</em>: <code>'A'</code>. A <code>String</code> holds zero or more characters and uses <em>double quotes</em>: <code>"A"</code>. They look similar but they are completely different types. You cannot call String methods on a <code>char</code> &#8212; use <code>Character</code> class methods instead.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: char analysis">
+  <div class="callout-title">&#128295; Try It &#8212; Character Analysis</div>
+  <p>Write a program that reads a word from the user and prints:</p>
+  <ul>
+    <li>The number of uppercase letters</li>
+    <li>The number of lowercase letters</li>
+    <li>The number of digits</li>
+    <li>Whether the word starts with an uppercase letter</li>
+  </ul>
+</div>
+
+<h2>9. Practical Examples</h2>
+<p>This section puts everything together. All three examples pull from nested ifs, String methods, StringBuilder, and the Character class simultaneously.</p>
+
+<h3>9.1 Password Validator</h3>
+<p>A real password check needs to verify multiple requirements independently. Nested ifs are perfect for building up detailed feedback.</p>
+<pre role="figure" aria-label="Password validator using nested ifs and String methods">import java.util.Scanner;
+
+public class PasswordValidator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+
+        boolean valid = true;
+        StringBuilder feedback = new StringBuilder();
+
+        // Check length
+        if (password.length() &lt; 8) {
+            valid = false;
+            feedback.append("- Must be at least 8 characters\n");
+        }
+
+        // Scan for uppercase and digit
+        boolean hasUpper = false;
+        boolean hasDigit = false;
+
+        for (int i = 0; i &lt; password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isUpperCase(c)) {
+                hasUpper = true;
+            }
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+            }
+        }
+
+        if (!hasUpper) {
+            valid = false;
+            feedback.append("- Must contain at least one uppercase letter\n");
+        }
+        if (!hasDigit) {
+            valid = false;
+            feedback.append("- Must contain at least one digit\n");
+        }
+
+        // Report result
+        if (valid) {
+            System.out.println("Password accepted!");
+        } else {
+            System.out.println("Password rejected. Issues:\n" + feedback);
+        }
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output: password rejected">Enter password: hello
+Password rejected. Issues:
+- Must be at least 8 characters
+- Must contain at least one uppercase letter
+- Must contain at least one digit</div>
+
+<h3>9.2 Email Format Checker</h3>
+<p>A simple check for basic email validity using String methods:</p>
+<pre role="figure" aria-label="Email format checker">public static boolean isValidEmail(String email) {
+    // Must have exactly one @
+    int atPos = email.indexOf("@");
+    if (atPos &lt;= 0) {
+        return false;  // No @ or starts with @
+    }
+    if (email.indexOf("@", atPos + 1) != -1) {
+        return false;  // More than one @
+    }
+
+    // Must have a dot after the @
+    String domain = email.substring(atPos + 1);
+    if (!domain.contains(".")) {
+        return false;
+    }
+
+    // Domain can't start or end with a dot
+    if (domain.startsWith(".") || domain.endsWith(".")) {
+        return false;
+    }
+
+    return true;
+}
+
+// Test it:
+System.out.println(isValidEmail("student@nova.edu"));  // true
+System.out.println(isValidEmail("bademail.com"));      // false
+System.out.println(isValidEmail("also@bad@email.com")); // false</pre>
+<div class="out" role="figure" aria-label="Output">true
+false
+false</div>
+
+<h3>9.3 Input Cleanup Utility</h3>
+<p>User input is almost always messy. This utility normalizes a name entered by the user:</p>
+<pre role="figure" aria-label="Input cleanup: trim and normalize name">import java.util.Scanner;
+
+public class CleanInput {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your full name: ");
+        String raw = sc.nextLine();
+
+        // Clean it up
+        String cleaned = raw.trim();
+
+        // Find the space separating first and last
+        int spacePos = cleaned.indexOf(" ");
+
+        if (spacePos == -1) {
+            // Only one word provided
+            String capitalized = Character.toUpperCase(cleaned.charAt(0))
+                               + cleaned.substring(1).toLowerCase();
+            System.out.println("Hello, " + capitalized + "!");
+        } else {
+            String first = cleaned.substring(0, spacePos);
+            String last  = cleaned.substring(spacePos + 1);
+
+            // Capitalize first letter of each name
+            first = Character.toUpperCase(first.charAt(0))
+                  + first.substring(1).toLowerCase();
+            last  = Character.toUpperCase(last.charAt(0))
+                  + last.substring(1).toLowerCase();
+
+            System.out.println("Hello, " + first + " " + last + "!");
+        }
+    }
+}</pre>
+<div class="out" role="figure" aria-label="Output">Enter your full name:    alice SMITH  
+Hello, Alice Smith!</div>
+
+<div class="callout tip" role="region" aria-label="Tip: always trim user input">
+  <div class="callout-title">&#128161; Always Trim User Input</div>
+  <p>Users accidentally add leading or trailing spaces all the time. Make it a habit to call <code>.trim()</code> on anything that comes from <code>Scanner</code> or a text field before doing any comparisons or processing. It will save you from hours of "why doesn't this match?!" bugs.</p>
+</div>
+
+<!-- ===== VOCABULARY REVIEW ===== -->
+<h2>Vocabulary Review</h2>
+<table class="vocab-table" aria-label="Module 05 vocabulary review">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>nested if</td><td>An <code>if</code> statement placed inside another <code>if</code> or <code>else</code> block; the inner block only executes when the outer condition is true.</td></tr>
+    <tr><td>decision tree</td><td>A branching structure of conditions that leads to different outcomes; implemented in Java with nested or chained <code>if</code> statements.</td></tr>
+    <tr><td>immutable</td><td>Cannot be changed after creation. Java Strings are immutable — any "modification" creates a new object.</td></tr>
+    <tr><td>String pool</td><td>A special area in memory where Java caches String literal objects to avoid creating duplicate instances.</td></tr>
+    <tr><td>reference type</td><td>A variable that stores a memory address (reference) to an object, rather than the value directly. <code>String</code> is a reference type.</td></tr>
+    <tr><td>zero-based index</td><td>Counting that starts at 0 instead of 1. The first character of a String is at index 0.</td></tr>
+    <tr><td>substring</td><td>A portion of a String extracted using the <code>substring()</code> method.</td></tr>
+    <tr><td>StringBuilder</td><td>A mutable sequence of characters used to efficiently build Strings, especially in loops.</td></tr>
+    <tr><td>Character class</td><td>A Java wrapper class that provides static methods for testing and converting individual <code>char</code> values.</td></tr>
+    <tr><td>lexicographic order</td><td>Ordering based on Unicode character values &#8212; essentially dictionary order; returned by <code>compareTo()</code>.</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== MODULE SUMMARY ===== -->
+<div class="callout summary" role="region" aria-label="Module Summary">
+  <div class="callout-title">&#128203; Module 05 Summary</div>
+  <ul>
+    <li><strong>Nested if:</strong> Inner <code>if</code> blocks only run when the outer condition is already true. Use curly braces always. Indent consistently.</li>
+    <li><strong>Decision trees:</strong> The else-if ladder handles mutually exclusive ranges. True nesting handles multi-dimensional conditions (zone + weight).</li>
+    <li><strong>String is a class:</strong> Not a primitive. Variables hold references, not values directly.</li>
+    <li><strong>Immutable:</strong> Strings cannot change. Every "modification" creates a new object.</li>
+    <li><strong>String methods:</strong> <code>length()</code>, <code>charAt()</code>, <code>substring()</code>, <code>indexOf()</code>, <code>contains()</code>, <code>replace()</code>, <code>trim()</code>, <code>toUpperCase()</code>, <code>toLowerCase()</code>, <code>isEmpty()</code>.</li>
+    <li><strong>String comparison:</strong> Always <code>.equals()</code>, never <code>==</code>. Use <code>equalsIgnoreCase()</code> for user input. Use <code>compareTo()</code> for alphabetical ordering.</li>
+    <li><strong>StringBuilder:</strong> Mutable string builder. Use in loops. Call <code>toString()</code> when done.</li>
+    <li><strong>Character class:</strong> Static methods for testing and converting individual characters: <code>isLetter()</code>, <code>isDigit()</code>, <code>isUpperCase()</code>, <code>toUpperCase()</code>, etc.</li>
+  </ul>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div class="page-break"></div>
+<h2>Module 05 Quiz</h2>
+<p>Choose the best answer for each question. Record your answers on a separate sheet.</p>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">1.</span> What is the output of the following code?</p>
+  <pre role="figure" aria-label="Quiz Q1 code snippet">int x = 10;
+if (x &gt; 5) {
+    if (x &gt; 8) {
+        System.out.println("A");
+    } else {
+        System.out.println("B");
+    }
+} else {
+    System.out.println("C");
+}</pre>
+  <ul class="quiz-options">
+    <li>A) B</li>
+    <li>B) C</li>
+    <li>C) A</li>
+    <li>D) A and B</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">2.</span> Which statement about Strings in Java is true?</p>
+  <ul class="quiz-options">
+    <li>A) String is a primitive type like <code>int</code> or <code>double</code></li>
+    <li>B) String variables can be compared with <code>==</code> safely</li>
+    <li>C) String objects are immutable &#8212; their content cannot be changed after creation</li>
+    <li>D) Calling <code>toUpperCase()</code> modifies the original String object</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">3.</span> What does this code print?</p>
+  <pre role="figure" aria-label="Quiz Q3 code snippet">String s = "Programming";
+System.out.println(s.substring(0, 4));</pre>
+  <ul class="quiz-options">
+    <li>A) "Prog"</li>
+    <li>B) "Progr"</li>
+    <li>C) "rogr"</li>
+    <li>D) "ammi"</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">4.</span> A student writes: <code>if (name == "Alice")</code> to check if a String matches. What is the problem?</p>
+  <ul class="quiz-options">
+    <li>A) <code>==</code> is not a valid Java operator</li>
+    <li>B) <code>==</code> compares object references, not String content &#8212; it may return <code>false</code> even when the text is the same</li>
+    <li>C) String literals like <code>"Alice"</code> cannot be used in conditions</li>
+    <li>D) There is no problem; <code>==</code> always works correctly on Strings</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">5.</span> What is the value of <code>pos</code> after: <code>int pos = "hello world".indexOf("world");</code></p>
+  <ul class="quiz-options">
+    <li>A) 5</li>
+    <li>B) 6</li>
+    <li>C) -1</li>
+    <li>D) 4</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">6.</span> Which of the following correctly creates a <code>StringBuilder</code>, appends "Hello" and " World", and converts it to a String?</p>
+  <ul class="quiz-options">
+    <li>A) <code>String s = new StringBuilder("Hello").add(" World").build();</code></li>
+    <li>B) <code>StringBuilder sb = new StringBuilder(); sb.append("Hello"); sb.append(" World"); String s = sb.toString();</code></li>
+    <li>C) <code>StringBuilder sb = "Hello" + " World"; String s = sb;</code></li>
+    <li>D) <code>String s = StringBuilder("Hello", " World");</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">7.</span> What does <code>Character.isDigit('9')</code> return?</p>
+  <ul class="quiz-options">
+    <li>A) <code>"9"</code></li>
+    <li>B) <code>9</code></li>
+    <li>C) <code>false</code></li>
+    <li>D) <code>true</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">8.</span> What is printed by the following code?</p>
+  <pre role="figure" aria-label="Quiz Q8 code snippet">String s = "  Java  ";
+System.out.println(s.trim().length());</pre>
+  <ul class="quiz-options">
+    <li>A) 8</li>
+    <li>B) 6</li>
+    <li>C) 4</li>
+    <li>D) 7</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">9.</span> When should you use <code>StringBuilder</code> instead of String concatenation with <code>+</code>?</p>
+  <ul class="quiz-options">
+    <li>A) Whenever you are working with numbers</li>
+    <li>B) Only when the string is longer than 100 characters</li>
+    <li>C) When building a string incrementally inside a loop, to avoid creating many temporary objects</li>
+    <li>D) Never &#8212; <code>+</code> is always preferred because it is simpler</li>
+  </ul>
+</div>
+
+<div class="quiz-question">
+  <p><span class="quiz-number">10.</span> What does <code>"apple".compareTo("banana")</code> return?</p>
+  <ul class="quiz-options">
+    <li>A) <code>true</code></li>
+    <li>B) A negative integer, because "apple" comes before "banana" alphabetically</li>
+    <li>C) A positive integer, because "apple" comes before "banana" alphabetically</li>
+    <li>D) <code>0</code>, because both are valid English words</li>
+  </ul>
+</div>
+
+<div class="footer">
+  ITP 120 &#8212; Programming with Java &nbsp;|&nbsp; NOVA &nbsp;|&nbsp; Module 05 &nbsp;|&nbsp; Instructor: Randy Michak
+</div>
+
+</body>
+</html>

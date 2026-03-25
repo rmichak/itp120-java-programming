@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITP 120 — Java Programming | NOVA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8fafc; color: #1f2937; line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: white; padding: 48px 24px; text-align: center;
+  }
+  .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+  .header .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 400; }
+  .header .school { font-size: 0.9rem; opacity: 0.7; margin-top: 8px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .intro {
+    background: white; border-radius: 12px; padding: 24px;
+    margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-left: 4px solid #2563eb;
+  }
+  .intro p { color: #4b5563; }
+  .modules-grid { display: grid; gap: 16px; }
+  .module-card {
+    background: white; border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border-left: 4px solid #e5e7eb;
+  }
+  .module-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    border-left-color: #2563eb;
+  }
+  .module-info { flex: 1; }
+  .module-number { font-size: 0.75rem; font-weight: 600; color: #2563eb; text-transform: uppercase; letter-spacing: 0.05em; }
+  .module-title { font-size: 1.1rem; font-weight: 600; color: #111827; margin-top: 2px; }
+  .module-links { display: flex; gap: 10px; flex-shrink: 0; margin-left: 16px; }
+  .module-links a {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 8px; font-size: 0.85rem;
+    font-weight: 500; text-decoration: none; transition: background 0.15s;
+  }
+  .btn-html { background: #eff6ff; color: #2563eb; }
+  .btn-html:hover { background: #dbeafe; }
+  .btn-pdf { background: #f1f5f9; color: #475569; }
+  .btn-pdf:hover { background: #e2e8f0; }
+  .footer {
+    text-align: center; padding: 32px 24px; color: #9ca3af; font-size: 0.85rem;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+  .footer a:hover { color: #2563eb; }
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.6rem; }
+    .module-card { flex-direction: column; align-items: flex-start; }
+    .module-links { margin-left: 0; margin-top: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ITP 120 — Java Programming</h1>
+  <div class="subtitle">Course Tutorials &amp; Materials</div>
+  <div class="school">Northern Virginia Community College (NOVA)</div>
+</div>
+
+<div class="container">
+  <div class="intro">
+    <p>Welcome to ITP 120. Below you'll find tutorials for each module. Each tutorial includes explanations, code examples, practice exercises, and review quizzes. Open the HTML version for an interactive web view, or download the PDF for offline use.</p>
+  </div>
+
+  <div class="modules-grid">
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 01</div>
+        <div class="module-title">Welcome to Java</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/01-welcome-to-java/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module01-welcome-to-java.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 02</div>
+        <div class="module-title">Java Fundamentals</div>
+      </div>
+      <div class="module-links">
+        <a href="pdf/itp120-module02-java-fundamentals.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 03</div>
+        <div class="module-title">Java I/O</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/03-java-io/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module03-java-io.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 04</div>
+        <div class="module-title">Conditional Statements</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/04-conditional-statements/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module04-conditional-statements.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 05</div>
+        <div class="module-title">Nested Statements &amp; Strings</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/05-nested-statements-strings/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module05-nested-statements-strings.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 06</div>
+        <div class="module-title">Loops</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/06-loops/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module06-loops.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 07</div>
+        <div class="module-title">Methods</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/07-methods/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module07-methods.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 08</div>
+        <div class="module-title">Object-Oriented Programming</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/08-oop/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module08-oop.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 09</div>
+        <div class="module-title">Arrays</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/09-arrays/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module09-arrays.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 10</div>
+        <div class="module-title">OOP — Inheritance</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/10-oop-inheritance/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module10-oop-inheritance.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="module-info">
+        <div class="module-number">Module 11</div>
+        <div class="module-title">File I/O</div>
+      </div>
+      <div class="module-links">
+        <a href="modules/11-file-io/" class="btn-html">📄 HTML</a>
+        <a href="pdf/itp120-module11-file-io.pdf" class="btn-pdf">⬇ PDF</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>Randy Michak · Northern Virginia Community College</p>
+  <p style="margin-top: 4px;"><a href="https://github.com/rmichak/itp120-java-programming">View on GitHub</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 01 — Welcome to Java | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page {
+      size: letter; margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 01 — Welcome to Java"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0;
+          font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.6;
+          overflow-wrap: break-word; page-break-inside: avoid; white-space: pre-wrap; }
+    code { font-family: 'Courier New', monospace; background: #f1f5f9; color: #0f172a;
+           padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .output { color: #94a3b8; font-style: italic; }
+    .comment { color: #6b7280; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+</style>
+</head>
+<body>
+<main role="main">
+
+<div class="title-section" role="banner">
+  <h1>Module 01 &mdash; Welcome to Java</h1>
+  <div class="course">ITP 120 &mdash; Programming with Java</div>
+  <div class="school">Northern Virginia Community College<br>Instructor: Randy Michak</div>
+</div>
+
+<div class="callout objectives" role="region" aria-label="Learning objectives for Module 01">
+  <div class="callout-title">&#127919; Learning Objectives</div>
+  <p>By the end of this module, you will be able to:</p>
+  <ul>
+    <li>Explain what Java is, where it came from, and why it is widely used</li>
+    <li>Describe how Java turns source code into a running program</li>
+    <li>Explain the difference between the JDK, JRE, and JVM</li>
+    <li>Set up a Java environment and run programs from the command line</li>
+    <li>Write and explain a Hello World program line by line</li>
+    <li>Identify Java's core syntax rules: case sensitivity, semicolons, and curly braces</li>
+    <li>Distinguish between syntax errors, runtime errors, and logic errors</li>
+    <li>Describe the programming cycle: design, write, compile, test, debug</li>
+  </ul>
+</div>
+
+<h2 id="section1">1. What Is Java?</h2>
+<p>Java is a programming language &mdash; one of the most widely used on the planet. You will use it to build applications, process data, write server-side logic, and, starting right now, learn how programming actually works.</p>
+<p>Java was created by James Gosling at Sun Microsystems and first released in 1995. The central idea: write code once, run it anywhere. Sun Microsystems was acquired by Oracle in 2010, and Oracle maintains Java today.</p>
+
+<div class="callout key-terms" role="region" aria-label="Key terms: Java background">
+  <div class="callout-title">&#128214; Key Terms</div>
+  <ul>
+    <li><strong>Java</strong> &mdash; A general-purpose, object-oriented programming language released in 1995</li>
+    <li><strong>James Gosling</strong> &mdash; The primary designer of Java, sometimes called the "father of Java"</li>
+    <li><strong>Sun Microsystems</strong> &mdash; The company that created Java; acquired by Oracle in 2010</li>
+    <li><strong>Oracle</strong> &mdash; The company that currently owns and maintains Java</li>
+  </ul>
+</div>
+
+<h3>Why Java?</h3>
+<p>There are hundreds of programming languages. Here is why Java is worth your time this semester:</p>
+<ul>
+  <li><strong>It runs everywhere.</strong> Java is on billions of devices &mdash; phones, servers, ATMs, smart cards, Blu-ray players. Android apps were originally written in Java.</li>
+  <li><strong>Job market.</strong> Java consistently ranks in the top three most in-demand programming languages. Companies like Amazon, Google, Netflix, and LinkedIn run Java on their back-end servers.</li>
+  <li><strong>It builds good habits.</strong> Java forces you to be explicit and structured. Those habits transfer to every other language you learn afterward.</li>
+  <li><strong>Platform independence.</strong> You write one program, and it runs on Windows, Mac, or Linux without changing a single line of code.</li>
+</ul>
+
+<div class="callout analogy" role="region" aria-label="Analogy: why learn Java first">
+  <div class="callout-title">&#129504; Think of It Like...</div>
+  <p>Learning Java is like learning to drive a manual transmission. It takes more focus up front, but you come out understanding how cars actually work. After Java, picking up Python or JavaScript feels easy. And it makes you a more attractive hire.</p>
+</div>
+
+<h2 id="section2">2. How Java Works</h2>
+<p>Computers do not understand English or Java. They only understand binary &mdash; ones and zeros. Java uses a two-step process: <strong>compilation</strong> into bytecode, then <strong>execution by the JVM</strong>.</p>
+
+<h3>Step 1: Write Source Code</h3>
+<p>You type your program into a file with a <code>.java</code> extension. This is called <strong>source code</strong> &mdash; the human-readable version of your program. A file named <code>Hello.java</code> is a source file.</p>
+
+<h3>Step 2: Compile to Bytecode</h3>
+<p>You run a tool called <code>javac</code> (the Java compiler). It reads your <code>.java</code> file and produces a <code>.class</code> file containing <strong>bytecode</strong>. Bytecode is not machine code, and not source code &mdash; it is a platform-neutral middle format.</p>
+
+<h3>Step 3: The JVM Executes the Bytecode</h3>
+<p>The <strong>Java Virtual Machine (JVM)</strong> reads the bytecode and translates it into instructions your specific computer can execute. Every operating system has its own JVM. That is what makes "write once, run anywhere" real.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: compilation and JVM execution">
+  <div class="callout-title">&#129504; Think of It Like...</div>
+  <p>Imagine writing a recipe in English. A translator converts it into a universal recipe format (bytecode). Then any chef in the world &mdash; French, Japanese, Brazilian &mdash; reads that format and cooks it in their own kitchen (the JVM). Your original recipe runs anywhere without rewriting it.</p>
+</div>
+
+<pre role="figure" aria-label="Java compilation and execution flow">
+  Source Code          Compiler         Bytecode          JVM Executes
+  Hello.java   ---&gt;    javac    ---&gt;  Hello.class  ---&gt;   java Hello
+  (you write)       (you run javac)  (auto-created)    (you run java)</pre>
+
+<div class="callout key-terms" role="region" aria-label="Key terms: how Java works">
+  <div class="callout-title">&#128214; Key Terms</div>
+  <ul>
+    <li><strong>Source code</strong> &mdash; Human-readable Java code stored in a <code>.java</code> file</li>
+    <li><strong>Compiler (<code>javac</code>)</strong> &mdash; Translates source code into bytecode</li>
+    <li><strong>Bytecode</strong> &mdash; Platform-neutral code stored in a <code>.class</code> file</li>
+    <li><strong>JVM (Java Virtual Machine)</strong> &mdash; Reads bytecode and runs it on your specific machine</li>
+    <li><strong>Write once, run anywhere</strong> &mdash; One compiled program runs on any OS with a JVM installed</li>
+  </ul>
+</div>
+
+<h3>How Is This Different from C?</h3>
+<p>In a language like C, the compiler translates source code directly to machine code for one specific OS. A C program compiled on Windows will not run on Linux without recompiling. Java's bytecode plus JVM solves that &mdash; the same <code>.class</code> file runs on any platform with a JVM.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: about .class files">
+  <div class="callout-title">&#128161; Tip</div>
+  <p>The <code>.class</code> file is generated automatically by the compiler. You will never edit it. If you see <code>Hello.class</code> appear in your folder after running <code>javac</code>, that is correct &mdash; it is supposed to be there.</p>
+</div>
+
+<h2 id="section3">3. The Java Development Kit (JDK)</h2>
+<p>Before you can write and run Java programs, you need the <strong>JDK</strong> (Java Development Kit) installed. You will hear three acronyms: JDK, JRE, and JVM. They nest inside each other like containers.</p>
+
+<table aria-label="Comparison of JVM, JRE, and JDK">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">What It Contains</th>
+      <th scope="col">Who Needs It</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>JVM</td><td>Java Virtual Machine</td><td>Runs bytecode on your specific machine</td><td>Anyone running Java programs</td></tr>
+    <tr><td>JRE</td><td>Java Runtime Environment</td><td>JVM + standard libraries for running programs</td><td>End users who just run Java apps</td></tr>
+    <tr><td>JDK</td><td>Java Development Kit</td><td>JRE + <code>javac</code> compiler + dev tools</td><td>Developers &mdash; that is you</td></tr>
+  </tbody>
+</table>
+
+<p>You always install the <strong>JDK</strong>. It contains the JRE, which contains the JVM. Think of nesting containers: JVM smallest, inside JRE, which is inside JDK.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: JDK JRE JVM as car and tools">
+  <div class="callout-title">&#129504; Think of It Like...</div>
+  <p>The JVM is the car engine. The JRE is the full car &mdash; engine, body, wheels, everything you need to drive. The JDK is the car plus the mechanic's full toolbox to build and fix it. Since you are building programs, you need the JDK.</p>
+</div>
+
+<h3>What Is Inside the JDK?</h3>
+<ul>
+  <li><strong><code>javac</code></strong> &mdash; The compiler. Turns <code>.java</code> source files into <code>.class</code> bytecode.</li>
+  <li><strong><code>java</code></strong> &mdash; The launcher. Starts the JVM and runs your compiled program.</li>
+  <li><strong><code>jar</code></strong> &mdash; Packages compiled files into a single distributable archive.</li>
+  <li><strong><code>javadoc</code></strong> &mdash; Generates HTML documentation from source code comments.</li>
+  <li><strong>Standard class library</strong> &mdash; Thousands of pre-built classes for I/O, math, networking, and more.</li>
+</ul>
+
+<div class="callout tip" role="region" aria-label="Tip: which JDK version to install">
+  <div class="callout-title">&#128161; Tip</div>
+  <p>Install <strong>JDK 17</strong> or later. JDK 17 is a Long-Term Support (LTS) release, meaning it gets security updates for years. Download it free from <strong>adoptium.net</strong> (Eclipse Temurin). Works on Windows, Mac, and Linux.</p>
+</div>
+
+<h2 id="section4">4. Setting Up Your Environment</h2>
+<p>You have two main options: an <strong>IDE</strong> or the <strong>command line</strong>. You will use both this semester.</p>
+
+<h3>IDEs</h3>
+<p>An IDE (Integrated Development Environment) combines code editor, compiler, debugger, and project manager in one program. Your main options:</p>
+<ul>
+  <li><strong>IntelliJ IDEA</strong> &mdash; The most popular Java IDE. Community Edition is free. Recommended for this course.</li>
+  <li><strong>Eclipse</strong> &mdash; Free and open-source. Common in enterprise environments.</li>
+  <li><strong>VS Code</strong> &mdash; Lightweight editor with a Java extension pack.</li>
+</ul>
+<p>Not ready to install? <strong>Replit</strong> (replit.com) and <strong>JDoodle</strong> (jdoodle.com) run Java in your browser with zero setup.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: start with command line before IDE">
+  <div class="callout-title">&#128161; Tip</div>
+  <p>For the first few modules, use the command line instead of an IDE. The command line shows you exactly what happens at each step. IDEs hide that behind buttons. Understand the steps first, and the IDE will make much more sense afterward.</p>
+</div>
+
+<h3>Compile and Run from the Command Line</h3>
+<pre role="figure" aria-label="How to compile and run a Java program from the command line">
+# Step 1: Compile your source file
+javac Hello.java
+
+# Step 2: Run the compiled program (no .class extension)
+java Hello</pre>
+
+<div class="callout warning" role="region" aria-label="Warning: do not add .class extension when running">
+  <div class="callout-title">&#9888;&#65039; Common Mistake</div>
+  <p>Use <code>java Hello</code>, not <code>java Hello.class</code>. Java already knows to look for a <code>.class</code> file. Including the extension gives you: <em>Error: Could not find or load main class Hello.class</em>. Leave the extension off every time.</p>
+</div>
+
+<h3>Verify Your Installation</h3>
+<pre role="figure" aria-label="Commands to verify JDK is installed correctly">
+java -version
+<span class="output">openjdk version "17.0.9" 2023-10-17</span>
+
+javac -version
+<span class="output">javac 17.0.9</span></pre>
+<p>Version numbers mean you are ready. <code>command not found</code> means the JDK is not on your PATH &mdash; bring that to class and we will fix it together.</p>
+
+<h2 id="section5">5. Your First Program</h2>
+<p>Every programming course starts with Hello World. The program is trivial &mdash; the point is learning the structure Java requires. Write it, compile it, run it, then take it apart line by line.</p>
+
+<pre role="figure" aria-label="Hello World Java source code">
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</pre>
+
+<p>Save this as <code>Hello.java</code>, then run:</p>
+
+<pre role="figure" aria-label="Compile and run Hello World">
+javac Hello.java
+java Hello
+<span class="output">Hello, World!</span></pre>
+
+<p>You just ran your first Java program. Now let's break down every single line.</p>
+
+<h3>Line 1: <code>public class Hello {</code></h3>
+<p>This declares a <strong>class</strong> named <code>Hello</code>. In Java, all code lives inside a class &mdash; no exceptions. The keyword <code>public</code> means this class is visible and accessible from anywhere. The opening curly brace <code>{</code> marks where the class body begins.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: file name must exactly match class name">
+  <div class="callout-title">&#9888;&#65039; Critical Rule: File Name Must Match Class Name</div>
+  <p>The file name must exactly match the class name, including capitalization. Class named <code>Hello</code>? File must be <code>Hello.java</code>. Class named <code>MyProgram</code>? File must be <code>MyProgram.java</code>. Java will not compile if these differ &mdash; even one wrong capital letter breaks it.</p>
+</div>
+
+<h3>Line 2: <code>public static void main(String[] args) {</code></h3>
+<p>This is the <strong>main method</strong>. When you run <code>java Hello</code>, the JVM searches for this exact signature and starts execution there. Memorize it. Write it exactly this way every time.</p>
+
+<table aria-label="Breakdown of the main method signature keywords">
+  <thead>
+    <tr>
+      <th scope="col">Keyword</th>
+      <th scope="col">What It Means Right Now</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>public</code></td><td>The JVM can call this method from outside the class</td></tr>
+    <tr><td><code>static</code></td><td>The JVM can call it without creating a class object first</td></tr>
+    <tr><td><code>void</code></td><td>This method does not return any value when it finishes</td></tr>
+    <tr><td><code>main</code></td><td>The specific name the JVM looks for as the entry point</td></tr>
+    <tr><td><code>String[] args</code></td><td>Accepts command-line arguments (covered in later modules)</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip" role="region" aria-label="Tip: do not stress about every keyword in main yet">
+  <div class="callout-title">&#128161; Tip</div>
+  <p>Do not stress about fully understanding <code>static</code> and <code>String[] args</code> right now. Those build up over time. For now, treat <code>public static void main(String[] args)</code> as a required phrase you write exactly this way at the start of every program.</p>
+</div>
+
+<h3>Line 3: <code>System.out.println("Hello, World!");</code></h3>
+<p>This prints a line of text to the console. Here is what each piece does:</p>
+<ul>
+  <li><code>System</code> &mdash; A built-in Java class representing the running environment</li>
+  <li><code>out</code> &mdash; The output stream connected to your terminal window</li>
+  <li><code>println</code> &mdash; Short for "print line" &mdash; prints text and then moves the cursor to the next line</li>
+  <li><code>"Hello, World!"</code> &mdash; The text to display, in double quotes (a <em>String literal</em>)</li>
+  <li><code>;</code> &mdash; The semicolon ending the statement</li>
+</ul>
+
+<h3>Lines 4 and 5: The Closing Braces</h3>
+<p>The two closing braces close the main method and then the class, in that order. Every opening brace needs a matching closing brace. Count them &mdash; mismatched braces are one of the most common beginner mistakes.</p>
+
+<div class="callout key-terms" role="region" aria-label="Key terms: Hello World program components">
+  <div class="callout-title">&#128214; Key Terms</div>
+  <ul>
+    <li><strong>Class</strong> &mdash; A container that holds code; all Java programs live inside at least one class</li>
+    <li><strong>Method</strong> &mdash; A named block of code that performs a specific job</li>
+    <li><strong>main method</strong> &mdash; The entry point of every Java application; execution starts here</li>
+    <li><strong>System.out.println()</strong> &mdash; Prints text to the console and moves to the next line</li>
+    <li><strong>String literal</strong> &mdash; Text enclosed in double quotes, like <code>"Hello, World!"</code></li>
+  </ul>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try it yourself: Hello World modifications">
+  <div class="callout-title">&#128295; Try It Yourself</div>
+  <p>Get Hello World running, then experiment:</p>
+  <ol>
+    <li>Change the text to print your own name: <code>"Hello, I'm [your name]!"</code></li>
+    <li>Add a second <code>System.out.println()</code> inside main. What happens to the output?</li>
+    <li>Try <code>System.out.print()</code> instead of <code>System.out.println()</code>. How does the output differ?</li>
+    <li>Rename the file to <code>hello.java</code> (lowercase h) and try to compile. What error appears?</li>
+  </ol>
+</div>
+
+<h2 id="section6">6. Java Syntax Basics</h2>
+<p>Java enforces its rules without exceptions. Break them and the compiler stops and tells you exactly where. Here are the four core syntax rules you need right now.</p>
+
+<h3>Rule 1: Java Is Case-Sensitive</h3>
+<p>Uppercase and lowercase letters are completely different. <code>System</code> is not <code>system</code>. <code>main</code> is not <code>Main</code>. This applies to class names, method names, variable names, and all built-in keywords.</p>
+
+<pre role="figure" aria-label="Case sensitivity example: correct vs incorrect">
+// CORRECT
+System.out.println("Hello");
+
+// WRONG - lowercase 's' on System causes a compile error
+system.out.println("Hello");</pre>
+
+<h3>Rule 2: Every Statement Ends with a Semicolon</h3>
+<p>A semicolon is the period at the end of a sentence. Every executable statement needs one. Forget it and the compiler flags the next line with a confusing error.</p>
+
+<pre role="figure" aria-label="Semicolon example: correct and missing">
+// CORRECT
+System.out.println("Hello");
+
+// WRONG - missing semicolon causes a compile error on the line below
+System.out.println("Hello")</pre>
+
+<h3>Rule 3: Curly Braces Define Blocks</h3>
+<p>Opening braces <code>{</code> and closing braces <code>}</code> mark the start and end of code blocks for classes, methods, loops, and conditions. Every opening brace must have a matching closing brace. Count them carefully.</p>
+
+<pre role="figure" aria-label="Curly braces: balanced vs missing closing brace">
+// CORRECT - balanced braces
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Works!");
+    }   // closes method
+}       // closes class
+
+// WRONG - missing closing brace for the class
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Works!");
+    }
+// Error: reached end of file while parsing</pre>
+
+<h3>Rule 4: Whitespace Does Not Matter (But Use It Anyway)</h3>
+<p>Java ignores extra spaces, tabs, and blank lines. Both of these compile identically &mdash; but only one of them is acceptable:</p>
+
+<pre role="figure" aria-label="Whitespace: compact vs properly indented Java">
+// Compact (valid, but completely unreadable)
+public class Demo{public static void main(String[]args){System.out.println("Hi");}}
+
+// Properly indented (also valid, and what every professional expects)
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Hi");
+    }
+}</pre>
+
+<p>Indentation is not optional in practice. Use it every single time.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: most common Java syntax mistakes">
+  <div class="callout-title">&#9888;&#65039; Most Common Syntax Mistakes</div>
+  <ul>
+    <li>Using <code>system</code> instead of <code>System</code> (wrong capitalization)</li>
+    <li>Forgetting the semicolon at the end of a statement</li>
+    <li>Mismatched or missing curly braces</li>
+    <li>Using single quotes for strings &mdash; Java strings need double quotes: <code>"text"</code> not <code>'text'</code></li>
+  </ul>
+</div>
+
+<h2 id="section7">7. Errors</h2>
+<p>You are going to see error messages. A lot of them. Even experienced developers see error messages every single day. What matters is learning to read them and fix them quickly. There are three types of errors in Java.</p>
+
+<h3>Type 1: Syntax Errors (Compile-Time Errors)</h3>
+<p>A <strong>syntax error</strong> is a mistake in the structure of your code. Missing semicolon, misspelled keyword, unbalanced brace &mdash; these all cause syntax errors. Java catches them during compilation. Your program will not compile at all until they are fixed.</p>
+
+<pre role="figure" aria-label="Syntax error example: missing semicolon">
+// WRONG - missing semicolon after println
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Hello")
+    }
+}
+<span class="output">Demo.java:3: error: ';' expected
+        System.out.println("Hello")
+                                   ^
+1 error</span></pre>
+
+<p>That error message tells you exactly what is wrong and exactly where. Line 3. Missing semicolon. Fix it there.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: how to read compiler error messages">
+  <div class="callout-title">&#128161; How to Read a Compiler Error</div>
+  <p>The format is: <code>Filename.java:LineNumber: error: description</code>. The caret (<code>^</code>) points to where Java got confused. Go to that line first. Fix the most-reported error first and recompile &mdash; one mistake can cause many error messages to cascade.</p>
+</div>
+
+<h3>Type 2: Runtime Errors</h3>
+<p>A <strong>runtime error</strong> happens while the program is running, after it has compiled successfully. Your code is syntactically correct, but something goes wrong during execution. A classic example is dividing by zero or trying to use a null value.</p>
+
+<pre role="figure" aria-label="Runtime error example: division by zero">
+public class Demo {
+    public static void main(String[] args) {
+        int x = 10;
+        int y = 0;
+        System.out.println(x / y);  // dividing by zero at runtime
+    }
+}
+<span class="output">Exception in thread "main" java.lang.ArithmeticException: / by zero
+    at Demo.main(Demo.java:5)</span></pre>
+
+<p>The program compiled fine. It crashed when it tried to execute line 5. The error message tells you which line, what went wrong, and what kind of exception it was.</p>
+
+<h3>Type 3: Logic Errors</h3>
+<p>A <strong>logic error</strong> is the sneakiest type. The program compiles and runs without crashing &mdash; but it produces the wrong result. Java cannot catch logic errors because the code is technically valid. You have to catch them by testing carefully.</p>
+
+<pre role="figure" aria-label="Logic error example: wrong calculation">
+public class Demo {
+    public static void main(String[] args) {
+        int total = 5 + 3;
+        System.out.println("The answer is: " + total);
+    }
+}
+<span class="output">The answer is: 8</span></pre>
+
+<p>If you wanted <code>5 * 3</code> but typed <code>5 + 3</code>, the program runs fine and prints 8. Java has no way to know 8 was wrong &mdash; only you know the expected result. Logic errors are fixed through testing and debugging.</p>
+
+<table aria-label="Summary of Java error types">
+  <thead>
+    <tr>
+      <th scope="col">Error Type</th>
+      <th scope="col">When It Occurs</th>
+      <th scope="col">Example</th>
+      <th scope="col">How to Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Syntax error</td><td>At compile time</td><td>Missing semicolon</td><td>Read the compiler error message and fix the flagged line</td></tr>
+    <tr><td>Runtime error</td><td>While running</td><td>Divide by zero</td><td>Read the exception message; check input values</td></tr>
+    <tr><td>Logic error</td><td>While running (no crash)</td><td>Wrong calculation</td><td>Test your program with known inputs and expected outputs</td></tr>
+  </tbody>
+</table>
+
+<div class="callout try-it" role="region" aria-label="Try it yourself: cause and fix errors">
+  <div class="callout-title">&#128295; Try It Yourself</div>
+  <p>Practice causing errors intentionally so you know what they look like:</p>
+  <ol>
+    <li>Remove the semicolon from your Hello World <code>println</code> line. Read the compiler error.</li>
+    <li>Rename the class to <code>hello</code> (lowercase) but keep the file as <code>Hello.java</code>. What happens?</li>
+    <li>Delete one closing brace. What error message appears?</li>
+    <li>Change <code>System</code> to <code>system</code>. What does the compiler say?</li>
+  </ol>
+</div>
+
+<h2 id="section8">8. The Programming Process</h2>
+<p>Writing code is not just typing until it works. Professional programmers follow a process. Every step matters, and skipping steps leads to bugs that are painful to track down later.</p>
+
+<h3>The Five-Step Cycle</h3>
+
+<p><strong>Step 1: Design</strong><br>
+Before writing a single line of code, think about what your program needs to do. What inputs does it receive? What output should it produce? What steps will get you from input to output? Write it out in plain English or a simple diagram. This is called an <em>algorithm</em> &mdash; a step-by-step plan for solving a problem.</p>
+
+<p><strong>Step 2: Write</strong><br>
+Translate your design into Java code. Focus on one piece at a time. Do not try to write everything at once. Write a small chunk, think about whether it matches your design, then continue.</p>
+
+<p><strong>Step 3: Compile</strong><br>
+Run <code>javac</code> and see if your code compiles. Fix any syntax errors the compiler reports. If there are multiple errors, fix them from the top down &mdash; one early error can cause a cascade of fake errors below it.</p>
+
+<p><strong>Step 4: Test</strong><br>
+Run your program and verify it does what you intended. Test with different inputs. Try edge cases &mdash; what happens with zero, negative numbers, empty input? Does the output match what you designed?</p>
+
+<p><strong>Step 5: Debug</strong><br>
+If the output is wrong, you have a logic error. Read your code carefully. Add extra <code>println</code> statements to print intermediate values and see where things go off track. This is called <em>debugging</em> &mdash; the process of finding and fixing errors in a working program.</p>
+
+<div class="callout analogy" role="region" aria-label="Analogy: programming process as building a piece of furniture">
+  <div class="callout-title">&#129504; Think of It Like...</div>
+  <p>Building a bookshelf: you start with a design and measurements (Step 1), then cut the wood (Step 2), then test that the pieces fit together (Step 3-4), and sand down anything that does not line up (Step 5). Skipping the design step and just cutting wood is how you end up with a pile of expensive lumber and no shelf.</p>
+</div>
+
+<div class="callout tip" role="region" aria-label="Tip: compile early and often">
+  <div class="callout-title">&#128161; Tip</div>
+  <p>Do not write 50 lines of code and then try to compile. Write 5-10 lines, compile and test, then continue. Small, frequent compilations mean smaller problems to fix when something goes wrong. Beginners often write large amounts of code and then face an overwhelming wall of errors.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try it yourself: full programming cycle">
+  <div class="callout-title">&#128295; Try It Yourself: Full Cycle</div>
+  <p>Follow the five steps for this simple program:</p>
+  <p><strong>Goal:</strong> Write a program that prints your full name, your major, and the current semester on three separate lines.</p>
+  <ol>
+    <li><strong>Design:</strong> What three things does it need to print? Write them on paper.</li>
+    <li><strong>Write:</strong> Create a new file called <code>MyInfo.java</code> with a class named <code>MyInfo</code> and three <code>println</code> statements.</li>
+    <li><strong>Compile:</strong> Run <code>javac MyInfo.java</code>. Fix any errors.</li>
+    <li><strong>Test:</strong> Run <code>java MyInfo</code>. Does it print exactly what you planned?</li>
+    <li><strong>Debug:</strong> If anything looks wrong, find the line and fix it.</li>
+  </ol>
+</div>
+
+<div class="page-break"></div>
+
+<h2 id="summary">&#128203; Module Summary</h2>
+
+<div class="callout summary" role="region" aria-label="Module 01 summary: key takeaways">
+  <div class="callout-title">Module 01 Key Takeaways</div>
+  <ul>
+    <li><strong>Java</strong> was created in 1995 by James Gosling at Sun Microsystems; now maintained by Oracle</li>
+    <li><strong>How Java works:</strong> source code (<code>.java</code>) &rarr; compiler (<code>javac</code>) &rarr; bytecode (<code>.class</code>) &rarr; JVM runs it</li>
+    <li><strong>"Write once, run anywhere"</strong> means one compiled program runs on any OS with a JVM</li>
+    <li><strong>JDK</strong> contains the JRE, which contains the JVM; always install the JDK for development</li>
+    <li><strong>Compile:</strong> <code>javac Hello.java</code> &mdash; <strong>Run:</strong> <code>java Hello</code> (no <code>.class</code> extension)</li>
+    <li><strong>File name must match class name</strong> exactly, including capitalization</li>
+    <li><strong>Every program needs</strong> a class and a <code>public static void main(String[] args)</code> method</li>
+    <li><strong>Core syntax rules:</strong> Java is case-sensitive; statements end with <code>;</code>; braces must balance</li>
+    <li><strong>Three error types:</strong> syntax (compile-time), runtime (crash), logic (wrong output)</li>
+    <li><strong>Programming cycle:</strong> Design &rarr; Write &rarr; Compile &rarr; Test &rarr; Debug</li>
+  </ul>
+</div>
+
+<h2 id="vocab">Vocabulary Review</h2>
+
+<table class="vocab-table" aria-label="Vocabulary review: Module 01 terms and definitions">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Java</td><td>A general-purpose, object-oriented programming language created in 1995 by James Gosling at Sun Microsystems</td></tr>
+    <tr><td>Source code</td><td>Human-readable Java code written in a <code>.java</code> file</td></tr>
+    <tr><td>Compiler</td><td>The tool (<code>javac</code>) that translates Java source code into bytecode</td></tr>
+    <tr><td>Bytecode</td><td>Platform-neutral code stored in a <code>.class</code> file; output of the Java compiler</td></tr>
+    <tr><td>JVM</td><td>Java Virtual Machine; reads bytecode and executes it on a specific machine</td></tr>
+    <tr><td>JRE</td><td>Java Runtime Environment; the JVM plus standard libraries needed to run Java programs</td></tr>
+    <tr><td>JDK</td><td>Java Development Kit; the JRE plus development tools including the compiler</td></tr>
+    <tr><td>Write once, run anywhere</td><td>Java's platform independence: one compiled program runs on any OS with a JVM</td></tr>
+    <tr><td>Class</td><td>A container that holds code; every Java program lives inside at least one class</td></tr>
+    <tr><td>Method</td><td>A named block of code that performs a specific task</td></tr>
+    <tr><td>main method</td><td>The entry point of a Java application: <code>public static void main(String[] args)</code></td></tr>
+    <tr><td>System.out.println()</td><td>Prints a line of text to the console and moves to the next line</td></tr>
+    <tr><td>String literal</td><td>Text enclosed in double quotes, like <code>"Hello, World!"</code></td></tr>
+    <tr><td>Syntax error</td><td>A compile-time error caused by violating Java's grammar rules</td></tr>
+    <tr><td>Runtime error</td><td>An error that occurs while a program is running, causing it to crash</td></tr>
+    <tr><td>Logic error</td><td>An error where a program runs without crashing but produces incorrect results</td></tr>
+    <tr><td>Algorithm</td><td>A step-by-step plan for solving a problem</td></tr>
+    <tr><td>Debugging</td><td>The process of finding and fixing errors in a program</td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h2 id="quiz">Knowledge Check</h2>
+<p>Answer each question below. Choose the single best answer for each.</p>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 1">
+  <p><span class="quiz-number">1.</span> Who created Java, and in what year was it first released?</p>
+  <ul class="quiz-options">
+    <li>A. James Gosling, 1995</li>
+    <li>B. Linus Torvalds, 1991</li>
+    <li>C. Bill Gates, 1990</li>
+    <li>D. Guido van Rossum, 2000</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 2">
+  <p><span class="quiz-number">2.</span> Which file extension does Java <em>source code</em> use?</p>
+  <ul class="quiz-options">
+    <li>A. <code>.exe</code></li>
+    <li>B. <code>.java</code></li>
+    <li>C. <code>.jar</code></li>
+    <li>D. <code>.class</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 3">
+  <p><span class="quiz-number">3.</span> What does the Java compiler (<code>javac</code>) produce when it compiles a <code>.java</code> file?</p>
+  <ul class="quiz-options">
+    <li>A. A machine code executable that runs directly on the CPU</li>
+    <li>B. Bytecode stored in a <code>.class</code> file</li>
+    <li>C. A new <code>.java</code> file with errors removed</li>
+    <li>D. A compressed archive that the JRE executes</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 4">
+  <p><span class="quiz-number">4.</span> Which of the following best describes the JDK?</p>
+  <ul class="quiz-options">
+    <li>A. A program that only runs bytecode; it does not compile</li>
+    <li>B. A lightweight viewer for reading Java documentation</li>
+    <li>C. A subset of the JRE that contains only the JVM</li>
+    <li>D. A full development toolkit containing the compiler, JRE, and development tools</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 5">
+  <p><span class="quiz-number">5.</span> A student saves a class named <code>MyProgram</code> in a file called <code>myprogram.java</code>. What will happen when they try to compile?</p>
+  <ul class="quiz-options">
+    <li>A. The compiler reports an error because the file name does not match the class name</li>
+    <li>B. Java automatically corrects the file name and compiles</li>
+    <li>C. The compiler produces a warning but still compiles</li>
+    <li>D. The program compiles and runs normally</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 6">
+  <p><span class="quiz-number">6.</span> A student writes the following code. What error will occur and when?</p>
+<pre role="figure" aria-label="Quiz question 6 code snippet">
+public class Broken {
+    public static void main(String[] args) {
+        System.out.println("Hello")
+    }
+}</pre>
+  <ul class="quiz-options">
+    <li>A. A runtime error &mdash; the program crashes when it tries to print</li>
+    <li>B. A logic error &mdash; the output will be incorrect</li>
+    <li>C. A syntax error &mdash; the compiler will report a missing semicolon</li>
+    <li>D. No error &mdash; semicolons are optional in Java</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 7">
+  <p><span class="quiz-number">7.</span> Which command correctly <em>runs</em> a compiled Java program named <code>Hello</code>?</p>
+  <ul class="quiz-options">
+    <li>A. <code>run Hello.java</code></li>
+    <li>B. <code>javac Hello</code></li>
+    <li>C. <code>java Hello</code></li>
+    <li>D. <code>java Hello.class</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 8">
+  <p><span class="quiz-number">8.</span> Examine the following code. It compiles and runs without crashing, but prints <code>15</code> when the correct answer should be <code>50</code>. What type of error is this?</p>
+<pre role="figure" aria-label="Quiz question 8 code snippet">
+public class Calc {
+    public static void main(String[] args) {
+        int result = 10 + 5;   // should be 10 * 5
+        System.out.println(result);
+    }
+}</pre>
+  <ul class="quiz-options">
+    <li>A. Syntax error</li>
+    <li>B. Logic error</li>
+    <li>C. Runtime error</li>
+    <li>D. Compile-time error</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 9">
+  <p><span class="quiz-number">9.</span> What is the correct order of the Java programming cycle?</p>
+  <ul class="quiz-options">
+    <li>A. Write &rarr; Compile &rarr; Test &rarr; Design &rarr; Debug</li>
+    <li>B. Compile &rarr; Design &rarr; Write &rarr; Debug &rarr; Test</li>
+    <li>C. Design &rarr; Write &rarr; Compile &rarr; Test &rarr; Debug</li>
+    <li>D. Test &rarr; Design &rarr; Compile &rarr; Write &rarr; Debug</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 10">
+  <p><span class="quiz-number">10.</span> Which of the following is the correct way to print text to the console in Java?</p>
+  <ul class="quiz-options">
+    <li>A. <code>print("Hello");</code></li>
+    <li>B. <code>System.out.println("Hello");</code></li>
+    <li>C. <code>console.log("Hello");</code></li>
+    <li>D. <code>System.out.println('Hello');</code></li>
+  </ul>
+</div>
+
+<div class="footer" role="contentinfo">
+  <strong>ITP 120 &mdash; Programming with Java | Module 01 &mdash; Welcome to Java</strong><br>
+  Northern Virginia Community College | Randy Michak
+</div>
+
+</main>
+</body>
+</html>

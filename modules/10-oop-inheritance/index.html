@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 10 — OOP Inheritance | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page {
+      size: letter;
+      margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 10 — OOP Inheritance"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .objectives .callout-title::before { content: "🎯 "; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .key-terms .callout-title::before { content: "📖 "; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .analogy .callout-title::before { content: "🧠 "; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .warning .callout-title::before { content: "⚠️ "; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .tip .callout-title::before { content: "💡 "; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .try-it .callout-title::before { content: "🔧 "; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    .summary .callout-title::before { content: "📋 "; }
+    pre, .code-block { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; }
+    code { font-family: 'Courier New', monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .output { color: #94a3b8; font-style: italic; }
+    .comment { color: #6b7280; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .answer { color: #16a34a; font-weight: 700; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<header class="title-section" role="banner">
+  <h1>Module 10 — OOP Inheritance</h1>
+  <div class="course">ITP 120 — Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</header>
+
+<section aria-label="Learning Objectives">
+  <div class="callout objectives">
+    <div class="callout-title">Learning Objectives</div>
+    <ul>
+      <li>Explain what inheritance is and describe the superclass/subclass relationship</li>
+      <li>Use the <code>extends</code> keyword to create a subclass</li>
+      <li>Call a superclass constructor using <code>super()</code></li>
+      <li>Override a method and explain when to use <code>@Override</code></li>
+      <li>Describe how every Java class inherits from <code>Object</code></li>
+      <li>Write polymorphic code using superclass references and dynamic binding</li>
+      <li>Define abstract classes and abstract methods</li>
+      <li>Implement an interface and distinguish it from an abstract class</li>
+      <li>Explain the <code>protected</code> access modifier</li>
+      <li>Build a multi-class hierarchy (Shape, Circle, Rectangle) from scratch</li>
+    </ul>
+  </div>
+</section>
+
+<p><strong>Prerequisites:</strong> Modules 1–9 — comfortable with variables, loops, arrays, and the OOP fundamentals from Module 8 (classes, objects, encapsulation).</p>
+
+<!-- ===== SECTION 1 ===== -->
+<h2>1. What Is Inheritance?</h2>
+
+<p>Inheritance lets one class acquire the fields and methods of another class. Instead of copying code into every new class, you put shared behavior in one place — the <strong>superclass</strong> — and let the <strong>subclasses</strong> build on top of it.</p>
+
+<div class="callout analogy">
+  <div class="callout-title">Think About It</div>
+  <p>Picture a <strong>Vehicle</strong>. Every vehicle has a make, a model, and the ability to start. A <strong>Car</strong> is a Vehicle — plus it has a trunk. A <strong>Truck</strong> is also a Vehicle — plus it has a payload capacity. They both get Vehicle's features for free.</p>
+  <p>That phrase — "is-a" — is your test for inheritance. If you can say "a Car <strong>is a</strong> Vehicle," inheritance fits. If you have to say "a Car <strong>has a</strong> Vehicle," that's composition, not inheritance.</p>
+</div>
+
+<div class="callout key-terms">
+  <div class="callout-title">Key Terms</div>
+  <table class="vocab-table" role="table" aria-label="Inheritance vocabulary">
+    <thead><tr><th scope="col">Term</th><th scope="col">Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Superclass</td><td>The parent class — defines shared fields and methods</td></tr>
+      <tr><td>Subclass</td><td>The child class — inherits from the superclass and can add its own members</td></tr>
+      <tr><td>Inheritance</td><td>The mechanism that lets a subclass reuse superclass code</td></tr>
+      <tr><td>"is-a" relationship</td><td>The test for inheritance: "A Dog <em>is an</em> Animal" checks out</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== SECTION 2 ===== -->
+<h2>2. The <code>extends</code> Keyword</h2>
+
+<p>You declare inheritance with the <code>extends</code> keyword in the class header.</p>
+
+<pre><code><span class="comment">// Superclass</span>
+public class Vehicle {
+    protected String make;
+    protected String model;
+    protected int year;
+
+    public Vehicle(String make, String model, int year) {
+        this.make  = make;
+        this.model = model;
+        this.year  = year;
+    }
+
+    public void start() {
+        System.out.println(year + " " + make + " " + model + " is starting.");
+    }
+
+    public String getInfo() {
+        return year + " " + make + " " + model;
+    }
+}
+
+<span class="comment">// Subclass — Car inherits from Vehicle</span>
+public class Car extends Vehicle {
+    private double trunkVolume;
+
+    public Car(String make, String model, int year, double trunkVolume) {
+        super(make, model, year);   <span class="comment">// call superclass constructor</span>
+        this.trunkVolume = trunkVolume;
+    }
+
+    public double getTrunkVolume() {
+        return trunkVolume;
+    }
+}
+</code></pre>
+
+<p>What does <code>Car</code> inherit from <code>Vehicle</code>? The <code>make</code>, <code>model</code>, and <code>year</code> fields (because they're <code>protected</code>), and the <code>start()</code> and <code>getInfo()</code> methods.</p>
+
+<div class="callout warning">
+  <div class="callout-title">Constructors Are NOT Inherited</div>
+  <p>This catches everyone the first time. Constructors belong to the class that declares them — they do not pass down to subclasses. Every subclass needs its own constructor.</p>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">What Gets Inherited?</div>
+  <ul>
+    <li><strong>public</strong> and <strong>protected</strong> fields and methods — inherited</li>
+    <li><strong>private</strong> fields and methods — not directly accessible in the subclass</li>
+    <li><strong>Constructors</strong> — never inherited</li>
+  </ul>
+</div>
+
+<!-- ===== SECTION 3 ===== -->
+<h2>3. Calling the Superclass Constructor</h2>
+
+<p>Since constructors aren't inherited, your subclass constructor must explicitly call the superclass constructor using <code>super()</code>. This initializes the inherited fields.</p>
+
+<pre><code>public class Truck extends Vehicle {
+    private double payloadTons;
+
+    public Truck(String make, String model, int year, double payloadTons) {
+        super(make, model, year);   <span class="comment">// MUST be the very first line</span>
+        this.payloadTons = payloadTons;
+    }
+
+    public double getPayloadTons() {
+        return payloadTons;
+    }
+}
+</code></pre>
+
+<div class="callout warning">
+  <div class="callout-title"><code>super()</code> Must Be First</div>
+  <p>If you call <code>super()</code>, it must be the <strong>first statement</strong> in the constructor body. The compiler rejects it otherwise — no exceptions.</p>
+</div>
+
+<p>If you leave out <code>super()</code>, Java automatically inserts a call to the superclass's <strong>no-argument constructor</strong>. If the superclass doesn't have one, you'll get a compile error. This trips up a lot of beginners.</p>
+
+<pre><code><span class="comment">// Chaining three levels deep: ElectricCar -> Car -> Vehicle</span>
+public class ElectricCar extends Car {
+    private int batteryRange;
+
+    public ElectricCar(String make, String model, int year,
+                       double trunkVolume, int batteryRange) {
+        super(make, model, year, trunkVolume);  <span class="comment">// calls Car constructor</span>
+        this.batteryRange = batteryRange;
+    }
+}
+</code></pre>
+
+<div class="callout analogy">
+  <div class="callout-title">Constructor Chaining</div>
+  <p>Before <code>ElectricCar</code> can set up its own field, <code>Car</code> needs to be set up. Before <code>Car</code> finishes, <code>Vehicle</code> needs to be set up. The chain always runs upward through the hierarchy before coming back down to finish initialization.</p>
+</div>
+
+<!-- ===== SECTION 4 ===== -->
+<h2>4. Overriding Methods</h2>
+
+<p>A subclass can replace a superclass method with its own version. Same name, same parameter list, same return type — different body. This is <strong>method overriding</strong>.</p>
+
+<pre><code>public class ElectricCar extends Car {
+    private int batteryRange;
+
+    public ElectricCar(String make, String model, int year,
+                       double trunkVolume, int batteryRange) {
+        super(make, model, year, trunkVolume);
+        this.batteryRange = batteryRange;
+    }
+
+    @Override
+    public void start() {
+        System.out.println(getInfo() + " is powering up silently.");
+    }
+
+    @Override
+    public String getInfo() {
+        return super.getInfo() + " [Electric, " + batteryRange + " mi range]";
+    }
+}
+</code></pre>
+
+<pre><code>ElectricCar tesla = new ElectricCar("Tesla", "Model 3", 2024, 2.8, 358);
+tesla.start();
+<span class="output">// Output: 2024 Tesla Model 3 [Electric, 358 mi range] is powering up silently.</span>
+
+System.out.println(tesla.getInfo());
+<span class="output">// Output: 2024 Tesla Model 3 [Electric, 358 mi range]</span>
+</code></pre>
+
+<p>Notice <code>super.getInfo()</code> in the override — that calls the <code>Vehicle</code> version and then appends the electric-car details on top of it. You're extending behavior, not replacing it from scratch.</p>
+
+<div class="callout tip">
+  <div class="callout-title">Always Use @Override</div>
+  <p>Put <code>@Override</code> on the line above every method you intend to override. If you typo the method name, you'd silently create a brand new method instead of an override. <code>@Override</code> makes the compiler catch that mistake for you.</p>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">Override vs Overload — Don't Confuse These</div>
+  <p><strong>Overriding:</strong> Same signature, subclass replaces superclass behavior. Resolved at <em>runtime</em>.<br>
+  <strong>Overloading:</strong> Same name, different parameter list, same class. Resolved at <em>compile time</em>.</p>
+</div>
+
+<!-- ===== SECTION 5 ===== -->
+<h2>5. The <code>Object</code> Class</h2>
+
+<p>Every class in Java — whether you write it or it comes from the standard library — inherits from <code>java.lang.Object</code>. You never have to write <code>extends Object</code>; Java adds it automatically behind the scenes.</p>
+
+<table role="table" aria-label="Object class methods">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">What It Does</th>
+      <th scope="col">Default Behavior (Before Override)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>toString()</code></td><td>String representation of the object</td><td>ClassName@hexHash — useless in practice</td></tr>
+    <tr><td><code>equals(Object o)</code></td><td>Tests equality</td><td>Compares memory addresses (same as ==)</td></tr>
+    <tr><td><code>hashCode()</code></td><td>Integer hash of the object</td><td>Based on memory address</td></tr>
+    <tr><td><code>getClass()</code></td><td>Runtime class of the object</td><td>Returns a <code>Class</code> object — final, not overrideable</td></tr>
+  </tbody>
+</table>
+
+<h3>Override <code>toString()</code></h3>
+
+<pre><code>public class Vehicle {
+    protected String make, model;
+    protected int year;
+    <span class="comment">// constructor omitted for brevity</span>
+
+    @Override
+    public String toString() {
+        return year + " " + make + " " + model;
+    }
+}
+
+Vehicle v = new Vehicle("Honda", "Civic", 2023);
+System.out.println(v);          <span class="comment">// calls toString() automatically</span>
+<span class="output">// Output: 2023 Honda Civic</span>
+
+<span class="comment">// Without the override you'd see: Vehicle@7852e922</span>
+</code></pre>
+
+<h3>Override <code>equals()</code></h3>
+
+<pre><code><span class="comment">// Default behavior — compares addresses, not content</span>
+Vehicle v1 = new Vehicle("Honda", "Civic", 2023);
+Vehicle v2 = new Vehicle("Honda", "Civic", 2023);
+System.out.println(v1 == v2);        <span class="output">// false — different objects</span>
+System.out.println(v1.equals(v2));   <span class="output">// false — default checks address</span>
+
+<span class="comment">// Override to compare field values instead</span>
+@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof Vehicle)) return false;
+    Vehicle other = (Vehicle) obj;
+    return this.year == other.year
+        &amp;&amp; this.make.equals(other.make)
+        &amp;&amp; this.model.equals(other.model);
+}
+
+System.out.println(v1.equals(v2));   <span class="output">// true — same content</span>
+</code></pre>
+
+<!-- ===== SECTION 6 ===== -->
+<h2>6. Polymorphism</h2>
+
+<p><strong>Polymorphism</strong> means "many forms." In Java, a superclass reference variable can hold a subclass object, and the correct method version is automatically called at runtime based on what the object actually is — not what the variable's type is. This is called <strong>dynamic binding</strong>.</p>
+
+<pre><code>Vehicle v = new Car("Toyota", "Camry", 2022, 13.5);
+v.start();   <span class="comment">// Car's start() is called if Car overrides it</span>
+</code></pre>
+
+<h3>Why This Matters — One Loop, Many Behaviors</h3>
+
+<pre><code>Vehicle[] fleet = new Vehicle[3];
+fleet[0] = new Vehicle("Ford",  "F-150",  2021);
+fleet[1] = new Car("Toyota",    "Camry",  2022, 13.5);
+fleet[2] = new ElectricCar("Tesla", "Model 3", 2024, 2.8, 358);
+
+for (Vehicle v : fleet) {
+    v.start();
+}
+</code></pre>
+
+<pre><code><span class="output">2021 Ford F-150 is starting.
+2022 Toyota Camry is starting.
+2024 Tesla Model 3 [Electric, 358 mi range] is powering up silently.</span>
+</code></pre>
+
+<p>One loop. No type checks. Each object handles its own behavior. That's the payoff of polymorphism — write code against the superclass type, and behavior adjusts automatically to the real object.</p>
+
+<div class="callout warning">
+  <div class="callout-title">Accessing Subclass-Only Members</div>
+  <p>A <code>Vehicle</code> reference only knows about <code>Vehicle</code> methods. To call something Car-specific, you must cast first:</p>
+  <pre><code>Vehicle v = new Car("Toyota", "Camry", 2022, 13.5);
+<span class="comment">// v.getTrunkVolume();  // compile error</span>
+
+if (v instanceof Car) {
+    Car c = (Car) v;
+    System.out.println(c.getTrunkVolume());   <span class="output">// 13.5</span>
+}
+</code></pre>
+  <p>Always check with <code>instanceof</code> before casting — otherwise you risk a <code>ClassCastException</code> at runtime.</p>
+</div>
+
+<!-- ===== SECTION 7 ===== -->
+<h2>7. Abstract Classes</h2>
+
+<p>Sometimes a superclass is a template only — it would make no sense to create an instance of it directly. Java lets you enforce this with the <code>abstract</code> keyword.</p>
+
+<pre><code>public abstract class Shape {
+    protected String color;
+
+    public Shape(String color) {
+        this.color = color;
+    }
+
+    <span class="comment">// Abstract methods — no body, subclasses MUST provide one</span>
+    public abstract double area();
+    public abstract double perimeter();
+
+    <span class="comment">// Concrete method — subclasses get this for free</span>
+    public void displayInfo() {
+        System.out.printf("Shape: %s | Color: %s | Area: %.2f%n",
+            getClass().getSimpleName(), color, area());
+    }
+}
+</code></pre>
+
+<div class="callout warning">
+  <div class="callout-title">You Cannot Instantiate an Abstract Class</div>
+  <pre><code>Shape s = new Shape("red");   <span class="comment">// compile error</span></code></pre>
+  <p>That's intentional. <code>Shape</code> is incomplete — it has no formula for area or perimeter. Only a concrete subclass like <code>Circle</code> fills in that blank.</p>
+</div>
+
+<pre><code>public class Circle extends Shape {
+    private double radius;
+
+    public Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+
+    @Override
+    public double area() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+</code></pre>
+
+<table role="table" aria-label="Abstract vs concrete class">
+  <thead>
+    <tr><th scope="col">Abstract Class</th><th scope="col">Concrete Class</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Declared with <code>abstract</code></td><td>No <code>abstract</code> keyword</td></tr>
+    <tr><td>Can have methods with no body</td><td>All methods must have a body</td></tr>
+    <tr><td>Cannot use <code>new</code> directly</td><td>Can be instantiated with <code>new</code></td></tr>
+    <tr><td>Used as a base/template type</td><td>Represents an actual usable object</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION 8 ===== -->
+<h2>8. Interfaces</h2>
+
+<p>An <strong>interface</strong> is a pure contract. It defines what a class can do without saying anything about how to do it. A class "signs the contract" with the <code>implements</code> keyword.</p>
+
+<pre><code>public interface Drawable {
+    void draw();              <span class="comment">// implicitly public and abstract</span>
+    void resize(double factor);
+}
+
+public interface Printable {
+    void print();
+}
+</code></pre>
+
+<pre><code>public class Circle extends Shape implements Drawable, Printable {
+    private double radius;
+
+    public Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+
+    @Override public double area()      { return Math.PI * radius * radius; }
+    @Override public double perimeter() { return 2 * Math.PI * radius; }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing circle, radius = " + radius);
+    }
+
+    @Override
+    public void resize(double factor) { radius *= factor; }
+
+    @Override
+    public void print() {
+        System.out.printf("Circle | color=%s | radius=%.2f%n", color, radius);
+    }
+}
+</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Multiple Interfaces Are Allowed</div>
+  <p>A class can only <code>extend</code> one superclass — Java does not support multiple class inheritance. But a class can <code>implement</code> as many interfaces as it needs. That's how Java sidesteps the "diamond problem."</p>
+</div>
+
+<table role="table" aria-label="Interface vs abstract class">
+  <thead>
+    <tr><th scope="col">Feature</th><th scope="col">Interface</th><th scope="col">Abstract Class</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Keyword used</td><td><code>implements</code></td><td><code>extends</code></td></tr>
+    <tr><td>Multiple allowed?</td><td>Yes — implement as many as you like</td><td>No — one superclass only</td></tr>
+    <tr><td>Fields</td><td>Only <code>public static final</code> constants</td><td>Any field type</td></tr>
+    <tr><td>Method bodies</td><td>No (pre-Java 8); <code>default</code> methods in Java 8+</td><td>Yes — mix abstract and concrete</td></tr>
+    <tr><td>Constructor</td><td>None</td><td>Can have constructors</td></tr>
+    <tr><td>Use it when</td><td>Defining a capability ("can draw")</td><td>Defining a base type ("is a shape")</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION 9 ===== -->
+<h2>9. The <code>protected</code> Access Modifier</h2>
+
+<p><code>protected</code> sits between <code>private</code> and <code>public</code>. It gives subclasses direct access to a field or method while still hiding it from unrelated code outside the package.</p>
+
+<table role="table" aria-label="Access modifier levels">
+  <thead>
+    <tr>
+      <th scope="col">Modifier</th>
+      <th scope="col">Same Class</th>
+      <th scope="col">Same Package</th>
+      <th scope="col">Subclass</th>
+      <th scope="col">Everywhere Else</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>private</code></td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>(default)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+    <tr><td><code>protected</code></td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+    <tr><td><code>public</code></td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  </tbody>
+</table>
+
+<pre><code>public class Vehicle {
+    protected String make;    <span class="comment">// Car can read/write this directly</span>
+    private   String vin;     <span class="comment">// Car cannot touch this</span>
+}
+
+public class Car extends Vehicle {
+    public void printInfo() {
+        System.out.println(make);   <span class="comment">// fine — protected</span>
+        <span class="comment">// System.out.println(vin);  // compile error — private</span>
+    }
+}
+</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">When to Use protected</div>
+  <p>Use <code>protected</code> for fields and methods that subclasses genuinely need to access directly. Avoid making everything <code>protected</code> just for convenience — it weakens encapsulation.</p>
+</div>
+
+<!-- ===== SECTION 10 ===== -->
+<h2>10. Practical Example — The Shape Hierarchy</h2>
+
+<p>Let's pull everything together. We'll build a complete hierarchy: an abstract <code>Shape</code> superclass, two concrete subclasses (<code>Circle</code> and <code>Rectangle</code>), and a driver that demonstrates polymorphism.</p>
+
+<h3>The Abstract Superclass</h3>
+<pre><code>public abstract class Shape {
+    protected String color;
+
+    public Shape(String color) {
+        this.color = color;
+    }
+
+    public abstract double area();
+    public abstract double perimeter();
+
+    public void displayInfo() {
+        System.out.printf("%-12s | color=%-6s | area=%8.2f | perimeter=%8.2f%n",
+            getClass().getSimpleName(), color, area(), perimeter());
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[color=" + color + "]";
+    }
+}
+</code></pre>
+
+<h3>The Subclasses</h3>
+<pre><code>public class Circle extends Shape {
+    private double radius;
+
+    public Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+
+    @Override
+    public double area() { return Math.PI * radius * radius; }
+
+    @Override
+    public double perimeter() { return 2 * Math.PI * radius; }
+}
+
+public class Rectangle extends Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(String color, double width, double height) {
+        super(color);
+        this.width  = width;
+        this.height = height;
+    }
+
+    @Override
+    public double area() { return width * height; }
+
+    @Override
+    public double perimeter() { return 2 * (width + height); }
+}
+</code></pre>
+
+<h3>Polymorphism in Action</h3>
+<pre><code>public class ShapeDriver {
+    public static void main(String[] args) {
+        Shape[] shapes = {
+            new Circle("red",   5.0),
+            new Circle("blue",  3.0),
+            new Rectangle("green", 4.0, 6.0),
+            new Rectangle("yellow", 10.0, 2.5)
+        };
+
+        System.out.printf("%-12s | %-8s | %8s | %10s%n",
+            "Type", "Color", "Area", "Perimeter");
+        System.out.println("-".repeat(48));
+
+        for (Shape s : shapes) {
+            s.displayInfo();   <span class="comment">// polymorphism — correct version every time</span>
+        }
+    }
+}
+</code></pre>
+
+<pre><code><span class="output">Type         | Color    |     Area |  Perimeter
+------------------------------------------------
+Circle       | red      |    78.54 |     31.42
+Circle       | blue     |    28.27 |     18.85
+Rectangle    | green    |    24.00 |     20.00
+Rectangle    | yellow   |    25.00 |     25.00</span>
+</code></pre>
+
+<div class="callout summary">
+  <div class="callout-title">What This Example Demonstrates</div>
+  <ul>
+    <li><strong>Abstract class</strong> — <code>Shape</code> cannot be instantiated directly</li>
+    <li><strong>Abstract methods</strong> — <code>area()</code> and <code>perimeter()</code> have no body in <code>Shape</code></li>
+    <li><strong>Concrete subclasses</strong> — <code>Circle</code> and <code>Rectangle</code> each implement both methods</li>
+    <li><strong>super() call</strong> — both subclass constructors pass <code>color</code> up to <code>Shape</code></li>
+    <li><strong>protected field</strong> — <code>color</code> is accessible in subclasses directly</li>
+    <li><strong>Polymorphism</strong> — a single <code>Shape[]</code> array holds different types; one loop handles them all</li>
+    <li><strong>Dynamic binding</strong> — <code>s.displayInfo()</code> calls <code>area()</code> on the actual object, not just any shape</li>
+  </ul>
+</div>
+
+<div class="callout try-it">
+  <div class="callout-title">Try It Yourself</div>
+  <p>Add a <code>Triangle</code> class that extends <code>Shape</code>. It should store three side lengths (<code>a</code>, <code>b</code>, <code>c</code>). Use Heron's formula for area:</p>
+  <pre><code>double s = (a + b + c) / 2;
+double area = Math.sqrt(s * (s-a) * (s-b) * (s-c));
+</code></pre>
+  <p>Then add a <code>Triangle</code> to the <code>shapes</code> array in <code>ShapeDriver</code>. Does it just work with the existing loop?</p>
+</div>
+
+<!-- ===== MODULE SUMMARY ===== -->
+<div class="callout summary">
+  <div class="callout-title">Module 10 Summary</div>
+  <table role="table" aria-label="Module 10 concept summary">
+    <thead>
+      <tr><th scope="col">Concept</th><th scope="col">Key Point</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Inheritance</td><td>Subclass extends superclass; "is-a" relationship; reuses code</td></tr>
+      <tr><td><code>extends</code></td><td>Declares the subclass; one superclass only</td></tr>
+      <tr><td><code>super()</code></td><td>Calls superclass constructor; must be first statement</td></tr>
+      <tr><td>Method overriding</td><td>Same signature in subclass; use <code>@Override</code></td></tr>
+      <tr><td><code>Object</code> class</td><td>Root of every class; provides <code>toString()</code>, <code>equals()</code></td></tr>
+      <tr><td>Polymorphism</td><td>Superclass reference holds subclass object; dynamic binding at runtime</td></tr>
+      <tr><td>Abstract class</td><td>Cannot instantiate; can have abstract (no-body) methods</td></tr>
+      <tr><td>Interface</td><td>Pure contract; <code>implements</code>; multiple allowed per class</td></tr>
+      <tr><td><code>protected</code></td><td>Accessible in same package and subclasses; invisible to outside world</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div class="page-break"></div>
+<h2>Module 10 Quiz</h2>
+<p>Circle the best answer for each question. Each question is worth 1 point.</p>
+
+<div class="quiz-question" role="region" aria-label="Question 1">
+  <p><span class="quiz-number">1.</span> Which keyword creates a subclass in Java?</p>
+  <ul class="quiz-options">
+    <li>A. <code>implements</code></li>
+    <li>B. <code>inherits</code></li>
+    <li>C. <code>super</code></li>
+    <li>D. <code>extends</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 2">
+  <p><span class="quiz-number">2.</span> What is the output of the following code?</p>
+  <pre><code>public class Animal {
+    public void speak() { System.out.println("..."); }
+}
+public class Dog extends Animal {
+    @Override
+    public void speak() { System.out.println("Woof"); }
+}
+Animal a = new Dog();
+a.speak();
+</code></pre>
+  <ul class="quiz-options">
+    <li>A. Compile error — cannot assign Dog to Animal variable</li>
+    <li>B. <code>...</code></li>
+    <li>C. <code>Woof</code></li>
+    <li>D. Nothing — speak() is not defined on Animal</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 3">
+  <p><span class="quiz-number">3.</span> A class that is declared <code>abstract</code> cannot be:</p>
+  <ul class="quiz-options">
+    <li>A. Instantiated directly with <code>new</code></li>
+    <li>B. Extended by a subclass</li>
+    <li>C. Used as a variable type</li>
+    <li>D. Given a constructor</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 4">
+  <p><span class="quiz-number">4.</span> Which statement about constructors and inheritance is TRUE?</p>
+  <ul class="quiz-options">
+    <li>A. Constructors are inherited just like regular methods</li>
+    <li>B. A subclass can only have one constructor</li>
+    <li>C. Constructors are NOT inherited; each subclass defines its own</li>
+    <li>D. The <code>super()</code> call can appear anywhere in a constructor body</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 5">
+  <p><span class="quiz-number">5.</span> What does the <code>@Override</code> annotation do?</p>
+  <ul class="quiz-options">
+    <li>A. Forces the JVM to run the subclass method instead of the superclass method</li>
+    <li>B. Tells the compiler to verify you are actually overriding a method; catches typos</li>
+    <li>C. Makes the method private so it cannot be called from outside the class</li>
+    <li>D. Prevents further subclasses from overriding the method</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 6">
+  <p><span class="quiz-number">6.</span> Every Java class implicitly extends which class?</p>
+  <ul class="quiz-options">
+    <li>A. <code>java.lang.Base</code></li>
+    <li>B. <code>java.lang.Class</code></li>
+    <li>C. <code>java.lang.Super</code></li>
+    <li>D. <code>java.lang.Object</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 7">
+  <p><span class="quiz-number">7.</span> Consider this code:</p>
+  <pre><code>public interface Flyable {
+    void fly();
+}
+public class Bird extends Animal implements Flyable {
+    @Override public void speak() { System.out.println("Tweet"); }
+    @Override public void fly()   { System.out.println("Flap flap"); }
+}
+</code></pre>
+  <p>How many superclass/interface relationships does <code>Bird</code> have?</p>
+  <ul class="quiz-options">
+    <li>A. One — it only extends Animal</li>
+    <li>B. Three — Animal, Flyable, and Object</li>
+    <li>C. Two — it extends Animal and implements Flyable</li>
+    <li>D. This is a compile error; a class cannot extend and implement simultaneously</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 8">
+  <p><span class="quiz-number">8.</span> What is the access level of <code>protected</code>?</p>
+  <ul class="quiz-options">
+    <li>A. Accessible in the same package and in subclasses</li>
+    <li>B. Accessible anywhere in the program</li>
+    <li>C. Accessible only within the same class</li>
+    <li>D. Accessible only in subclasses, never in the same package</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 9">
+  <p><span class="quiz-number">9.</span> What is the primary difference between an <strong>interface</strong> and an <strong>abstract class</strong>?</p>
+  <ul class="quiz-options">
+    <li>A. Abstract classes can be instantiated; interfaces cannot</li>
+    <li>B. A class can implement multiple interfaces but can only extend one abstract class</li>
+    <li>C. Interfaces can have constructors; abstract classes cannot</li>
+    <li>D. There is no difference — they are interchangeable</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Question 10">
+  <p><span class="quiz-number">10.</span> Look at this code:</p>
+  <pre><code>public abstract class Shape {
+    public abstract double area();
+}
+public class Square extends Shape {
+    private double side;
+    public Square(double side) { this.side = side; }
+    // area() NOT implemented here
+}
+Shape s = new Square(5);
+</code></pre>
+  <p>What happens when you try to compile this?</p>
+  <ul class="quiz-options">
+    <li>A. It compiles and runs; area() returns 0.0 by default</li>
+    <li>B. Runtime error when <code>area()</code> is called</li>
+    <li>C. Compile error — <code>Square</code> must either implement <code>area()</code> or be declared <code>abstract</code></li>
+    <li>D. It compiles because <code>Square</code> is a concrete class</li>
+  </ul>
+</div>
+
+<div class="footer" role="contentinfo">
+  ITP 120 — Programming with Java &nbsp;|&nbsp; Module 10 — OOP Inheritance &nbsp;|&nbsp; NOVA &nbsp;|&nbsp; Randy Michak
+</div>
+
+</body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 11 — File I/O | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page {
+      size: letter;
+      margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 11 — File I/O"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .objectives .callout-title::before { content: "🎯 "; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .key-terms .callout-title::before { content: "📖 "; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .analogy .callout-title::before { content: "🧠 "; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .warning .callout-title::before { content: "⚠️ "; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .tip .callout-title::before { content: "💡 "; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .try-it .callout-title::before { content: "🔧 "; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    .summary .callout-title::before { content: "📋 "; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; }
+    code { font-family: 'Courier New', monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .output { color: #94a3b8; font-style: italic; }
+    .comment { color: #64748b; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<div class="title-section" role="banner">
+  <h1>Module 11 — File I/O</h1>
+  <div class="course">ITP 120 — Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<div class="callout tip" role="note" aria-label="Prerequisites">
+  <div class="callout-title">Prerequisites</div>
+  This module builds on everything from Modules 1–10. You need to be comfortable with variables, control flow, methods, arrays, classes, objects, and inheritance before jumping into File I/O. If anything feels shaky, review those modules first.
+</div>
+
+<div class="callout objectives" role="note" aria-label="Learning Objectives">
+  <div class="callout-title">Learning Objectives</div>
+  By the end of this module you will be able to:
+  <ul>
+    <li>Explain why programs need to read and write files</li>
+    <li>Use the <code>File</code> class to inspect files and directories</li>
+    <li>Write data to text files using <code>PrintWriter</code></li>
+    <li>Append data to existing files using <code>FileWriter</code></li>
+    <li>Read data from text files using <code>Scanner</code></li>
+    <li>Handle <code>FileNotFoundException</code> with try-catch</li>
+    <li>Use try-with-resources to close files automatically</li>
+    <li>Process file data: count lines, sum numbers, parse CSV</li>
+    <li>Build a complete file-processing program end to end</li>
+  </ul>
+</div>
+
+<h2>1. Why File I/O?</h2>
+
+<p>Every program you've written so far has one thing in common: when it stops running, all its data disappears. Variables live in RAM — and RAM is wiped clean the moment your program ends.</p>
+
+<p>That's fine for small calculations, but most real programs need to <strong>persist</strong> data. A gradebook has to remember grades across sessions. A contact list needs to survive a reboot. A log file has to accumulate entries over time. That's what File I/O is for.</p>
+
+<div class="callout analogy" role="note" aria-label="Analogy">
+  <div class="callout-title">Think of It This Way</div>
+  RAM is a whiteboard — fast, convenient, but erased every night. A file is a notebook — slower to write in, but it's still there when you come back tomorrow.
+</div>
+
+<h3>Text Files vs. Binary Files</h3>
+
+<table role="table" aria-label="Text vs Binary files">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">What's stored</th>
+      <th scope="col">Examples</th>
+      <th scope="col">Human-readable?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Text files</strong></td><td>Characters (Unicode/ASCII)</td><td>.txt, .csv, .java, .html</td><td>Yes — open in Notepad</td></tr>
+    <tr><td><strong>Binary files</strong></td><td>Raw bytes</td><td>.jpg, .class, .exe, .zip</td><td>No — garbled in a text editor</td></tr>
+  </tbody>
+</table>
+
+<p>This module focuses on <strong>text files</strong>. They're the easiest to work with in Java, and they're everywhere — config files, logs, data exports, and more.</p>
+
+<h2>2. The File Class</h2>
+
+<p>Before you read or write a file, Java gives you a way to represent it: the <code>File</code> class from <code>java.io</code>. A <code>File</code> object doesn't open the file — it's just a reference to a path on disk. Think of it as a pointer to a location.</p>
+
+<pre><code>import java.io.File;
+
+public class FileDemo {
+    public static void main(String[] args) {
+        File f = new File("grades.txt");  <span class="comment">// just a path reference</span>
+
+        System.out.println("Name:    " + f.getName());
+        System.out.println("Path:    " + f.getPath());
+        System.out.println("Exists:  " + f.exists());
+        System.out.println("IsFile:  " + f.isFile());
+        System.out.println("Size:    " + f.length() + " bytes");
+    }
+}</code></pre>
+
+<h3>Useful File Methods</h3>
+
+<table role="table" aria-label="File class methods" class="vocab-table">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">Returns</th>
+      <th scope="col">What it tells you</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>exists()</code></td><td>boolean</td><td>Does this path exist on disk?</td></tr>
+    <tr><td><code>getName()</code></td><td>String</td><td>Just the filename, no directory path</td></tr>
+    <tr><td><code>getPath()</code></td><td>String</td><td>The path as you wrote it</td></tr>
+    <tr><td><code>getAbsolutePath()</code></td><td>String</td><td>Complete absolute path</td></tr>
+    <tr><td><code>length()</code></td><td>long</td><td>Size in bytes</td></tr>
+    <tr><td><code>isFile()</code></td><td>boolean</td><td>Is this a file (not a directory)?</td></tr>
+    <tr><td><code>isDirectory()</code></td><td>boolean</td><td>Is this a directory?</td></tr>
+    <tr><td><code>canRead()</code></td><td>boolean</td><td>Does your program have read permission?</td></tr>
+    <tr><td><code>canWrite()</code></td><td>boolean</td><td>Does your program have write permission?</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning" role="note" aria-label="Warning">
+  <div class="callout-title">Common Mistake</div>
+  <code>new File("grades.txt")</code> does <em>not</em> create the file on disk. It creates a Java object representing a path. The actual file gets created when you open a <code>PrintWriter</code> or <code>FileWriter</code> on it. Always check <code>f.exists()</code> before reading.
+</div>
+
+<h2>3. Writing to Files: PrintWriter</h2>
+
+<p><code>PrintWriter</code> is the easiest way to write text to a file. You already know <code>System.out.print()</code> and <code>System.out.println()</code> — <code>PrintWriter</code> works exactly the same way, just aimed at a file instead of the console.</p>
+
+<pre><code>import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+
+public class WriteDemo {
+    public static void main(String[] args) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter("output.txt");
+
+        pw.println("Alice: 92");
+        pw.println("Bob: 87");
+        pw.printf("Average: %.1f%n", 89.5);
+
+        pw.close();  <span class="comment">// IMPORTANT: flushes buffer and closes the file</span>
+        System.out.println("File written.");
+    }
+}</code></pre>
+
+<p>After running this, <code>output.txt</code> will contain:</p>
+<pre><code><span class="output">Alice: 92
+Bob: 87
+Average: 89.5</span></code></pre>
+
+<h3>PrintWriter Methods</h3>
+
+<table role="table" aria-label="PrintWriter methods">
+  <thead>
+    <tr><th scope="col">Method</th><th scope="col">Does what</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>print(value)</code></td><td>Writes value, no newline</td></tr>
+    <tr><td><code>println(value)</code></td><td>Writes value + newline</td></tr>
+    <tr><td><code>printf(format, args)</code></td><td>Formatted output — same syntax as <code>System.out.printf</code></td></tr>
+    <tr><td><code>close()</code></td><td>Flushes buffer and closes file</td></tr>
+    <tr><td><code>flush()</code></td><td>Flushes buffer without closing</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning" role="note" aria-label="Warning">
+  <div class="callout-title">Always Close Your File</div>
+  If you forget to call <code>pw.close()</code>, some or all of the data may never make it to disk. Java buffers writes in memory and only flushes them on close. A file that looks empty usually means you forgot to close it.
+</div>
+
+<div class="callout warning" role="note" aria-label="Warning">
+  <div class="callout-title">PrintWriter Overwrites by Default</div>
+  If <code>output.txt</code> already exists, <code>new PrintWriter("output.txt")</code> will <strong>erase it</strong> and start fresh. To add to an existing file, use <code>FileWriter</code> with the append flag (Section 4).
+</div>
+
+<h2>4. Appending to Files</h2>
+
+<p>Sometimes you don't want to overwrite — you want to add to the end of an existing file. Log files are the classic example: every time the program runs, you append a new entry without losing the old ones.</p>
+
+<p>The trick is <code>FileWriter</code> with a second argument of <code>true</code>:</p>
+
+<pre><code>import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class AppendDemo {
+    public static void main(String[] args) throws IOException {
+        <span class="comment">// true = open in append mode (don't overwrite)</span>
+        FileWriter fw = new FileWriter("log.txt", true);
+        PrintWriter pw = new PrintWriter(fw);
+
+        pw.println("Session started: " + new java.util.Date());
+        pw.println("User logged in.");
+
+        pw.close();
+        System.out.println("Entry appended.");
+    }
+}</code></pre>
+
+<div class="callout analogy" role="note" aria-label="Analogy">
+  <div class="callout-title">Think of It This Way</div>
+  <code>new PrintWriter("file.txt")</code> is like ripping out all the pages of a notebook and starting fresh. <code>new FileWriter("file.txt", true)</code> is like opening to the last page and writing a new line.
+</div>
+
+<div class="callout tip" role="note" aria-label="Tip">
+  <div class="callout-title">IOException vs FileNotFoundException</div>
+  <code>FileWriter</code> throws <code>IOException</code> (a broader exception), not just <code>FileNotFoundException</code>. Your method needs <code>throws IOException</code> or a try-catch for <code>IOException</code>.
+</div>
+
+<h2>5. Reading from Files: Scanner</h2>
+
+<p>You've used <code>Scanner</code> to read keyboard input. The exact same class reads files — you just give it a <code>File</code> object instead of <code>System.in</code>.</p>
+
+<pre><code>import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class ReadDemo {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("grades.txt"));
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            System.out.println(line);
+        }
+
+        sc.close();
+    }
+}</code></pre>
+
+<p>If <code>grades.txt</code> contains:</p>
+<pre><code><span class="output">Alice: 92
+Bob: 87
+Carol: 95</span></code></pre>
+
+<p>Output:</p>
+<pre><code><span class="output">Alice: 92
+Bob: 87
+Carol: 95</span></code></pre>
+
+<h3>Scanner Methods for Files</h3>
+
+<table role="table" aria-label="Scanner methods for file reading">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">Returns</th>
+      <th scope="col">Use when</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>hasNextLine()</code></td><td>boolean</td><td>Checking if another full line exists</td></tr>
+    <tr><td><code>nextLine()</code></td><td>String</td><td>Reading one complete line</td></tr>
+    <tr><td><code>hasNext()</code></td><td>boolean</td><td>Checking if another token (word) exists</td></tr>
+    <tr><td><code>next()</code></td><td>String</td><td>Reading one whitespace-delimited word</td></tr>
+    <tr><td><code>hasNextInt()</code></td><td>boolean</td><td>Checking if next token is an integer</td></tr>
+    <tr><td><code>nextInt()</code></td><td>int</td><td>Reading one integer</td></tr>
+    <tr><td><code>hasNextDouble()</code></td><td>boolean</td><td>Checking if next token is a double</td></tr>
+    <tr><td><code>nextDouble()</code></td><td>double</td><td>Reading one double</td></tr>
+    <tr><td><code>close()</code></td><td>void</td><td>Done reading — always close</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip" role="note" aria-label="Tip">
+  <div class="callout-title">hasNext() vs hasNextLine()</div>
+  Use <code>hasNextLine()</code> when reading structured records — one full line at a time. Use <code>hasNext()</code> when scanning for individual tokens (words, numbers) regardless of line breaks.
+</div>
+
+<div class="callout try-it" role="note" aria-label="Try It">
+  <div class="callout-title">Try It</div>
+  Create a file called <code>numbers.txt</code> with five integers, one per line. Write a program that reads each number using <code>Scanner</code> and prints the number doubled. Close the scanner when done.
+</div>
+
+<h2>6. Exception Handling for File I/O</h2>
+
+<p>File operations can fail in ways normal code can't. The file might not exist, permissions might block access, or the disk might be full. Java forces you to deal with this through <strong>checked exceptions</strong>.</p>
+
+<p>The most common one for file reading is <code>FileNotFoundException</code>.</p>
+
+<h3>Option 1: throws (Pass It Up)</h3>
+
+<p>Add <code>throws FileNotFoundException</code> to your method signature. This passes responsibility to the caller:</p>
+
+<pre><code>public static void main(String[] args) throws FileNotFoundException {
+    Scanner sc = new Scanner(new File("data.txt"));
+    <span class="comment">// ... read the file ...</span>
+}</code></pre>
+
+<p>Simple, but the program crashes with a stack trace if the file isn't found. Fine for learning. Not great for production.</p>
+
+<h3>Option 2: try-catch (Handle It Here)</h3>
+
+<pre><code>import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class SafeRead {
+    public static void main(String[] args) {
+        try {
+            Scanner sc = new Scanner(new File("data.txt"));
+            while (sc.hasNextLine()) {
+                System.out.println(sc.nextLine());
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found.");
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+
+<p>If <code>data.txt</code> exists — output is file contents. If it doesn't:</p>
+<pre><code><span class="output">Error: File not found.
+data.txt (No such file or directory)</span></code></pre>
+
+<div class="callout analogy" role="note" aria-label="Analogy">
+  <div class="callout-title">Think of It This Way</div>
+  <code>throws</code> is like saying "not my problem — you deal with it." <code>try-catch</code> is like saying "I'll handle this right here." For files, try-catch is almost always the right choice in real programs because it lets you give the user a clear message.
+</div>
+
+<div class="callout warning" role="note" aria-label="Warning">
+  <div class="callout-title">Don't Swallow Exceptions</div>
+  An empty catch block hides errors silently and makes debugging a nightmare:
+  <pre style="margin-top:8px;"><code>} catch (FileNotFoundException e) {
+    <span class="comment">// do nothing — BAD PRACTICE</span>
+}</code></pre>
+  At minimum, print the exception message so you know something went wrong.
+</div>
+
+<h2>7. Try-with-Resources</h2>
+
+<p>Manually calling <code>close()</code> works, but there's a cleaner approach: <strong>try-with-resources</strong>. Declare your file object inside the <code>try</code> parentheses, and Java automatically closes it when the block ends — even if an exception occurs.</p>
+
+<pre><code>import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class TryWithResources {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(new File("data.txt"))) {
+            while (sc.hasNextLine()) {
+                System.out.println(sc.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+        <span class="comment">// sc is automatically closed here — no close() needed</span>
+    }
+}</code></pre>
+
+<p>You can open multiple resources in the same try, separated by semicolons:</p>
+
+<pre><code>try (Scanner sc = new Scanner(new File("input.txt"));
+     PrintWriter pw = new PrintWriter("output.txt")) {
+
+    while (sc.hasNextLine()) {
+        pw.println(sc.nextLine().toUpperCase());
+    }
+
+} catch (Exception e) {
+    System.out.println("Error: " + e.getMessage());
+}
+<span class="comment">// Both sc and pw are automatically closed</span></code></pre>
+
+<div class="callout tip" role="note" aria-label="Tip">
+  <div class="callout-title">Why Try-with-Resources Is Better</div>
+  With manual <code>close()</code>, if an exception fires before you reach the close call, the file stays open. Try-with-resources closes the file no matter what happens — exception or not. Make it your default for any file work.
+</div>
+
+<h2>8. Processing File Data</h2>
+
+<p>Reading a file line by line is just the start. Here are three patterns you'll use constantly.</p>
+
+<h3>Pattern 1: Count Lines</h3>
+
+<pre><code>try (Scanner sc = new Scanner(new File("data.txt"))) {
+    int count = 0;
+    while (sc.hasNextLine()) {
+        sc.nextLine();  <span class="comment">// consume the line</span>
+        count++;
+    }
+    System.out.println("Total lines: " + count);
+} catch (FileNotFoundException e) {
+    System.out.println("File not found.");
+}</code></pre>
+
+<h3>Pattern 2: Sum and Average Numbers</h3>
+
+<p>File <code>scores.txt</code> — one integer per line:</p>
+
+<pre><code>try (Scanner sc = new Scanner(new File("scores.txt"))) {
+    int sum = 0;
+    int count = 0;
+
+    while (sc.hasNextInt()) {
+        sum += sc.nextInt();
+        count++;
+    }
+
+    if (count &gt; 0) {
+        System.out.printf("Sum:     %d%n", sum);
+        System.out.printf("Average: %.2f%n", (double) sum / count);
+    }
+} catch (FileNotFoundException e) {
+    System.out.println("File not found.");
+}</code></pre>
+
+<p>If <code>scores.txt</code> contains 85, 92, 78, 96, 88 (one per line):</p>
+<pre><code><span class="output">Sum:     439
+Average: 87.80</span></code></pre>
+
+<h3>Pattern 3: Parse CSV Data with split()</h3>
+
+<p>CSV (Comma-Separated Values) is one of the most common data formats. Each line holds fields separated by commas:</p>
+
+<pre><code><span class="comment">// students.csv:
+// Alice,92,88,95
+// Bob,78,82,80
+// Carol,95,91,97</span>
+
+try (Scanner sc = new Scanner(new File("students.csv"))) {
+    while (sc.hasNextLine()) {
+        String line = sc.nextLine();
+        String[] parts = line.split(",");
+
+        String name  = parts[0];
+        int s1 = Integer.parseInt(parts[1]);
+        int s2 = Integer.parseInt(parts[2]);
+        int s3 = Integer.parseInt(parts[3]);
+        double avg = (s1 + s2 + s3) / 3.0;
+
+        System.out.printf("%-10s avg: %.1f%n", name, avg);
+    }
+} catch (FileNotFoundException e) {
+    System.out.println("File not found.");
+}</code></pre>
+
+<p>Output:</p>
+<pre><code><span class="output">Alice      avg: 91.7
+Bob        avg: 80.0
+Carol      avg: 94.3</span></code></pre>
+
+<div class="callout warning" role="note" aria-label="Warning">
+  <div class="callout-title">Integer.parseInt() Can Throw NumberFormatException</div>
+  If a field contains unexpected data — a blank, a header, a typo — <code>Integer.parseInt()</code> will throw <code>NumberFormatException</code>. Validate your data or wrap the parse in its own try-catch.
+</div>
+
+<div class="callout try-it" role="note" aria-label="Try It">
+  <div class="callout-title">Try It</div>
+  Create a file called <code>words.txt</code> with one word per line. Write a program that reads every word, prints it in uppercase, and then prints the total word count at the end.
+</div>
+
+<h2>9. Practical Example: Student Grade Processor</h2>
+
+<p>Let's put it all together. This program reads student records from an input file, calculates each student's average, and writes a formatted report to an output file.</p>
+
+<h3>Input File: students.csv</h3>
+<pre><code><span class="output">Alice,85,92,88
+Bob,70,75,68
+Carol,95,98,100
+David,60,72,65</span></code></pre>
+
+<h3>The Program</h3>
+
+<pre><code>import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class GradeProcessor {
+
+    public static void main(String[] args) {
+        String inputFile  = "students.csv";
+        String outputFile = "report.txt";
+
+        try (Scanner sc = new Scanner(new File(inputFile));
+             PrintWriter pw = new PrintWriter(outputFile)) {
+
+            pw.println("=== Grade Report ===");
+            pw.println();
+
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+                if (line.isEmpty()) continue;  <span class="comment">// skip blank lines</span>
+
+                String[] parts = line.split(",");
+                String name  = parts[0];
+                int s1 = Integer.parseInt(parts[1]);
+                int s2 = Integer.parseInt(parts[2]);
+                int s3 = Integer.parseInt(parts[3]);
+                double avg = (s1 + s2 + s3) / 3.0;
+
+                String grade = getLetterGrade(avg);
+
+                pw.printf("%-10s  Scores: %d, %d, %d  |  Avg: %.1f  |  Grade: %s%n",
+                          name, s1, s2, s3, avg, grade);
+            }
+
+            pw.println();
+            pw.println("Report generated by GradeProcessor.java");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Input file not found: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error processing file: " + e.getMessage());
+        }
+
+        System.out.println("Done. See " + outputFile);
+    }
+
+    public static String getLetterGrade(double avg) {
+        if (avg >= 90) return "A";
+        if (avg >= 80) return "B";
+        if (avg >= 70) return "C";
+        if (avg >= 60) return "D";
+        return "F";
+    }
+}</code>
+
+<h3>Output File: report.txt</h3>
+<pre><code><span class="output">=== Grade Report ===
+
+Alice       Scores: 85, 92, 88  |  Avg: 88.3  |  Grade: B
+Bob         Scores: 70, 75, 68  |  Avg: 71.0  |  Grade: C
+Carol       Scores: 95, 98, 100 |  Avg: 97.7  |  Grade: A
+David       Scores: 60, 72, 65  |  Avg: 65.7  |  Grade: D
+
+Report generated by GradeProcessor.java</span></code></pre>
+
+<p>Notice how this program combines everything from this module: reading CSV data with <code>Scanner</code>, parsing with <code>split()</code> and <code>parseInt()</code>, calculating results, writing formatted output with <code>PrintWriter</code>, and using try-with-resources for both files at once.</p>
+
+<div class="callout try-it" role="note" aria-label="Try It">
+  <div class="callout-title">Try It — Extend the Program</div>
+  Modify the grade processor to also calculate and write the class average at the bottom of the report. You'll need to track the running total and student count across the loop.
+</div>
+
+<div class="callout key-terms" role="note" aria-label="Key Terms">
+  <div class="callout-title">Key Terms</div>
+  <table role="table" aria-label="Key terms glossary" class="vocab-table" style="margin-top:8px;">
+    <thead>
+      <tr><th scope="col">Term</th><th scope="col">Definition</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>File</code></td><td>A Java class representing a path to a file or directory — does not open or create the file itself.</td></tr>
+      <tr><td><code>PrintWriter</code></td><td>A class for writing formatted text to a file. Supports <code>print()</code>, <code>println()</code>, <code>printf()</code>.</td></tr>
+      <tr><td><code>FileWriter</code></td><td>Lower-level writer; used with the append flag (<code>true</code>) to add data without overwriting.</td></tr>
+      <tr><td><code>Scanner</code> (file)</td><td>The same Scanner you know — pointed at a <code>File</code> object instead of <code>System.in</code>.</td></tr>
+      <tr><td>FileNotFoundException</td><td>Thrown when you try to open a file that doesn't exist or can't be accessed.</td></tr>
+      <tr><td>IOException</td><td>Broader I/O exception; parent of FileNotFoundException. Used with <code>FileWriter</code>.</td></tr>
+      <tr><td>Try-with-resources</td><td>A try block that automatically closes declared resources when the block exits.</td></tr>
+      <tr><td>Append mode</td><td>Opening a file for writing without erasing its existing content.</td></tr>
+      <tr><td>CSV</td><td>Comma-Separated Values — a plain text format where fields on each line are separated by commas.</td></tr>
+      <tr><td><code>split(",")</code></td><td>String method that splits a string on a delimiter and returns an array of the pieces.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout summary" role="note" aria-label="Module Summary">
+  <div class="callout-title">Module Summary</div>
+  <ul>
+    <li><strong>File I/O</strong> lets programs persist data beyond a single run — RAM is temporary, files are not.</li>
+    <li>The <strong>File class</strong> represents a path; it doesn't open or create anything on its own.</li>
+    <li><strong>PrintWriter</strong> writes text to a file using the same methods as <code>System.out</code>; always call <code>close()</code>.</li>
+    <li><strong>FileWriter with true</strong> opens a file in append mode — existing content is preserved.</li>
+    <li><strong>Scanner(new File(...))</strong> reads a text file the same way you read keyboard input.</li>
+    <li><strong>FileNotFoundException</strong> is a checked exception — handle it with try-catch or declare <code>throws</code>.</li>
+    <li><strong>Try-with-resources</strong> automatically closes files — use it by default.</li>
+    <li>Common processing patterns: count lines, sum/average numbers, parse CSV with <code>split()</code>.</li>
+  </ul>
+</div>
+
+<div class="page-break"></div>
+
+<h2>Module 11 Quiz — File I/O</h2>
+
+<p><strong>Name:</strong> _________________________ &nbsp;&nbsp; <strong>Date:</strong> _____________ &nbsp;&nbsp; <strong>Score:</strong> ______ / 10</p>
+
+<p><em>Circle the best answer for each question.</em></p>
+
+<div class="quiz-question" role="group" aria-label="Question 1">
+  <div class="quiz-number">1.</div>
+  <p>What does <code>new File("grades.txt")</code> do in Java?</p>
+  <ul class="quiz-options">
+    <li>A) Creates a Java object representing the path <code>grades.txt</code></li>
+    <li>B) Opens <code>grades.txt</code> for reading immediately</li>
+    <li>C) Creates an empty file called <code>grades.txt</code> on disk</li>
+    <li>D) Deletes <code>grades.txt</code> if it already exists</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 2">
+  <div class="quiz-number">2.</div>
+  <p>Which statement about RAM vs. files is correct?</p>
+  <ul class="quiz-options">
+    <li>A) Files are faster than RAM for storing data</li>
+    <li>B) RAM retains data when the program ends; files do not</li>
+    <li>C) Files retain data when the program ends; RAM does not</li>
+    <li>D) Both RAM and files are erased when the program ends</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 3">
+  <div class="quiz-number">3.</div>
+  <p>What is the output of the following code if <code>output.txt</code> already contains the line "Hello"?</p>
+  <pre style="margin:8px 0;"><code>PrintWriter pw = new PrintWriter("output.txt");
+pw.println("World");
+pw.close();</code></pre>
+  <ul class="quiz-options">
+    <li>A) The file contains "Hello" then "World" on separate lines</li>
+    <li>B) The file contains only "World"</li>
+    <li>C) The file contains "HelloWorld" on one line</li>
+    <li>D) A FileNotFoundException is thrown</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 4">
+  <div class="quiz-number">4.</div>
+  <p>Which constructor opens a file so that new data is added to the <em>end</em> without erasing existing content?</p>
+  <ul class="quiz-options">
+    <li>A) <code>new PrintWriter("log.txt")</code></li>
+    <li>B) <code>new Scanner(new File("log.txt"))</code></li>
+    <li>C) <code>new FileWriter("log.txt", false)</code></li>
+    <li>D) <code>new FileWriter("log.txt", true)</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 5">
+  <div class="quiz-number">5.</div>
+  <p>A file named <code>data.txt</code> contains:</p>
+  <pre style="margin:8px 0;"><code><span class="output">10
+20
+30</span></code></pre>
+  <p>What does this code print?</p>
+  <pre style="margin:8px 0;"><code>Scanner sc = new Scanner(new File("data.txt"));
+int sum = 0;
+while (sc.hasNextInt()) {
+    sum += sc.nextInt();
+}
+sc.close();
+System.out.println(sum);</code></pre>
+  <ul class="quiz-options">
+    <li>A) 60</li>
+    <li>B) 10</li>
+    <li>C) A FileNotFoundException is thrown</li>
+    <li>D) 30</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 6">
+  <div class="quiz-number">6.</div>
+  <p>Which exception must be handled when using <code>new Scanner(new File("f.txt"))</code>?</p>
+  <ul class="quiz-options">
+    <li>A) <code>IOException</code></li>
+    <li>B) <code>NullPointerException</code></li>
+    <li>C) <code>NumberFormatException</code></li>
+    <li>D) <code>FileNotFoundException</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 7">
+  <div class="quiz-number">7.</div>
+  <p>What is the main advantage of try-with-resources over manually calling <code>close()</code>?</p>
+  <ul class="quiz-options">
+    <li>A) It automatically closes the file even if an exception occurs</li>
+    <li>B) It reads files faster than a regular try block</li>
+    <li>C) It prevents FileNotFoundException from being thrown</li>
+    <li>D) It allows you to open binary files without extra imports</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 8">
+  <div class="quiz-number">8.</div>
+  <p>Given the line <code>String line = "Alice,92,88,95";</code>, what does <code>line.split(",")[1]</code> return?</p>
+  <ul class="quiz-options">
+    <li>A) <code>"Alice"</code></li>
+    <li>B) <code>"92"</code></li>
+    <li>C) <code>"88"</code></li>
+    <li>D) <code>92</code> (as an int)</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 9">
+  <div class="quiz-number">9.</div>
+  <p>Which <code>File</code> method returns <code>true</code> if the path exists and is a regular file (not a directory)?</p>
+  <ul class="quiz-options">
+    <li>A) <code>exists()</code></li>
+    <li>B) <code>canRead()</code></li>
+    <li>C) <code>isDirectory()</code></li>
+    <li>D) <code>isFile()</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="group" aria-label="Question 10">
+  <div class="quiz-number">10.</div>
+  <p>You want to read a file and write a transformed version to another file. Which approach correctly uses try-with-resources with both files open at the same time?</p>
+  <ul class="quiz-options">
+    <li>A) <code>try { Scanner sc = ...; PrintWriter pw = ...; } catch (...) { }</code></li>
+    <li>B) Both A and C are correct and produce identical behavior</li>
+    <li>C) <code>try (Scanner sc = ...; PrintWriter pw = ...) { }</code></li>
+    <li>D) <code>try (Scanner sc = ...) { try (PrintWriter pw = ...) { } }</code></li>
+  </ul>
+</div>
+
+<div class="footer" role="contentinfo">
+  ITP 120 — Programming with Java &nbsp;|&nbsp; Module 11: File I/O &nbsp;|&nbsp; Randy Michak &nbsp;|&nbsp; NOVA
+</div>
+
+</body>
+</html>

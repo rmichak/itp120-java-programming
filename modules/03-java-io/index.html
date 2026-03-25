@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 03 - Java I/O | ITP 120</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@page { size: letter; margin: 0.75in;
+  @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+  @top-right { content: "Module 03 - Java I/O"; font-size: 9pt; color: #6b7280; }
+  @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+}
+* { box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+.title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+.title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+.title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+.title-section .school { font-size: 10pt; color: #6b7280; }
+h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+.callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+.callout-title { font-weight: 700; margin-bottom: 6px; }
+.objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+.objectives .callout-title { color: #2563eb; }
+.objectives .callout-title::before { content: "🎯 "; }
+.key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+.key-terms .callout-title { color: #2563eb; }
+.key-terms .callout-title::before { content: "📖 "; }
+.analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+.analogy .callout-title { color: #16a34a; }
+.analogy .callout-title::before { content: "🧠 "; }
+.warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+.warning .callout-title { color: #dc2626; }
+.warning .callout-title::before { content: "⚠️ "; }
+.tip { background: #fffbeb; border-left: 4px solid #d97706; }
+.tip .callout-title { color: #d97706; }
+.tip .callout-title::before { content: "💡 "; }
+.try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+.try-it .callout-title { color: #7c3aed; }
+.try-it .callout-title::before { content: "🔧 "; }
+.summary { background: #f9fafb; border: 2px solid #d1d5db; }
+.summary .callout-title { color: #374151; }
+.summary .callout-title::before { content: "📋 "; }
+pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.6; overflow-wrap: break-word; page-break-inside: avoid; }
+code { font-family: 'Courier New', monospace; background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+pre code { background: none; color: inherit; padding: 0; }
+.out { color: #94a3b8; font-style: italic; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; }
+th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+tr:nth-child(even) td { background: #f9fafb; }
+ul, ol { margin: 8px 0; padding-left: 24px; }
+li { margin-bottom: 6px; }
+.quiz-q { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+.quiz-num { font-weight: 700; color: #2563eb; }
+.opts { list-style: none; padding-left: 8px; margin-top: 8px; }
+.opts li { margin-bottom: 6px; }
+.page-break { page-break-before: always; }
+.footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+.vocab-table td:first-child { font-weight: 600; width: 30%; }
+</style>
+</head>
+<body>
+
+<div class="title-section">
+  <h1>Module 03 &mdash; Java I/O</h1>
+  <div class="course">ITP 120 &mdash; Programming with Java</div>
+  <div class="school">Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak</div>
+</div>
+
+<div class="callout objectives" role="region" aria-label="Learning Objectives">
+  <div class="callout-title">Learning Objectives</div>
+  <ul>
+    <li>Use Scanner methods to read different data types from the keyboard</li>
+    <li>Explain the nextLine() buffer problem and apply the correct fix</li>
+    <li>Display dialogs and collect input using JOptionPane</li>
+    <li>Format output with <code>printf()</code> and <code>String.format()</code></li>
+    <li>Convert between numeric types using widening and narrowing casts</li>
+    <li>Call common Math class methods for calculations and random numbers</li>
+  </ul>
+</div>
+
+<!-- ============================== SECTION 1 ============================== -->
+<h2>1. Scanner in Depth</h2>
+
+<p>You already know how to create a Scanner and read a single integer. This section covers every reading method you will use regularly.</p>
+
+<pre role="figure" aria-label="Creating a Scanner object">
+<code>import java.util.Scanner;
+
+Scanner input = new Scanner(System.in);</code></pre>
+
+<h3>Scanner Reading Methods</h3>
+<table>
+  <thead><tr><th scope="col">Method</th><th scope="col">Reads</th><th scope="col">Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>nextInt()</code></td><td>int value</td><td><code>int age = input.nextInt();</code></td></tr>
+    <tr><td><code>nextDouble()</code></td><td>double value</td><td><code>double gpa = input.nextDouble();</code></td></tr>
+    <tr><td><code>nextLong()</code></td><td>long value</td><td><code>long pop = input.nextLong();</code></td></tr>
+    <tr><td><code>nextBoolean()</code></td><td>true or false</td><td><code>boolean ok = input.nextBoolean();</code></td></tr>
+    <tr><td><code>next()</code></td><td>One word (stops at whitespace)</td><td><code>String w = input.next();</code></td></tr>
+    <tr><td><code>nextLine()</code></td><td>Entire line including spaces</td><td><code>String line = input.nextLine();</code></td></tr>
+  </tbody>
+</table>
+
+<pre role="figure" aria-label="Reading multiple types with Scanner">
+<code>import java.util.Scanner;
+
+public class ScannerDemo {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.print("Enter your GPA: ");
+        double gpa = input.nextDouble();
+
+        System.out.print("Enter your first name: ");
+        String firstName = input.next();  // one word only
+
+        System.out.println("Age: " + age);
+        System.out.println("GPA: " + gpa);
+        System.out.println("Name: " + firstName);
+    }
+}</code></pre>
+
+<pre role="figure" aria-label="ScannerDemo sample output">
+<code><span class="out">Enter your age: 20
+Enter your GPA: 3.75
+Enter your first name: Alex
+Age: 20
+GPA: 3.75
+Name: Alex</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: next vs nextLine">
+  <div class="callout-title">Tip: next() vs nextLine()</div>
+  <p><code>next()</code> stops at the first whitespace. If the user types "Randy Michak", <code>next()</code> only captures "Randy". Use <code>nextLine()</code> when you need the full line including spaces.</p>
+</div>
+
+<div class="callout analogy" role="region" aria-label="Analogy: conveyor belt">
+  <div class="callout-title">Think of It This Way</div>
+  <p>Scanner is like a grocery store conveyor belt. Each call to <code>nextInt()</code> or <code>next()</code> picks up the next item and advances the belt forward. It never goes backward.</p>
+</div>
+
+<!-- ============================== SECTION 2 ============================== -->
+<h2>2. The nextLine() Problem</h2>
+
+<p>This is the most common Scanner bug beginners write. It catches almost everyone the first time.</p>
+
+<h3>What Goes Wrong</h3>
+<p>When a user types a number and presses Enter, the buffer holds two things: the number, and the newline character (<code>\n</code>) from the Enter key. <code>nextInt()</code> reads the number and stops &mdash; it leaves that <code>\n</code> sitting in the buffer. The next <code>nextLine()</code> immediately reads that leftover newline and returns an empty string.</p>
+
+<pre role="figure" aria-label="The nextLine bug example">
+<code>import java.util.Scanner;
+
+public class NextLineBug {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();       // reads 20, leaves '\n' in buffer
+
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();  // reads '\n' -- user never types!
+
+        System.out.println("Age: " + age);
+        System.out.println("Name: [" + name + "]");  // prints empty brackets
+    }
+}</code></pre>
+
+<pre role="figure" aria-label="Buggy nextLine output">
+<code><span class="out">Enter your age: 20
+Enter your name:
+Age: 20
+Name: []</span></code></pre>
+
+<div class="callout warning" role="region" aria-label="Warning: nextLine trap">
+  <div class="callout-title">Common Mistake</div>
+  <p>Any time you call <code>nextInt()</code>, <code>nextDouble()</code>, <code>nextLong()</code>, or <code>nextBoolean()</code> and then call <code>nextLine()</code> right after it, you will hit this bug. Every single time.</p>
+</div>
+
+<h3>The Fix</h3>
+<p>Add one extra <code>nextLine()</code> call immediately after the numeric read. Its only job is to consume &mdash; throw away &mdash; that leftover newline.</p>
+
+<pre role="figure" aria-label="The nextLine fix">
+<code>import java.util.Scanner;
+
+public class NextLineFix {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+        input.nextLine();   // THE FIX: consume the leftover newline
+
+        System.out.print("Enter your name: ");
+        String name = input.nextLine(); // now this works correctly
+
+        System.out.println("Age: " + age);
+        System.out.println("Name: " + name);
+    }
+}</code></pre>
+
+<pre role="figure" aria-label="Fixed nextLine output">
+<code><span class="out">Enter your age: 20
+Enter your name: Randy Michak
+Age: 20
+Name: Randy Michak</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: make the fix a habit">
+  <div class="callout-title">Rule of Thumb</div>
+  <p>Whenever you use <code>nextInt()</code> or <code>nextDouble()</code> and you might read a full line afterward, add <code>input.nextLine();</code> immediately below it. It costs nothing and prevents the bug every time.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: reproduce then fix the bug">
+  <div class="callout-title">Try It</div>
+  <p>Type the buggy version first and confirm the name comes out blank. Then add the one-line fix and run again. Seeing the bug yourself is the best way to remember the fix.</p>
+</div>
+
+<!-- ============================== SECTION 3 ============================== -->
+<h2>3. Dialog Boxes: JOptionPane</h2>
+
+<p>Not every Java program runs in a terminal. <code>JOptionPane</code> gives you pop-up dialog boxes for desktop use. It is part of <code>javax.swing</code>, which is bundled with Java &mdash; no extra libraries needed.</p>
+
+<pre role="figure" aria-label="JOptionPane import statement">
+<code>import javax.swing.JOptionPane;</code></pre>
+
+<h3>Showing a Message</h3>
+<p><code>showMessageDialog()</code> pops up a window with text and an OK button. Pass <code>null</code> as the first argument to center it on the screen.</p>
+
+<pre role="figure" aria-label="showMessageDialog example">
+<code>JOptionPane.showMessageDialog(null, "Hello, World!");</code></pre>
+
+<h3>Getting Input</h3>
+<p><code>showInputDialog()</code> shows a text field and returns whatever the user typed as a <code>String</code>.</p>
+
+<pre role="figure" aria-label="showInputDialog example">
+<code>String name = JOptionPane.showInputDialog("What is your name?");
+JOptionPane.showMessageDialog(null, "Hello, " + name + "!");</code></pre>
+
+<h3>Converting Input to a Number</h3>
+<p>Because <code>showInputDialog()</code> always returns a String, you need to convert it when you expect a number.</p>
+
+<pre role="figure" aria-label="Parsing int and double from JOptionPane">
+<code>import javax.swing.JOptionPane;
+
+public class DialogDemo {
+    public static void main(String[] args) {
+        String ageStr = JOptionPane.showInputDialog("Enter your age:");
+        int age = Integer.parseInt(ageStr);     // String to int
+
+        String gpaStr = JOptionPane.showInputDialog("Enter your GPA:");
+        double gpa = Double.parseDouble(gpaStr); // String to double
+
+        JOptionPane.showMessageDialog(null,
+            "Age: " + age + "\nGPA: " + gpa);
+    }
+}</code></pre>
+
+<div class="callout key-terms" role="region" aria-label="Key Terms: parseInt and parseDouble">
+  <div class="callout-title">Key Terms</div>
+  <ul>
+    <li><strong>Integer.parseInt(str)</strong> &mdash; converts a String like "42" into the int 42</li>
+    <li><strong>Double.parseDouble(str)</strong> &mdash; converts a String like "3.14" into the double 3.14</li>
+  </ul>
+</div>
+
+<div class="callout warning" role="region" aria-label="Warning: NumberFormatException">
+  <div class="callout-title">Watch Out</div>
+  <p>If the user types "abc" or leaves the field blank, <code>parseInt()</code> and <code>parseDouble()</code> will crash with a <code>NumberFormatException</code>. Exception handling is covered later in the course.</p>
+</div>
+
+<!-- ============================== SECTION 4 ============================== -->
+<h2>4. Formatted Output: printf()</h2>
+
+<p><code>System.out.printf()</code> gives you precise control over how output looks. You define a format pattern and plug in values.</p>
+
+<pre role="figure" aria-label="printf syntax">
+<code>System.out.printf(formatString, value1, value2, ...);</code></pre>
+
+<h3>Format Specifiers</h3>
+<table>
+  <thead><tr><th scope="col">Specifier</th><th scope="col">Meaning</th><th scope="col">Example</th><th scope="col">Output</th></tr></thead>
+  <tbody>
+    <tr><td><code>%d</code></td><td>Integer</td><td><code>printf("%d", 42)</code></td><td>42</td></tr>
+    <tr><td><code>%f</code></td><td>Decimal (float/double)</td><td><code>printf("%f", 3.14)</code></td><td>3.140000</td></tr>
+    <tr><td><code>%s</code></td><td>String</td><td><code>printf("%s", "Java")</code></td><td>Java</td></tr>
+    <tr><td><code>%n</code></td><td>Newline (platform-safe)</td><td>Use instead of \n inside printf</td><td>&nbsp;</td></tr>
+    <tr><td><code>%.2f</code></td><td>Decimal, 2 places</td><td><code>printf("%.2f", 3.876)</code></td><td>3.88</td></tr>
+    <tr><td><code>%10.2f</code></td><td>10 wide, 2 decimal places, right-aligned</td><td><code>printf("%10.2f", 3.5)</code></td><td>right-justified in 10 chars</td></tr>
+    <tr><td><code>%-10s</code></td><td>String, 10 wide, left-aligned</td><td><code>printf("%-10s", "Hi")</code></td><td>left-justified in 10 chars</td></tr>
+  </tbody>
+</table>
+
+<pre role="figure" aria-label="printf name age GPA example">
+<code>public class PrintfDemo {
+    public static void main(String[] args) {
+        String name = "Alice";
+        int age = 21;
+        double gpa = 3.876;
+
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Age:  %d%n", age);
+        System.out.printf("GPA:  %.2f%n", gpa);  // rounds to 2 decimal places
+    }
+}</code></pre>
+
+<pre role="figure" aria-label="printf output">
+<code><span class="out">Name: Alice
+Age:  21
+GPA:  3.88</span></code></pre>
+
+<h3>Column Alignment</h3>
+<pre role="figure" aria-label="printf column alignment">
+<code>System.out.printf("%-15s %5d %8.2f%n", "Alice",   21, 3.876);
+System.out.printf("%-15s %5d %8.2f%n", "Bob",     19, 2.950);
+System.out.printf("%-15s %5d %8.2f%n", "Charlie", 22, 3.100);</code></pre>
+
+<pre role="figure" aria-label="Column alignment output">
+<code><span class="out">Alice              21     3.88
+Bob                19     2.95
+Charlie            22     3.10</span></code></pre>
+
+<div class="callout analogy" role="region" aria-label="Analogy: format string as a fill-in form">
+  <div class="callout-title">Think of It This Way</div>
+  <p>The format string is a form with blanks to fill in. Each <code>%</code> placeholder is a blank, and the values after the comma fill them in left to right.</p>
+</div>
+
+<div class="callout tip" role="region" aria-label="Tip: use %n not backslash n in printf">
+  <div class="callout-title">Use %n in printf</div>
+  <p>Inside <code>printf()</code> format strings, use <code>%n</code> for newlines. It outputs the correct newline character for whatever operating system is running the program.</p>
+</div>
+
+<!-- ============================== SECTION 5 ============================== -->
+<h2>5. String.format()</h2>
+
+<p><code>String.format()</code> uses the exact same format specifiers as <code>printf()</code>, but instead of printing it <em>returns</em> a formatted String you can store or use anywhere.</p>
+
+<pre role="figure" aria-label="String.format basic usage">
+<code>String message = String.format("Name: %-10s  GPA: %.2f", "Alice", 3.876);
+System.out.println(message);</code></pre>
+
+<pre role="figure" aria-label="String.format output">
+<code><span class="out">Name: Alice       GPA: 3.88</span></code></pre>
+
+<p>This is especially useful with JOptionPane, where you are building a string for a dialog box:</p>
+
+<pre role="figure" aria-label="String.format used with JOptionPane">
+<code>import javax.swing.JOptionPane;
+
+public class FormatDialog {
+    public static void main(String[] args) {
+        String name = "Randy";
+        double balance = 1234.5;
+
+        String msg = String.format("Account: %s%nBalance: $%,.2f", name, balance);
+        JOptionPane.showMessageDialog(null, msg);
+    }
+}</code></pre>
+
+<pre role="figure" aria-label="FormatDialog dialog text">
+<code><span class="out">Account: Randy
+Balance: $1,234.50</span></code></pre>
+
+<div class="callout key-terms" role="region" aria-label="Key Terms: printf vs String.format comparison">
+  <div class="callout-title">printf vs String.format</div>
+  <ul>
+    <li><strong>printf()</strong> &mdash; formats and prints immediately. Returns void.</li>
+    <li><strong>String.format()</strong> &mdash; formats and returns a String you can use later.</li>
+  </ul>
+  <p>Same format specifiers. Different purpose.</p>
+</div>
+
+<!-- ============================== SECTION 6 ============================== -->
+<h2>6. Type Conversion (Casting)</h2>
+
+<p>Java is strongly typed. You cannot freely mix types, but you can convert between them. Two kinds: widening (automatic) and narrowing (manual).</p>
+
+<h3>Widening &mdash; Automatic</h3>
+<p>Going from a smaller type to a larger one is always safe &mdash; no data is lost. Java handles it automatically.</p>
+
+<pre role="figure" aria-label="Widening conversion examples">
+<code>int x = 42;
+double d = x;       // int to double, no cast needed
+System.out.println(d);  // 42.0
+
+long big = 100L;
+double bigD = big;  // long to double, still automatic</code></pre>
+
+<h3>Narrowing &mdash; Manual Cast Required</h3>
+<p>Going from a larger type to a smaller one can lose data. Java forces you to be explicit with a cast operator: the target type in parentheses.</p>
+
+<pre role="figure" aria-label="Narrowing cast examples">
+<code>double price = 9.99;
+int dollars = (int) price;    // truncates -- drops the decimal
+System.out.println(dollars);  // 9, NOT 10 -- casting does NOT round
+
+double gpa = 3.876;
+int truncated = (int) gpa;
+System.out.println(truncated); // 3</code></pre>
+
+<div class="callout warning" role="region" aria-label="Warning: casting truncates not rounds">
+  <div class="callout-title">Casting Truncates &mdash; It Does Not Round</div>
+  <p>Casting a double to an int drops the decimal portion entirely. <code>(int) 9.99</code> gives you 9, not 10. Use <code>Math.round()</code> if you need rounding.</p>
+</div>
+
+<h3>Widening Order</h3>
+<pre role="figure" aria-label="Java widening type hierarchy">
+<code>// byte  short  int  long  float  double
+//
+// Left to right = widening (automatic)
+// Right to left = requires a cast</code></pre>
+
+<h3>Integer Division Gotcha</h3>
+<p>Dividing two integers gives you integer division &mdash; the decimal is discarded. This surprises beginners constantly.</p>
+
+<pre role="figure" aria-label="Integer division and fix">
+<code>int a = 7;
+int b = 2;
+
+System.out.println(a / b);          // 3  -- decimal dropped!
+System.out.println((double) a / b); // 3.5 -- cast one operand first</code></pre>
+
+<div class="callout try-it" role="region" aria-label="Try It: cast negative numbers">
+  <div class="callout-title">Try It</div>
+  <p>What does <code>(int) 3.999</code> give you? What about <code>(int) -3.7</code>? Run it and check &mdash; the behavior on negative numbers surprises students every time.</p>
+</div>
+
+<!-- ============================== SECTION 7 ============================== -->
+<h2>7. The Math Class</h2>
+
+<p>The <code>Math</code> class is built into Java &mdash; no import needed. Every method is static, so you call them directly: <code>Math.methodName()</code>.</p>
+
+<h3>Core Math Methods</h3>
+<table>
+  <thead><tr><th scope="col">Method</th><th scope="col">What It Does</th><th scope="col">Example</th><th scope="col">Result</th></tr></thead>
+  <tbody>
+    <tr><td><code>Math.pow(base, exp)</code></td><td>Raises base to a power</td><td><code>Math.pow(2, 10)</code></td><td>1024.0</td></tr>
+    <tr><td><code>Math.sqrt(x)</code></td><td>Square root</td><td><code>Math.sqrt(25)</code></td><td>5.0</td></tr>
+    <tr><td><code>Math.abs(x)</code></td><td>Absolute value</td><td><code>Math.abs(-7)</code></td><td>7</td></tr>
+    <tr><td><code>Math.round(x)</code></td><td>Rounds to nearest integer</td><td><code>Math.round(3.7)</code></td><td>4</td></tr>
+    <tr><td><code>Math.random()</code></td><td>Random double 0.0 to &lt;1.0</td><td><code>Math.random()</code></td><td>e.g. 0.482...</td></tr>
+  </tbody>
+</table>
+
+<pre role="figure" aria-label="Math class method examples">
+<code>public class MathDemo {
+    public static void main(String[] args) {
+        System.out.println(Math.pow(3, 4));    // 81.0
+        System.out.println(Math.sqrt(144));    // 12.0
+        System.out.println(Math.abs(-25));     // 25
+        System.out.println(Math.round(4.5));   // 5
+        System.out.println(Math.round(4.4));   // 4
+    }
+}</code></pre>
+
+<h3>Random Numbers in a Range</h3>
+<p><code>Math.random()</code> gives you a decimal between 0.0 (inclusive) and 1.0 (exclusive). To get a random integer in a specific range, use this formula:</p>
+
+<pre role="figure" aria-label="Random number in a range formula">
+<code>// Random int from min to max (inclusive):
+int num = (int)(Math.random() * (max - min + 1)) + min;
+
+// Example: random number from 1 to 6 (simulating a die roll):
+int die = (int)(Math.random() * 6) + 1;
+System.out.println("You rolled: " + die);</code></pre>
+
+<pre role="figure" aria-label="Die roll output example">
+<code><span class="out">You rolled: 4</span></code></pre>
+
+<div class="callout tip" role="region" aria-label="Tip: Math methods return double">
+  <div class="callout-title">Math Methods Return double</div>
+  <p><code>Math.pow()</code>, <code>Math.sqrt()</code>, and <code>Math.random()</code> all return <code>double</code>. If you need an <code>int</code>, cast the result: <code>(int) Math.pow(2, 8)</code> gives you 256.</p>
+</div>
+
+<div class="callout try-it" role="region" aria-label="Try It: Math class exploration">
+  <div class="callout-title">Try It</div>
+  <p>Write a program that asks the user to enter a number and then prints its square root, its absolute value, and whether it rounds up or down to the nearest integer.</p>
+</div>
+
+
+<!-- ============================== SUMMARY ============================== -->
+<div class="page-break"></div>
+<h2>Summary</h2>
+
+<div class="callout summary" role="region" aria-label="Module Summary">
+  <div class="callout-title">Module 03 Key Takeaways</div>
+  <ul>
+    <li><strong>Scanner</strong> reads different types with different methods: <code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code>, <code>nextLine()</code>, etc.</li>
+    <li><strong>The nextLine() bug</strong> happens when a numeric read leaves a newline in the buffer. Fix it with an extra <code>input.nextLine();</code> call.</li>
+    <li><strong>JOptionPane</strong> provides GUI dialogs: <code>showMessageDialog()</code> displays, <code>showInputDialog()</code> collects. Input always comes back as a String.</li>
+    <li><strong>Integer.parseInt()</strong> and <strong>Double.parseDouble()</strong> convert Strings to numbers.</li>
+    <li><strong>printf()</strong> formats and prints; <strong>String.format()</strong> formats and returns. Same specifiers: <code>%d</code>, <code>%f</code>, <code>%s</code>, <code>%n</code>.</li>
+    <li><strong>Widening</strong> (e.g., int to double) is automatic. <strong>Narrowing</strong> (e.g., double to int) requires a cast and truncates.</li>
+    <li><strong>Math class</strong> methods are static: <code>Math.pow()</code>, <code>Math.sqrt()</code>, <code>Math.abs()</code>, <code>Math.round()</code>, <code>Math.random()</code>.</li>
+    <li>Random int in a range: <code>(int)(Math.random() * (max - min + 1)) + min</code></li>
+  </ul>
+</div>
+
+<!-- ============================== VOCABULARY ============================== -->
+<h2>Vocabulary Review</h2>
+
+<table class="vocab-table">
+  <thead><tr><th scope="col">Term</th><th scope="col">Definition</th></tr></thead>
+  <tbody>
+    <tr><td>Scanner</td><td>A Java class that reads input from the keyboard (or other sources) one token or line at a time</td></tr>
+    <tr><td>nextLine()</td><td>Scanner method that reads an entire line of input including spaces</td></tr>
+    <tr><td>next()</td><td>Scanner method that reads one word, stopping at whitespace</td></tr>
+    <tr><td>JOptionPane</td><td>A Swing class that provides pop-up dialog boxes for displaying messages and collecting input</td></tr>
+    <tr><td>showInputDialog()</td><td>JOptionPane method that shows a text-entry dialog and returns the user's input as a String</td></tr>
+    <tr><td>Integer.parseInt()</td><td>Method that converts a String containing an integer value into an actual int</td></tr>
+    <tr><td>Double.parseDouble()</td><td>Method that converts a String containing a decimal value into an actual double</td></tr>
+    <tr><td>printf()</td><td>Output method that uses format specifiers to control exactly how values are displayed</td></tr>
+    <tr><td>String.format()</td><td>Same formatting rules as printf() but returns a String instead of printing</td></tr>
+    <tr><td>Format specifier</td><td>A placeholder in a printf format string (like %d, %f, %s) that gets replaced by a value</td></tr>
+    <tr><td>Widening conversion</td><td>Automatically converting a smaller type to a larger type (e.g., int to double) with no data loss</td></tr>
+    <tr><td>Narrowing conversion</td><td>Manually casting a larger type to a smaller one; may lose data through truncation</td></tr>
+    <tr><td>Cast operator</td><td>The syntax (type) used to force a narrowing conversion, e.g., (int) myDouble</td></tr>
+    <tr><td>Truncation</td><td>Dropping the decimal portion when casting a floating-point number to an integer</td></tr>
+    <tr><td>Math class</td><td>A built-in Java class with static methods for common mathematical operations</td></tr>
+    <tr><td>Math.random()</td><td>Returns a random double value between 0.0 (inclusive) and 1.0 (exclusive)</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== KNOWLEDGE CHECK ============================== -->
+<div class="page-break"></div>
+<h2>Knowledge Check</h2>
+<p><em>Circle the letter of the best answer for each question.</em></p>
+
+<div class="quiz-q" role="region" aria-label="Question 1">
+  <span class="quiz-num">1.</span> Which Scanner method reads an entire line of text, including spaces?
+  <ul class="opts">
+    <li>A) <code>next()</code></li>
+    <li>B) <code>nextToken()</code></li>
+    <li>C) <code>nextLine()</code></li>
+    <li>D) <code>nextString()</code></li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 2">
+  <span class="quiz-num">2.</span> What is the correct way to create a Scanner object to read from the keyboard?
+  <ul class="opts">
+    <li>A) <code>Scanner input = new Scanner(keyboard);</code></li>
+    <li>B) <code>Scanner input = new Scanner(System.in);</code></li>
+    <li>C) <code>Scanner input = Scanner.create();</code></li>
+    <li>D) <code>Scanner input = new Scanner(console);</code></li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 3">
+  <span class="quiz-num">3.</span> You call <code>nextInt()</code> followed immediately by <code>nextLine()</code>. The <code>nextLine()</code> returns an empty string. What is the most likely cause?
+  <ul class="opts">
+    <li>A) The user pressed Backspace</li>
+    <li>B) <code>nextInt()</code> consumed the newline character</li>
+    <li>C) <code>nextLine()</code> does not work after <code>nextInt()</code></li>
+    <li>D) The leftover newline from pressing Enter was not consumed</li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 4">
+  <span class="quiz-num">4.</span> Which JOptionPane method displays a message in a pop-up dialog?
+  <ul class="opts">
+    <li>A) <code>showMessageDialog()</code></li>
+    <li>B) <code>displayMessage()</code></li>
+    <li>C) <code>popupMessage()</code></li>
+    <li>D) <code>showDialog()</code></li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 5">
+  <span class="quiz-num">5.</span> The user types "25" in a JOptionPane input dialog. To store it as an integer, you write:
+  <ul class="opts">
+    <li>A) <code>int n = Integer.convert(str);</code></li>
+    <li>B) <code>int n = (int) str;</code></li>
+    <li>C) <code>int n = str.toInt();</code></li>
+    <li>D) <code>int n = Integer.parseInt(str);</code></li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 6">
+  <span class="quiz-num">6.</span> What does the format specifier <code>%.2f</code> do?
+  <ul class="opts">
+    <li>A) Prints a float with exactly 2 total digits</li>
+    <li>B) Prints a decimal number rounded to 2 decimal places</li>
+    <li>C) Multiplies the value by 2 before printing</li>
+    <li>D) Prints 2 copies of the floating-point value</li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 7">
+  <span class="quiz-num">7.</span> You want to format a value into a String without printing it yet. Which method should you use?
+  <ul class="opts">
+    <li>A) <code>System.out.printf()</code></li>
+    <li>B) <code>String.print()</code></li>
+    <li>C) <code>String.format()</code></li>
+    <li>D) <code>System.out.format()</code></li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 8">
+  <span class="quiz-num">8.</span> What is the result of <code>(int) 7.9</code> in Java?
+  <ul class="opts">
+    <li>A) 8 (rounds up)</li>
+    <li>B) 7 (truncates)</li>
+    <li>C) 8.0</li>
+    <li>D) A compilation error</li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 9">
+  <span class="quiz-num">9.</span> Which of the following generates a random integer between 1 and 10 inclusive?
+  <ul class="opts">
+    <li>A) <code>(int)(Math.random() * 10)</code></li>
+    <li>B) <code>Math.random(10)</code></li>
+    <li>C) <code>(int)(Math.random() * 10) + 1</code></li>
+    <li>D) <code>(int)(Math.random()) + 10</code></li>
+  </ul>
+</div>
+
+<div class="quiz-q" role="region" aria-label="Question 10">
+  <span class="quiz-num">10.</span> Which statement about widening type conversion is true?
+  <ul class="opts">
+    <li>A) It requires an explicit cast operator</li>
+    <li>B) It may cause data loss</li>
+    <li>C) It happens automatically because no data is lost</li>
+    <li>D) It only works between String types</li>
+  </ul>
+</div>
+
+<div class="footer">
+  ITP 120 &mdash; Programming with Java &nbsp;|&nbsp; Module 03: Java I/O &nbsp;|&nbsp;
+  Northern Virginia Community College &nbsp;|&nbsp; Instructor: Randy Michak
+</div>
+
+</body>
+</html>
