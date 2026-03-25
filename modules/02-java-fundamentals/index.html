@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 02 — Java Fundamentals | ITP 120</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @page {
+      size: letter; margin: 0.75in;
+      @top-left { content: "Randy Michak | NOVA | ITP 120"; font-size: 9pt; color: #6b7280; }
+      @top-right { content: "Module 02 — Java Fundamentals"; font-size: 9pt; color: #6b7280; }
+      @bottom-center { content: "Page " counter(page); font-size: 9pt; color: #6b7280; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11pt; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; }
+    .title-section { text-align: center; margin-bottom: 32px; border-bottom: 3px solid #2563eb; padding-bottom: 20px; }
+    .title-section h1 { font-size: 24pt; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+    .title-section .course { font-size: 12pt; color: #2563eb; font-weight: 600; margin-bottom: 8px; }
+    .title-section .school { font-size: 10pt; color: #6b7280; }
+    h2 { font-size: 16pt; font-weight: 700; color: #111827; margin-top: 28px; margin-bottom: 14px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+    h3 { font-size: 13pt; font-weight: 600; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .objectives { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .objectives .callout-title { color: #2563eb; }
+    .key-terms { background: #eff6ff; border-left: 4px solid #2563eb; }
+    .key-terms .callout-title { color: #2563eb; }
+    .analogy { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .analogy .callout-title { color: #16a34a; }
+    .warning { background: #fef2f2; border-left: 4px solid #dc2626; }
+    .warning .callout-title { color: #dc2626; }
+    .tip { background: #fffbeb; border-left: 4px solid #d97706; }
+    .tip .callout-title { color: #d97706; }
+    .try-it { background: #faf5ff; border-left: 4px solid #7c3aed; }
+    .try-it .callout-title { color: #7c3aed; }
+    .summary { background: #f9fafb; border: 2px solid #d1d5db; }
+    .summary .callout-title { color: #374151; }
+    pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 12px 0;
+          font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.6;
+          overflow-wrap: break-word; page-break-inside: avoid; white-space: pre-wrap; }
+    code { font-family: 'Courier New', monospace; background: #f1f5f9; color: #0f172a;
+           padding: 2px 6px; border-radius: 4px; font-size: 10pt; }
+    pre code { background: none; color: inherit; padding: 0; }
+    .output { color: #94a3b8; font-style: italic; }
+    .comment { color: #6b7280; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10pt; page-break-inside: auto; }
+    th { background: #f1f5f9; color: #1e293b; padding: 10px 12px; text-align: left; border: 1px solid #e5e7eb; font-weight: 600; }
+    td { padding: 10px 12px; border: 1px solid #e5e7eb; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    ul, ol { margin: 8px 0; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+    .quiz-question { margin: 20px 0; padding: 16px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; page-break-inside: avoid; }
+    .quiz-number { font-weight: 700; color: #2563eb; }
+    .quiz-options { list-style: none; padding-left: 8px; margin-top: 8px; }
+    .quiz-options li { margin-bottom: 6px; }
+    .page-break { page-break-before: always; }
+    .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 2px solid #e5e7eb; color: #6b7280; font-size: 10pt; }
+    .vocab-table td:first-child { font-weight: 600; width: 30%; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+</style>
+</head>
+<body>
+<main role="main">
+
+<div class="title-section" role="banner">
+  <h1>Module 02 &mdash; Java Fundamentals</h1>
+  <div class="course">ITP 120 &mdash; Programming with Java</div>
+  <div class="school">Northern Virginia Community College<br>Instructor: Randy Michak</div>
+</div>
+
+<div class="callout objectives" role="region" aria-label="Learning objectives for Module 02">
+  <div class="callout-title">&#127919; Learning Objectives</div>
+  <p>By the end of this module, you will be able to:</p>
+  <ul>
+    <li>Identify the parts of a Java program</li>
+    <li>Use <code>System.out.println</code> and <code>System.out.print</code> to display output</li>
+    <li>Declare variables and assign values to them</li>
+    <li>Work with Java&rsquo;s primitive data types</li>
+    <li>Perform arithmetic operations</li>
+    <li>Use combined assignment operators</li>
+    <li>Declare constants with <code>final</code></li>
+    <li>Create <code>String</code> objects</li>
+    <li>Read keyboard input using <code>Scanner</code></li>
+    <li>Write comments to document your code</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="parts">Parts of a Java Program</h2>
+
+<p>Every Java program has a specific structure. Even the simplest program follows rules about how it&rsquo;s organized. Let&rsquo;s look at the classic first program:</p>
+
+<pre role="figure" aria-label="Hello World program with line numbers"><span class="comment">// My first Java program</span>
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</pre>
+
+<p><code><span class="comment">// My first Java program</span></code> &mdash; A comment. Java ignores this line. It&rsquo;s for humans reading your code.</p>
+
+<p><code>public class Hello</code> &mdash; Defines a class named <code>Hello</code>. Every Java program needs at least one class, and the filename must match: <code>Hello.java</code>.</p>
+
+<p><code>{ }</code> &mdash; Curly braces mark the beginning and end of a block of code. The outer pair belongs to the class; the inner pair belongs to the method.</p>
+
+<p><code>public static void main(String[] args)</code> &mdash; The main method. This is where Java starts running your program. Every Java application must have one.</p>
+
+<p><code>System.out.println("Hello, World!");</code> &mdash; Prints text to the screen, then moves the cursor to the next line.</p>
+
+<div class="callout warning" role="region" aria-label="Warning: file name must match class name">
+  <div class="callout-title">&#9888;&#65039; File Name Must Match the Class Name</div>
+  <p>If your class is named <code>Hello</code>, the file must be saved as <code>Hello.java</code> &mdash; exact spelling, exact capitalization. Java is strict about this.</p>
+</div>
+
+<div class="callout key-terms" role="region" aria-label="Key terms: program structure">
+  <div class="callout-title">&#128214; Key Terms</div>
+  <ul>
+    <li><strong>Class</strong> &mdash; A container that holds your program&rsquo;s code. Every Java program starts with a class definition.</li>
+    <li><strong>Method</strong> &mdash; A named block of code that performs a task. The <code>main</code> method is the entry point.</li>
+    <li><strong>Statement</strong> &mdash; A single instruction that Java executes. Every statement ends with a semicolon (<code>;</code>).</li>
+  </ul>
+</div>
+
+<div class="callout analogy" role="region" aria-label="Analogy: class as a building">
+  <div class="callout-title">&#129504; Think of It Like a Building</div>
+  <p>The class is the building itself. The main method is the front door &mdash; it&rsquo;s where everyone enters. The statements inside are the instructions written on signs that tell you what to do once you walk in.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="output">Printing Output</h2>
+
+<p>Java gives you two ways to print text to the screen:</p>
+
+<table aria-label="Comparison of println and print methods">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">What It Does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>System.out.println()</code></td><td>Prints the text, then moves the cursor to the next line</td></tr>
+    <tr><td><code>System.out.print()</code></td><td>Prints the text but the cursor stays on the same line</td></tr>
+  </tbody>
+</table>
+
+<h3>Example: println vs. print</h3>
+
+<pre role="figure" aria-label="Example comparing println and print">System.out.println("First line");
+System.out.println("Second line");
+System.out.print("Stay ");
+System.out.print("on same line");</pre>
+
+<pre role="figure" aria-label="Output of println vs print example"><span class="output">First line
+Second line
+Stay on same line</span></pre>
+
+<h3>Escape Sequences</h3>
+
+<p>Sometimes you need to include special characters in your output. Java uses escape sequences &mdash; a backslash followed by a character &mdash; to represent them:</p>
+
+<table aria-label="Common Java escape sequences">
+  <thead>
+    <tr>
+      <th scope="col">Escape Sequence</th>
+      <th scope="col">What It Produces</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>\n</code></td><td>New line</td></tr>
+    <tr><td><code>\t</code></td><td>Tab</td></tr>
+    <tr><td><code>\\</code></td><td>Backslash</td></tr>
+    <tr><td><code>\"</code></td><td>Double quote</td></tr>
+  </tbody>
+</table>
+
+<pre role="figure" aria-label="Escape sequence examples">System.out.println("Name:\tJava");
+System.out.println("She said \"hello\"");
+System.out.println("Line one\nLine two");</pre>
+
+<pre role="figure" aria-label="Output of escape sequence examples"><span class="output">Name:	Java
+She said "hello"
+Line one
+Line two</span></pre>
+
+<!-- ============================================================ -->
+<h2 id="variables">Variables and Data Types</h2>
+
+<p>A variable is a named storage location in the computer&rsquo;s memory. Before you can use a variable in Java, you must declare it &mdash; tell Java its type and name.</p>
+
+<div class="callout key-terms" role="region" aria-label="Key terms: variable declaration">
+  <div class="callout-title">&#128214; Variable Declaration</div>
+  <p>The general form:</p>
+  <pre role="figure" aria-label="Variable declaration syntax">dataType variableName;</pre>
+  <p>You can also declare and assign a value at the same time (called initialization):</p>
+  <pre role="figure" aria-label="Variable initialization example">int age = 20;</pre>
+</div>
+
+<div class="callout analogy" role="region" aria-label="Analogy: variables as labeled boxes">
+  <div class="callout-title">&#129504; Variables Are Like Labeled Boxes</div>
+  <p>Think of a variable as a box with a label on it. The data type determines what size box you get (how much data it can hold). The name is the label. The value is what you put inside.</p>
+</div>
+
+<h3>Primitive Data Types</h3>
+
+<p>Java has eight primitive (built-in) data types. Here are the ones you&rsquo;ll use most often:</p>
+
+<table aria-label="Java primitive data types">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">What It Stores</th>
+      <th scope="col">Example</th>
+      <th scope="col">Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>int</code></td><td>Whole numbers (no decimal)</td><td><code>42</code>, <code>-7</code>, <code>0</code></td><td>4 bytes</td></tr>
+    <tr><td><code>double</code></td><td>Decimal numbers</td><td><code>3.14</code>, <code>-0.5</code></td><td>8 bytes</td></tr>
+    <tr><td><code>char</code></td><td>A single character</td><td><code>'A'</code>, <code>'7'</code>, <code>'!'</code></td><td>2 bytes</td></tr>
+    <tr><td><code>boolean</code></td><td><code>true</code> or <code>false</code></td><td><code>true</code>, <code>false</code></td><td>1 bit*</td></tr>
+    <tr><td><code>byte</code></td><td>Small whole numbers (-128 to 127)</td><td><code>100</code>, <code>-50</code></td><td>1 byte</td></tr>
+    <tr><td><code>short</code></td><td>Medium whole numbers</td><td><code>30000</code></td><td>2 bytes</td></tr>
+    <tr><td><code>long</code></td><td>Large whole numbers</td><td><code>2000000000L</code></td><td>8 bytes</td></tr>
+    <tr><td><code>float</code></td><td>Decimal numbers (less precision)</td><td><code>3.14f</code></td><td>4 bytes</td></tr>
+  </tbody>
+</table>
+
+<p>*The JVM typically uses more memory to store a boolean, but logically it represents a single bit of information.</p>
+
+<div class="callout tip" role="region" aria-label="Tip: focus on four main types">
+  <div class="callout-title">&#128161; For Beginners</div>
+  <p>Focus on these four for now: <code>int</code> for whole numbers, <code>double</code> for decimals, <code>char</code> for single characters, and <code>boolean</code> for true/false. You&rsquo;ll use these in almost every program.</p>
+</div>
+
+<h3>Declaring Variables &mdash; Examples</h3>
+
+<pre role="figure" aria-label="Variable declaration examples">int score = 95;
+double price = 19.99;
+char grade = 'A';
+boolean passed = true;
+
+System.out.println("Score: " + score);
+System.out.println("Price: $" + price);
+System.out.println("Grade: " + grade);
+System.out.println("Passed: " + passed);</pre>
+
+<pre role="figure" aria-label="Output of variable declarations"><span class="output">Score: 95
+Price: $19.99
+Grade: A
+Passed: true</span></pre>
+
+<div class="callout warning" role="region" aria-label="Warning: common variable mistakes">
+  <div class="callout-title">&#9888;&#65039; Common Mistakes</div>
+  <ul>
+    <li><strong>Using a variable before declaring it.</strong> Java won&rsquo;t know what <code>score</code> is if you haven&rsquo;t declared it first.</li>
+    <li><strong>Forgetting the semicolon.</strong> Every statement in Java ends with <code>;</code>. Leave it off and you&rsquo;ll get a compile error.</li>
+    <li><strong>Mixing up <code>'A'</code> and <code>"A"</code>.</strong> Single quotes are for <code>char</code>. Double quotes are for <code>String</code>.</li>
+    <li><strong>Storing a decimal in an <code>int</code>.</strong> <code>int price = 19.99;</code> won&rsquo;t compile. Use <code>double</code> instead.</li>
+  </ul>
+</div>
+
+<h3>Naming Rules</h3>
+
+<p>Java has rules for variable names:</p>
+<ul>
+  <li>Must start with a letter, underscore (<code>_</code>), or dollar sign (<code>$</code>)</li>
+  <li>After the first character, you can also use digits</li>
+  <li>Cannot contain spaces</li>
+  <li>Cannot be a Java reserved word (<code>int</code>, <code>class</code>, <code>public</code>, etc.)</li>
+  <li>Case-sensitive &mdash; <code>Score</code> and <code>score</code> are different variables</li>
+</ul>
+
+<div class="callout tip" role="region" aria-label="Tip: camelCase naming convention">
+  <div class="callout-title">&#128161; Naming Convention: camelCase</div>
+  <p>Java programmers use camelCase for variable names: start with a lowercase letter, and capitalize the first letter of each additional word. No underscores, no spaces.</p>
+  <p>&#9989; <code>studentAge</code>, <code>totalScore</code>, <code>firstName</code><br>
+  &#10060; <code>student_age</code>, <code>TotalScore</code>, <code>firstname</code></p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="arithmetic">Arithmetic Operators</h2>
+
+<p>Java can do math. Here are the arithmetic operators you&rsquo;ll use:</p>
+
+<table aria-label="Java arithmetic operators">
+  <thead>
+    <tr>
+      <th scope="col">Operator</th>
+      <th scope="col">Operation</th>
+      <th scope="col">Example</th>
+      <th scope="col">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>+</code></td><td>Addition</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
+    <tr><td><code>-</code></td><td>Subtraction</td><td><code>10 - 4</code></td><td><code>6</code></td></tr>
+    <tr><td><code>*</code></td><td>Multiplication</td><td><code>6 * 7</code></td><td><code>42</code></td></tr>
+    <tr><td><code>/</code></td><td>Division</td><td><code>15 / 4</code></td><td><code>3</code> (integer division!)</td></tr>
+    <tr><td><code>%</code></td><td>Modulus (remainder)</td><td><code>15 % 4</code></td><td><code>3</code></td></tr>
+  </tbody>
+</table>
+
+<div class="callout warning" role="region" aria-label="Warning: integer division drops decimal">
+  <div class="callout-title">&#9888;&#65039; Integer Division Drops the Decimal</div>
+  <p>When you divide two <code>int</code> values, Java throws away the decimal part. It doesn&rsquo;t round &mdash; it just chops it off.</p>
+  <pre role="figure" aria-label="Integer division example">int result = 15 / 4;   <span class="comment">// result is 3, not 3.75</span></pre>
+  <p>To get the decimal, at least one number needs to be a <code>double</code>:</p>
+  <pre role="figure" aria-label="Double division example">double result = 15.0 / 4;   <span class="comment">// result is 3.75</span></pre>
+</div>
+
+<h3>Operator Precedence</h3>
+
+<p>Java follows the same order of operations you learned in math class:</p>
+<ol>
+  <li><strong>Parentheses</strong> <code>()</code> &mdash; evaluated first</li>
+  <li><strong>Multiplication, Division, Modulus</strong> <code>* / %</code> &mdash; left to right</li>
+  <li><strong>Addition, Subtraction</strong> <code>+ -</code> &mdash; left to right</li>
+</ol>
+
+<pre role="figure" aria-label="Operator precedence examples">int answer = 2 + 3 * 4;        <span class="comment">// answer is 14 (not 20)</span>
+int answer2 = (2 + 3) * 4;      <span class="comment">// answer2 is 20</span></pre>
+
+<!-- ============================================================ -->
+<h2 id="combined">Combined Assignment Operators</h2>
+
+<p>Java provides shortcuts for updating a variable using its current value:</p>
+
+<table aria-label="Combined assignment operators">
+  <thead>
+    <tr>
+      <th scope="col">Operator</th>
+      <th scope="col">Equivalent To</th>
+      <th scope="col">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>+=</code></td><td><code>x = x + value</code></td><td><code>score += 10;</code></td></tr>
+    <tr><td><code>-=</code></td><td><code>x = x - value</code></td><td><code>lives -= 1;</code></td></tr>
+    <tr><td><code>*=</code></td><td><code>x = x * value</code></td><td><code>price *= 2;</code></td></tr>
+    <tr><td><code>/=</code></td><td><code>x = x / value</code></td><td><code>total /= 3;</code></td></tr>
+    <tr><td><code>%=</code></td><td><code>x = x % value</code></td><td><code>num %= 5;</code></td></tr>
+  </tbody>
+</table>
+
+<pre role="figure" aria-label="Combined assignment operators example">int score = 100;
+score += 25;    <span class="comment">// score is now 125</span>
+score -= 10;    <span class="comment">// score is now 115</span>
+score *= 2;     <span class="comment">// score is now 230</span>
+System.out.println("Final score: " + score);</pre>
+
+<pre role="figure" aria-label="Output of combined assignment example"><span class="output">Final score: 230</span></pre>
+
+<!-- ============================================================ -->
+<h2 id="constants">Constants</h2>
+
+<p>A constant is a variable whose value cannot change after it&rsquo;s been assigned. In Java, you declare a constant using the <code>final</code> keyword:</p>
+
+<pre role="figure" aria-label="Declaring constants">final double TAX_RATE = 0.075;
+final int MAX_ATTEMPTS = 3;</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: constants use ALL_CAPS">
+  <div class="callout-title">&#128161; Constants Use ALL_CAPS</div>
+  <p>By convention, constant names are written in all uppercase with underscores between words: <code>TAX_RATE</code>, <code>MAX_SIZE</code>, <code>PI</code>. This makes them stand out from regular variables.</p>
+</div>
+
+<pre role="figure" aria-label="Constants in action: tax calculation">final double TAX_RATE = 0.075;
+double subtotal = 50.00;
+double tax = subtotal * TAX_RATE;
+double total = subtotal + tax;
+
+System.out.println("Subtotal: $" + subtotal);
+System.out.println("Tax:      $" + tax);
+System.out.println("Total:    $" + total);</pre>
+
+<pre role="figure" aria-label="Output of tax calculation"><span class="output">Subtotal: $50.0
+Tax:      $3.75
+Total:    $53.75</span></pre>
+
+<div class="callout warning" role="region" aria-label="Warning: cannot reassign a constant">
+  <div class="callout-title">&#9888;&#65039; You Cannot Reassign a Constant</div>
+  <p>If you try to change a <code>final</code> variable after assigning it, Java will give you a compile error:</p>
+  <pre role="figure" aria-label="Final variable reassignment error">final int MAX = 10;
+MAX = 20;  <span class="comment">// ERROR: cannot assign a value to final variable</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="strings">The String Class</h2>
+
+<p>A <code>String</code> is a sequence of characters &mdash; a word, a sentence, or any text. Unlike the primitive types, <code>String</code> is a class, so it starts with a capital S.</p>
+
+<pre role="figure" aria-label="String concatenation example">String firstName = "Alice";
+String lastName = "Smith";
+String fullName = firstName + " " + lastName;
+System.out.println("Hello, " + fullName + "!");</pre>
+
+<pre role="figure" aria-label="Output of String concatenation"><span class="output">Hello, Alice Smith!</span></pre>
+
+<p>The <code>+</code> operator joins (concatenates) strings together.</p>
+
+<div class="callout key-terms" role="region" aria-label="Key terms: String concatenation">
+  <div class="callout-title">&#128214; String Concatenation</div>
+  <p>Concatenation means joining strings end-to-end using the <code>+</code> operator. When you use <code>+</code> between a string and a number, Java automatically converts the number to text and joins them.</p>
+  <pre role="figure" aria-label="String and number concatenation">int age = 20;
+System.out.println("Age: " + age);  <span class="comment">// prints: Age: 20</span></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="scanner">Reading Input with Scanner</h2>
+
+<p>Most programs need to get information from the user. Java&rsquo;s <code>Scanner</code> class reads input from the keyboard.</p>
+
+<h3>Three Steps to Use Scanner</h3>
+
+<p><strong>Step 1:</strong> Import it at the top of your file (before the class):</p>
+<pre role="figure" aria-label="Import Scanner">import java.util.Scanner;</pre>
+
+<p><strong>Step 2:</strong> Create a Scanner object inside your method:</p>
+<pre role="figure" aria-label="Create Scanner object">Scanner keyboard = new Scanner(System.in);</pre>
+
+<p><strong>Step 3:</strong> Use it to read different types of input:</p>
+
+<table aria-label="Scanner methods for reading input">
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">What It Reads</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>nextInt()</code></td><td>An <code>int</code> value</td></tr>
+    <tr><td><code>nextDouble()</code></td><td>A <code>double</code> value</td></tr>
+    <tr><td><code>nextLine()</code></td><td>An entire line of text (<code>String</code>)</td></tr>
+    <tr><td><code>next()</code></td><td>A single word (<code>String</code>, up to the first space)</td></tr>
+  </tbody>
+</table>
+
+<h3>Complete Example: Getting User Input</h3>
+
+<pre role="figure" aria-label="Complete Scanner example program">import java.util.Scanner;
+
+public class Greeting {
+    public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = keyboard.nextLine();
+
+        System.out.print("Enter your age: ");
+        int age = keyboard.nextInt();
+
+        System.out.println("Hello, " + name + "! You are " + age + " years old.");
+    }
+}</pre>
+
+<pre role="figure" aria-label="Sample run of Scanner example"><span class="output">Enter your name: Maria
+Enter your age: 19
+Hello, Maria! You are 19 years old.</span></pre>
+
+<div class="callout try-it" role="region" aria-label="Try it yourself: calculator program">
+  <div class="callout-title">&#128295; Try It Yourself</div>
+  <p>Write a program that asks the user for two numbers, then displays their sum, difference, product, and quotient. Use <code>Scanner</code> for input and <code>double</code> for the variables so the division works correctly.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="comments">Comments</h2>
+
+<p>Comments are notes in your code that Java ignores. They help other people (and future you) understand what the code does.</p>
+
+<table aria-label="Java comment styles">
+  <thead>
+    <tr>
+      <th scope="col">Style</th>
+      <th scope="col">Syntax</th>
+      <th scope="col">Use For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Single-line</td><td><code>// comment here</code></td><td>Short notes on one line</td></tr>
+    <tr><td>Multi-line</td><td><code>/* comment here */</code></td><td>Longer explanations spanning multiple lines</td></tr>
+    <tr><td>Javadoc</td><td><code>/** comment here */</code></td><td>Documentation for classes and methods (used by tools)</td></tr>
+  </tbody>
+</table>
+
+<pre role="figure" aria-label="Comment examples in a tip calculator"><span class="comment">// This program calculates a tip</span>
+public class TipCalc {
+    public static void main(String[] args) {
+        double bill = 45.00;      <span class="comment">// original bill amount</span>
+        double tipRate = 0.20;    <span class="comment">// 20% tip</span>
+        double tip = bill * tipRate;
+
+        <span class="comment">/* Display the results
+           to the user */</span>
+        System.out.println("Tip: $" + tip);
+        System.out.println("Total: $" + (bill + tip));
+    }
+}</pre>
+
+<div class="callout tip" role="region" aria-label="Tip: when to use comments">
+  <div class="callout-title">&#128161; When to Comment</div>
+  <p>Good comments explain <em>why</em> you did something, not <em>what</em> the code does. If your code is clear, it speaks for itself. Use comments for tricky logic, important decisions, or anything that might confuse someone reading the code later.</p>
+</div>
+
+<!-- ============================================================ -->
+<div class="page-break"></div>
+
+<h2 id="summary">&#128203; Module Summary</h2>
+
+<div class="callout summary" role="region" aria-label="Module 02 summary: key takeaways">
+  <div class="callout-title">Module 02 Key Takeaways</div>
+  <ul>
+    <li>Every Java program needs a class and a main method</li>
+    <li>The filename must match the class name exactly: <code>Hello.java</code> for <code>public class Hello</code></li>
+    <li><code>System.out.println()</code> prints with a newline; <code>System.out.print()</code> stays on the same line</li>
+    <li>Variables must be declared with a type before use: <code>int age = 20;</code></li>
+    <li>The four most common types: <code>int</code>, <code>double</code>, <code>char</code>, <code>boolean</code></li>
+    <li>Java uses camelCase for variable names and ALL_CAPS for constants</li>
+    <li>Integer division drops the decimal &mdash; use <code>double</code> when you need precision</li>
+    <li>Combined assignment operators (<code>+=</code>, <code>-=</code>, etc.) are shortcuts for updating variables</li>
+    <li>The <code>final</code> keyword makes a variable a constant that cannot change</li>
+    <li><code>String</code> holds text; the <code>+</code> operator concatenates strings</li>
+    <li><code>Scanner</code> reads input from the keyboard &mdash; remember to import it first</li>
+    <li>Comments (<code>//</code> and <code>/* */</code>) document your code for humans</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="vocab">Vocabulary Review</h2>
+
+<table class="vocab-table" aria-label="Vocabulary review: Module 02 terms and definitions">
+  <thead>
+    <tr>
+      <th scope="col">Term</th>
+      <th scope="col">Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Class</td><td>A container that holds your program&rsquo;s code; every Java program must have at least one</td></tr>
+    <tr><td>Method</td><td>A named block of code that performs a task; <code>main</code> is the entry point</td></tr>
+    <tr><td>Statement</td><td>A single instruction; ends with a semicolon</td></tr>
+    <tr><td>Variable</td><td>A named storage location in memory</td></tr>
+    <tr><td>Data Type</td><td>Defines what kind of data a variable can hold (<code>int</code>, <code>double</code>, etc.)</td></tr>
+    <tr><td>Initialization</td><td>Declaring a variable and assigning it a value at the same time</td></tr>
+    <tr><td>Constant</td><td>A variable declared with <code>final</code> whose value cannot change</td></tr>
+    <tr><td>String</td><td>A sequence of characters (text), created with double quotes</td></tr>
+    <tr><td>Concatenation</td><td>Joining strings together using the <code>+</code> operator</td></tr>
+    <tr><td>Escape Sequence</td><td>A backslash combination that represents a special character (<code>\n</code>, <code>\t</code>, etc.)</td></tr>
+    <tr><td>Scanner</td><td>A Java class that reads input from the keyboard</td></tr>
+    <tr><td>camelCase</td><td>Naming convention for variables: <code>firstName</code>, <code>totalScore</code></td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<div class="page-break"></div>
+
+<h2 id="quiz">Module 02 &mdash; Knowledge Check</h2>
+<p>Answer the following questions. All answers can be found in this document.</p>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 1">
+  <p><span class="quiz-number">1.</span> What is the name of the method where every Java program begins running?</p>
+  <ul class="quiz-options">
+    <li>A. begin</li>
+    <li>B. main</li>
+    <li>C. start</li>
+    <li>D. run</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 2">
+  <p><span class="quiz-number">2.</span> What does the following code print?</p>
+  <pre role="figure" aria-label="Quiz question 2 code">System.out.print("Hello ");
+System.out.println("World");</pre>
+  <ul class="quiz-options">
+    <li>A. <code>Hello</code> on one line, <code>World</code> on the next</li>
+    <li>B. <code>HelloWorld</code> with no space</li>
+    <li>C. An error</li>
+    <li>D. <code>Hello World</code> on one line</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 3">
+  <p><span class="quiz-number">3.</span> Which data type would you use to store the price of an item (like $19.99)?</p>
+  <ul class="quiz-options">
+    <li>A. <code>double</code></li>
+    <li>B. <code>int</code></li>
+    <li>C. <code>boolean</code></li>
+    <li>D. <code>char</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 4">
+  <p><span class="quiz-number">4.</span> Which of these is a valid Java variable name?</p>
+  <ul class="quiz-options">
+    <li>A. <code>2ndPlace</code></li>
+    <li>B. <code>total score</code></li>
+    <li>C. <code>totalScore</code></li>
+    <li>D. <code>class</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 5">
+  <p><span class="quiz-number">5.</span> What is the result of <code>15 / 4</code> when both values are <code>int</code>?</p>
+  <ul class="quiz-options">
+    <li>A. 3.75</li>
+    <li>B. 3</li>
+    <li>C. 4</li>
+    <li>D. 3.0</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 6">
+  <p><span class="quiz-number">6.</span> What keyword makes a variable a constant in Java?</p>
+  <ul class="quiz-options">
+    <li>A. <code>static</code></li>
+    <li>B. <code>const</code></li>
+    <li>C. <code>fixed</code></li>
+    <li>D. <code>final</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 7">
+  <p><span class="quiz-number">7.</span> What does the <code>+</code> operator do when used between two <code>String</code> values?</p>
+  <ul class="quiz-options">
+    <li>A. Joins (concatenates) them into one string</li>
+    <li>B. Adds their lengths together</li>
+    <li>C. Compares them alphabetically</li>
+    <li>D. Causes a compile error</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 8">
+  <p><span class="quiz-number">8.</span> Which line is needed at the top of your program to use the <code>Scanner</code> class?</p>
+  <ul class="quiz-options">
+    <li>A. <code>include Scanner;</code></li>
+    <li>B. <code>using Scanner;</code></li>
+    <li>C. <code>import java.util.Scanner;</code></li>
+    <li>D. <code>require java.Scanner;</code></li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 9">
+  <p><span class="quiz-number">9.</span> What is the value of <code>result</code> after this code runs?</p>
+  <pre role="figure" aria-label="Quiz question 9 code">int result = 2 + 3 * 4;</pre>
+  <ul class="quiz-options">
+    <li>A. 20</li>
+    <li>B. 9</li>
+    <li>C. 14</li>
+    <li>D. 24</li>
+  </ul>
+</div>
+
+<div class="quiz-question" role="region" aria-label="Quiz question 10">
+  <p><span class="quiz-number">10.</span> What does <code>\n</code> represent inside a Java string?</p>
+  <ul class="quiz-options">
+    <li>A. A null character</li>
+    <li>B. A new line</li>
+    <li>C. The letter n</li>
+    <li>D. A backslash followed by n</li>
+  </ul>
+</div>
+
+<div class="footer" role="contentinfo">
+  <strong>ITP 120 &mdash; Programming with Java | Module 02 &mdash; Java Fundamentals</strong><br>
+  Northern Virginia Community College | Randy Michak
+</div>
+
+</main>
+</body>
+</html>

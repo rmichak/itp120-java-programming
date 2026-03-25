@@ -7,7 +7,7 @@ Course tutorials and materials for ITP 120 (Java Programming) at Northern Virgin
 | # | Topic | HTML | PDF |
 |---|-------|------|-----|
 | 01 | Welcome to Java | [View](modules/01-welcome-to-java/) | [Download](pdf/itp120-module01-welcome-to-java.pdf) |
-| 02 | Java Fundamentals | — | [Download](pdf/itp120-module02-java-fundamentals.pdf) |
+| 02 | Java Fundamentals | [View](modules/02-java-fundamentals/) | [Download](pdf/itp120-module02-java-fundamentals.pdf) |
 | 03 | Java I/O | [View](modules/03-java-io/) | [Download](pdf/itp120-module03-java-io.pdf) |
 | 04 | Conditional Statements | [View](modules/04-conditional-statements/) | [Download](pdf/itp120-module04-conditional-statements.pdf) |
 | 05 | Nested Statements & Strings | [View](modules/05-nested-statements-strings/) | [Download](pdf/itp120-module05-nested-statements-strings.pdf) |
