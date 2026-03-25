@@ -1,0 +1,50 @@
+name: Generate PDFs from HTML
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'modules/**/index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install WeasyPrint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y weasyprint fonts-inter
+
+      - name: Generate PDFs
+        run: |
+          mkdir -p pdf
+          for html in modules/*/index.html; do
+            dir=$(basename $(dirname "$html"))
+            # Build PDF filename: itp120-module{number}-{slug}.pdf
+            number=$(echo "$dir" | cut -d'-' -f1)
+            slug=$(echo "$dir" | cut -d'-' -f2-)
+            pdfname="itp120-module${number}-${slug}.pdf"
+            echo "Generating: $pdfname from $html"
+            weasyprint "$html" "pdf/$pdfname" --pdf-variant=pdf/ua-1 || echo "Warning: failed to generate $pdfname"
+          done
+          echo "--- Generated PDFs ---"
+          ls -la pdf/
+
+      - name: Commit updated PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pdf/
+          if git diff --staged --quiet; then
+            echo "No PDF changes to commit"
+          else
+            git commit -m "Auto-generate PDFs from HTML [skip ci]"
+            git push
+          fi
